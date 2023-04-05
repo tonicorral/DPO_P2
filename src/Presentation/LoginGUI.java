@@ -3,111 +3,83 @@ package Presentation;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class LoginGUI extends JFrame {
 
     JButton b1;
-    JPanel newPanel,panel2,panel1,panel3,panel4;
-    JLabel userLabel, passLabel,title;
-    JTextField  textField1;
-    JTextField textField2;
+    JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel;
+    JLabel userLabel, passwordLabel,titleLabel;
+    JTextField  userField;
+    JPasswordField passwordField;
 
 
     public LoginGUI(){
         this.setSize(819,642);
         this.setTitle("Log in");
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+
 
         this.setVisible(true);
     }
 
     public void showLogin(){
 
-        Color buttonColor = new Color(124,136,248);
+        //Creation
 
-        title = new JLabel("INICIAR SESSIÓ");
-        title.setFont(new Font("Inter", Font.PLAIN, 48));
+        //Title: Iniciar Sessió
+        titleLabel = new JLabel("INICIAR SESSIÓ");
+        titleLabel.setFont(new Font("Inter", Font.BOLD, 48));
 
+        //User
         userLabel = new JLabel("Nom d'usuari o correu");
-        textField1 = new JTextField();
+        userLabel.setFont(new Font("Inter", Font.BOLD, 13));
+        userField = new JTextField();
 
+        //Password
+        passwordLabel = new JLabel("Contrasenya");
+        passwordLabel.setFont(new Font("Inter", Font.BOLD, 13));
+        passwordField = new JPasswordField();
 
-        passLabel = new JLabel("Contrasenya");
-        textField2 = new JPasswordField();
-
-
+        //Button
         b1 = new JButton("Iniciar sessió");
-        //b1.setPreferredSize(new Dimension(150,50));
-        b1.setBackground(buttonColor);
+        b1.setBackground(new Color(124,136,248));
         b1.setFont(new Font("Inter",Font.PLAIN,24));
         b1.setForeground(Color.white);
 
 
-
-        newPanel = new JPanel(new GridLayout(6, 1,10,10));
-
-        panel1 = new JPanel(new FlowLayout());
-        panel1.add(title);
-        newPanel.add(panel1);
-
-        panel3 = new JPanel(new GridLayout(2,1,5,5));
-        panel3.add(userLabel);
-        panel3.add(textField1);
-        newPanel.add(panel3);
-
-        panel3 = new JPanel(new GridLayout(2,1,5,5));
-        panel3.add(passLabel);
-        panel3.add(textField2);
-        newPanel.add(panel3);
-
-        panel2 = new JPanel(new FlowLayout());
+        //Add to the layouts
+        generalPanel = new JPanel(new GridLayout(6, 1,20,20));
 
 
+        //Title
+        titlePanel = new JPanel(new FlowLayout());
+        titlePanel.add(titleLabel);
+        generalPanel.add(titlePanel);
 
-        panel2.add(b1);
-        newPanel.add(panel2);
-        newPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
+        //User
+        userPanel = new JPanel(new GridLayout(2,1,5,5));
+        userPanel.add(userLabel);
+        userPanel.add(userField);
+        generalPanel.add(userPanel);
+
+        //Password
+        passwordPanel = new JPanel(new GridLayout(2,1,5,5));
+        passwordPanel.add(passwordLabel);
+        passwordPanel.add(passwordField);
+        generalPanel.add(passwordPanel);
+
+        //Button
+        buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(b1);
+        generalPanel.add(buttonPanel);
+        generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
 
 
-
-        add(newPanel, BorderLayout.CENTER);
+        //Center the GridLayout
+        add(generalPanel, BorderLayout.CENTER);
 
         setVisible(true);
-
-        /*JPanel panel1 = new JPanel();
-        BoxLayout boxLayout1 = new BoxLayout(panel1, BoxLayout.Y_AXIS);
-        panel1.setLayout(boxLayout1);
-        panel1.setPreferredSize(new Dimension(400,400));
-        panel1.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
-
-        title = new JLabel("Iniciar sessió");
-
-
-        user = new JLabel("Nom d'usuari o correu");
-        userField = new JTextField();
-
-        password = new JLabel("Contrasenya");
-        passwordField = new JPasswordField();
-
-        loginButton = new JButton("Iniciar sessió");
-
-
-        panel1.add(title);
-        panel1.add(user);
-        panel1.add(userField);
-        panel1.add(password);
-        panel1.add(passwordField);
-
-        panel1.add(loginButton);
-
-        loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        add(panel1, BorderLayout.CENTER);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        setVisible(true);*/
     }
 
 
