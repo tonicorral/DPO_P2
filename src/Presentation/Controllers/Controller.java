@@ -1,4 +1,6 @@
-package Presentation;
+package Presentation.Controllers;
+
+import Presentation.Views.LoginGUI;
 
 public class Controller {
 

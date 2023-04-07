@@ -1,4 +1,4 @@
-import Presentation.Controller;
+import Presentation.Controllers.Controller;
 
 public class Main {
 
