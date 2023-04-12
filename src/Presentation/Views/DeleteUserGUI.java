@@ -1,5 +1,7 @@
 package Presentation.Views;
 
+import Presentation.Controllers.DeleteUserController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -71,5 +73,17 @@ public class DeleteUserGUI extends JPanel {
     public void addDeleteButtonListener(ActionListener listener) {
 
         deleteButton.addActionListener(listener);
+    }
+
+    public void addCancelButtonListener(ActionListener listener) {
+        cancelButton.addActionListener(listener);
+    }
+
+    public String getUsername() {
+        return userText.getText();
+    }
+
+    public void resetFields() {
+        userText.setText("");
     }
 }
