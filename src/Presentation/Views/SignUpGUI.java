@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class SignUpGUI extends JFrame{
+public class SignUpGUI extends JPanel{
     private JTextField userText;
     private JPasswordField passwordText;
     private JTextField emailText;
@@ -15,12 +15,8 @@ public class SignUpGUI extends JFrame{
     public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
 
     public SignUpGUI() {
-        this.setSize(819, 642);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        setVisible(true);
-    }
-    public void showSignUp(){
+
+
 
         JPanel panel = new JPanel(new BorderLayout());
         this.signUp = new JButton("Sign up");

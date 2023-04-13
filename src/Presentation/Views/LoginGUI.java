@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class LoginGUI extends JFrame {
+public class LoginGUI extends JPanel {
 
     JButton b1;
     JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel;
@@ -14,16 +14,9 @@ public class LoginGUI extends JFrame {
 
 
     public LoginGUI(){
-        this.setSize(819,642);
-        this.setTitle("Log in");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
 
 
-        this.setVisible(true);
-    }
 
-    public void showLogin(){
 
         //Creation
 

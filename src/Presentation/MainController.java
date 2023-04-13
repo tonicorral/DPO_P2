@@ -2,17 +2,14 @@ package Presentation;
 
 
 import Presentation.Views.SignUpGUI;
+import com.sun.tools.javac.Main;
 
 public class MainController {
 
 
     public void run(){
-        //LoginGUI loginGUI = new LoginGUI();
-      //  loginGUI.showLogin();
-        SignUpGUI signUpGUI = new SignUpGUI();
-        signUpGUI.showSignUp();
-        //LogoutGUI logoutGUI = new LogoutGUI();
-        //LogoutGUI.configurePanel();
+        MainView mainView = new MainView();
+        mainView.showView();
     }
 
 }
