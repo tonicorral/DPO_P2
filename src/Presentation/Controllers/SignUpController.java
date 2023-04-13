@@ -8,12 +8,12 @@ import Presentation.Views.SignUpGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpController implements ActionListener {
+public class SignUpController  {
     private SignUpGUI signupView;
     private UserModel userModel;
     private MainController mainController;
 
-
+    /*
     @Override
     public void actionPerformed(ActionEvent e) {
         String user = signupView.getUser();
@@ -39,6 +39,6 @@ public class SignUpController implements ActionListener {
                 mainController.showError("That is not a valid mail!");
 
         }
-    }
+    }*/
 
 }

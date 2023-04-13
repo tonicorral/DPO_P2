@@ -9,7 +9,7 @@ public class MainController {
 
     public void run(){
         MainView mainView = new MainView();
-        mainView.showView();
+
     }
 
 }
