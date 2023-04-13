@@ -1,4 +1,6 @@
 package Presentation;
 
-public class MainView {
+public class MainView{
+
+
 }

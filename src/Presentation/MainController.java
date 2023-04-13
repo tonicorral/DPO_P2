@@ -1,6 +1,6 @@
 package Presentation;
 
-import Presentation.Views.LoginGUI;
+
 import Presentation.Views.SignUpGUI;
 
 public class MainController {
@@ -11,6 +11,8 @@ public class MainController {
       //  loginGUI.showLogin();
         SignUpGUI signUpGUI = new SignUpGUI();
         signUpGUI.showSignUp();
+        //LogoutGUI logoutGUI = new LogoutGUI();
+        //LogoutGUI.configurePanel();
     }
 
 }

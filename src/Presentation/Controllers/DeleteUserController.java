@@ -1,17 +1,16 @@
 package Presentation.Controllers;
 
-import Business.UserManager;
+import Business.UserModel;
 import Presentation.Views.DeleteUserGUI;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DeleteUserController implements ActionListener {
     private final DeleteUserGUI view;
-    private final UserManager userManager;
+    private final UserModel userManager;
 
-    public DeleteUserController(DeleteUserGUI view, UserManager userManager) {
+    public DeleteUserController(DeleteUserGUI view, UserModel userManager) {
         this.view = view;
         this.userManager = userManager;
         this.view.addDeleteButtonListener(this);

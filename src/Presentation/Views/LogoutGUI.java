@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
        
 
-public class LogoutGUI extends JPanel {
+public class LogoutGUI extends JFrame {
     private JButton logoutButton; //Botón para hacer el logout
 
     public static final String BUTTON_LOGOUT = "BUTTON_LOGOUT";
@@ -28,6 +28,7 @@ public class LogoutGUI extends JPanel {
         title.setFont(new Font("Helvetica", Font.BOLD, 30));
         title.setForeground(Color.YELLOW);
         title.setHorizontalAlignment(JLabel.CENTER);
+
         main.add(Box.createRigidArea(new Dimension(50, 100)), BorderLayout.NORTH);
         main.add(center, BorderLayout.CENTER);
 
@@ -44,6 +45,8 @@ public class LogoutGUI extends JPanel {
         add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.WEST);
         add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.SOUTH);
         add(main, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
 
