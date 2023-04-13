@@ -12,7 +12,7 @@ public class SignUpGUI extends JPanel{
     private JButton signUp;
     private JButton goBack;
     public static final String SIGNUP_BTN = "SIGNUP_BTN";
-    public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
+    public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
 
     public SignUpGUI() {
 
@@ -25,11 +25,11 @@ public class SignUpGUI extends JPanel{
         this.signUp.setForeground(Color.white);
         this.signUp.setActionCommand("SIGNUP_BTN");
 
-        this.goBack = new JButton("Go back");
+        this.goBack = new JButton("Go to Login");
         this.goBack.setBackground(new Color(124,136,248));
         this.goBack.setFont(new Font("Inter",Font.PLAIN,12));
         this.goBack.setForeground(Color.white);
-        this.goBack.setActionCommand("SIGNUP_BACK_BTN");
+        this.goBack.setActionCommand("LOGIN_BACK_BTN");
 
         //JLABEL
         JLabel title = new JLabel("REGISTER FORM", 0);
