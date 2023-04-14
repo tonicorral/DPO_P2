@@ -40,6 +40,11 @@ public class MainView extends JFrame {
             card2.add(signUpGUI);
             mainViewPanel.add(card2,"SIGNUP");
 
+            menuGUI = new MenuGUI(this);
+            JPanel card3 = new JPanel();
+            card3.add(menuGUI);
+            mainViewPanel.add(card3,"MENU");
+
             add(mainViewPanel,BorderLayout.CENTER);
 
             cardLayout.show(mainViewPanel,"LOGIN");
@@ -55,6 +60,10 @@ public class MainView extends JFrame {
 
         public void showLogin(){
             cardLayout.show(mainViewPanel,"LOGIN");
+        }
+
+        public void showMenu(){
+            cardLayout.show(mainViewPanel,"MENU");
         }
 
 
