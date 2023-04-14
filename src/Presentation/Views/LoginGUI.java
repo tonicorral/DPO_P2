@@ -40,7 +40,7 @@ public class LoginGUI extends JPanel {
         b1.setFont(new Font("Inter",Font.PLAIN,24));
         b1.setForeground(Color.white);
 
-        textR = new JButton("Not registerd?");
+        textR = new JButton("Not registered?");
         textR.setOpaque(false);
         textR.setContentAreaFilled(false);
         textR.setBorder(null);
