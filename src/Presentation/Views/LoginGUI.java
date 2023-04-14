@@ -1,7 +1,11 @@
 package Presentation.Views;
 
+import Presentation.MainView;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class LoginGUI extends JPanel {
@@ -12,11 +16,13 @@ public class LoginGUI extends JPanel {
     private JTextField  userField;
     private JPasswordField passwordField;
 
+    private ActionListener loginListener;
 
-    public LoginGUI(){
+    private MainView mainView;
 
+    public LoginGUI(MainView mainView){
 
-
+        this.mainView = mainView;
 
         //Creation
 
@@ -86,7 +92,20 @@ public class LoginGUI extends JPanel {
         add(generalPanel, BorderLayout.CENTER);
 
         setVisible(true);
+
+        textR.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainView.showSignUp();
+            }
+        });
+
+
     }
+
+
+
+
 
 
 }

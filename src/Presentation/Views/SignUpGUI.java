@@ -1,7 +1,10 @@
 package Presentation.Views;
 
+import Presentation.MainView;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignUpGUI extends JPanel{
@@ -14,9 +17,10 @@ public class SignUpGUI extends JPanel{
     public static final String SIGNUP_BTN = "SIGNUP_BTN";
     public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
 
-    public SignUpGUI() {
+    private MainView mainView;
+    public SignUpGUI(MainView mainView) {
 
-
+        this.mainView = mainView;
 
         JPanel panel = new JPanel(new BorderLayout());
         this.signUp = new JButton("Sign up");
@@ -78,6 +82,13 @@ public class SignUpGUI extends JPanel{
         this.add(panel, "Center");
 
         setVisible(true);
+
+        this.goBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainView.showLogin();
+            }
+        });
     }
 
     public void registerSignUpController(ActionListener listener) {
@@ -110,5 +121,7 @@ public class SignUpGUI extends JPanel{
         this.passwordText.setText("");
         this.passwordConfirmText.setText("");
     }
+
+
 
 }

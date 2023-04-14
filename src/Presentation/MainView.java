@@ -11,19 +11,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainView extends JFrame implements ActionListener {
+public class MainView extends JFrame {
 
-        LoginGUI loginGUI = new LoginGUI();
 
-        MenuGUI menuGUI = new MenuGUI();
-        SignUpGUI signUpGUI = new SignUpGUI();
-
-        JPanel menuPanel = new JPanel();
-
-        JPanel loginPanel = new JPanel();
-        JPanel cardPanel = new JPanel();
-        JPanel signupPanel = new JPanel();
-        CardLayout cardLayout = new CardLayout();
+       private LoginGUI loginGUI;
+       private SignUpGUI signUpGUI;
+       private MenuGUI menuGUI;
+       private JPanel mainViewPanel;
+       private CardLayout cardLayout;
 
         public MainView() {
             this.setSize(819, 642);
@@ -31,29 +26,41 @@ public class MainView extends JFrame implements ActionListener {
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setLocationRelativeTo(null);
 
-            menuPanel.add(menuGUI);
-            loginPanel.add(loginGUI);
-            signupPanel.add(signUpGUI);
-            cardPanel.setLayout(cardLayout);
+            mainViewPanel = new JPanel();
+            cardLayout = new CardLayout();
+            mainViewPanel.setLayout(cardLayout);
+
+            loginGUI = new LoginGUI(this);
+            JPanel card1 = new JPanel();
+            card1.add(loginGUI);
+            mainViewPanel.add(card1,"LOGIN");
+
+            signUpGUI = new SignUpGUI(this);
+            JPanel card2 = new JPanel();
+            card2.add(signUpGUI);
+            mainViewPanel.add(card2,"SIGNUP");
+
+            add(mainViewPanel,BorderLayout.CENTER);
+
+            cardLayout.show(mainViewPanel,"LOGIN");
+
+            setVisible(true);
 
 
-            cardPanel.add(loginPanel,"LOGIN");
-            cardPanel.add(menuPanel,"MENU");
-            cardPanel.add(signupPanel,"SIGN UP");
+        }
 
+        public void showSignUp(){
+            cardLayout.show(mainViewPanel,"SIGNUP");
+        }
 
-            this.add(cardPanel);
-
-            this.setVisible(true);
+        public void showLogin(){
+            cardLayout.show(mainViewPanel,"LOGIN");
         }
 
 
 
-        public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals(SignUpGUI.LOGIN_BACK_BTN)) {
-                cardLayout.show(getContentPane(),"LOGIN");
-            }
-        }
+
+
 
 }
 
