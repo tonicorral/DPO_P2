@@ -1,5 +1,7 @@
 package Presentation.Views;
 
+import Presentation.MainView;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +13,7 @@ public class MenuGUI extends JPanel {
     private Color buttonColor;
     private JPanel generalPanel,borderPanel,twoB;
 
-    public MenuGUI(){
+    public MenuGUI(MainView mainView){
 
         buttonColor = new Color(124,136,248);
 
