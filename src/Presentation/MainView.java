@@ -1,12 +1,10 @@
 package Presentation;
 
-import Presentation.Views.DeleteUserGUI;
-import Presentation.Views.LoginGUI;
+import Presentation.Views.*;
 
 import javax.swing.*;
 
 import Presentation.Views.LoginGUI;
-import Presentation.Views.SignUpGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +15,10 @@ public class MainView extends JFrame implements ActionListener {
 
         LoginGUI loginGUI = new LoginGUI();
 
+        MenuGUI menuGUI = new MenuGUI();
         SignUpGUI signUpGUI = new SignUpGUI();
+
+        JPanel menuPanel = new JPanel();
 
         JPanel loginPanel = new JPanel();
         JPanel cardPanel = new JPanel();
@@ -30,10 +31,12 @@ public class MainView extends JFrame implements ActionListener {
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setLocationRelativeTo(null);
 
+            menuPanel.add(menuGUI);
             loginPanel.add(loginGUI);
             signupPanel.add(signUpGUI);
             cardPanel.setLayout(cardLayout);
 
+            cardPanel.add(menuPanel,"MENU");
             cardPanel.add(signupPanel,"SIGN UP");
             cardPanel.add(loginPanel,"LOGIN");
 
@@ -46,7 +49,7 @@ public class MainView extends JFrame implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals(SignUpGUI.LOGIN_BACK_BTN)) {
-                cardLayout.show(loginGUI,"LOGIN");
+                cardLayout.show(getContentPane(),"LOGIN");
             }
         }
 
