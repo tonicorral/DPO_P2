@@ -1,5 +1,6 @@
 package Presentation.Views;
 
+import Presentation.Controllers.LoginController;
 import Presentation.MainView;
 
 import javax.swing.*;
@@ -10,15 +11,18 @@ import java.awt.event.ActionListener;
 
 public class LoginGUI extends JPanel {
 
+    private boolean goodLogin = true;
     private  JButton b1,textR;
     private JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel,borderPanel;
-    private JLabel userLabel, passwordLabel,titleLabel;
+    private JLabel userLabel, passwordLabel,titleLabel,badPassword;
     private JTextField  userField;
     private JPasswordField passwordField;
 
     private ActionListener loginListener;
 
     private MainView mainView;
+
+    private LoginController loginController;
 
     public LoginGUI(MainView mainView){
 
@@ -39,6 +43,8 @@ public class LoginGUI extends JPanel {
         passwordLabel = new JLabel("Contrasenya");
         passwordLabel.setFont(new Font("Inter", Font.BOLD, 13));
         passwordField = new JPasswordField();
+        badPassword = new JLabel("Password or username incorrect");
+        badPassword.setFont(new Font("Inter", Font.PLAIN, 10));
 
         //Button
         b1 = new JButton("Iniciar sessió");
@@ -70,10 +76,15 @@ public class LoginGUI extends JPanel {
         generalPanel.add(userPanel);
 
         //Password
-        passwordPanel = new JPanel(new GridLayout(2,1,5,5));
+        passwordPanel = new JPanel(new GridLayout(3,1,5,5));
         passwordPanel.add(passwordLabel);
         passwordPanel.add(passwordField);
         generalPanel.add(passwordPanel);
+
+        loginController = new LoginController();
+        if(!goodLogin){
+            passwordPanel.add(badPassword);
+        }
 
         //Button
         buttonPanel = new JPanel(new FlowLayout());
@@ -91,7 +102,7 @@ public class LoginGUI extends JPanel {
         //Center the GridLayout
         add(generalPanel, BorderLayout.CENTER);
 
-        setVisible(true);
+
 
         textR.addActionListener(new ActionListener() {
             @Override
@@ -103,9 +114,12 @@ public class LoginGUI extends JPanel {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainView.showMenu();
+                goodLogin = loginController.goodLogin();
             }
         });
+
+        setVisible(true);
+
 
 
     }

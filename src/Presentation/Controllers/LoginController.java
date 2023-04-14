@@ -3,26 +3,26 @@ package Presentation.Controllers;
 import Business.UserModel;
 import Business.UserOption;
 import Presentation.MainController;
+import Presentation.MainView;
 import Presentation.Views.LoginGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginController implements ActionListener {
+public class LoginController {
 
     private UserModel userModel;
     private LoginGUI loginGUI;
     private MainController mainController;
+    private MainView mainView;
+    public LoginController() {
 
-    public LoginController(UserModel userModel, LoginGUI loginGUI, MainController mainController) {
-        this.userModel = userModel;
-        this.loginGUI = loginGUI;
-        this.mainController = mainController;
-        registerLoginListener();
+        //registerLoginListener();
     }
 
-    public void registerLoginListener() {
-        loginGUI.getB1().addActionListener(this);
+
+    public boolean goodLogin(){
+        return false;
     }
 
 
