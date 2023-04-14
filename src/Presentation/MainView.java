@@ -36,9 +36,11 @@ public class MainView extends JFrame implements ActionListener {
             signupPanel.add(signUpGUI);
             cardPanel.setLayout(cardLayout);
 
+
+            cardPanel.add(loginPanel,"LOGIN");
             cardPanel.add(menuPanel,"MENU");
             cardPanel.add(signupPanel,"SIGN UP");
-            cardPanel.add(loginPanel,"LOGIN");
+
 
             this.add(cardPanel);
 

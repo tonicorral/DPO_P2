@@ -6,11 +6,11 @@ import java.awt.*;
 
 public class LoginGUI extends JPanel {
 
-    JButton b1;
-    JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel;
-    JLabel userLabel, passwordLabel,titleLabel;
-    JTextField  userField;
-    JPasswordField passwordField;
+    private  JButton b1,textR;
+    private JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel,borderPanel;
+    private JLabel userLabel, passwordLabel,titleLabel;
+    private JTextField  userField;
+    private JPasswordField passwordField;
 
 
     public LoginGUI(){
@@ -40,6 +40,13 @@ public class LoginGUI extends JPanel {
         b1.setFont(new Font("Inter",Font.PLAIN,24));
         b1.setForeground(Color.white);
 
+        textR = new JButton("Not registerd?");
+        textR.setOpaque(false);
+        textR.setContentAreaFilled(false);
+        textR.setBorder(null);
+        textR.setFont(new Font("Inter",Font.PLAIN,14));
+
+
 
         //Add to the layouts
         generalPanel = new JPanel(new GridLayout(6, 1,20,20));
@@ -67,6 +74,12 @@ public class LoginGUI extends JPanel {
         buttonPanel.add(b1);
         generalPanel.add(buttonPanel);
         generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
+
+
+        borderPanel = new JPanel(new BorderLayout());
+        borderPanel.add("East",textR);
+        generalPanel.add(borderPanel);
+
 
 
         //Center the GridLayout
