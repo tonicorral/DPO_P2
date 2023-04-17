@@ -15,14 +15,12 @@ public class SignUpGUI extends JPanel{
     private JButton signUp;
     private JButton goBack;
     public static final String SIGNUP_BTN = "SIGNUP_BTN";
-    public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
+    public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
 
-    private MainView mainView;
-    public SignUpGUI(MainView mainView) {
-
-        this.mainView = mainView;
+    public SignUpGUI() {
 
         JPanel panel = new JPanel(new BorderLayout());
+
         this.signUp = new JButton("Sign up");
         this.signUp.setBackground(new Color(124,136,248));
         this.signUp.setFont(new Font("Inter",Font.PLAIN,12));
@@ -33,7 +31,7 @@ public class SignUpGUI extends JPanel{
         this.goBack.setBackground(new Color(124,136,248));
         this.goBack.setFont(new Font("Inter",Font.PLAIN,12));
         this.goBack.setForeground(Color.white);
-        this.goBack.setActionCommand("LOGIN_BACK_BTN");
+        this.goBack.setActionCommand("SIGNUP_BACK_BTN");
 
         //JLABEL
         JLabel title = new JLabel("REGISTER FORM", 0);
@@ -83,12 +81,12 @@ public class SignUpGUI extends JPanel{
 
         setVisible(true);
 
-        this.goBack.addActionListener(new ActionListener() {
+         /** this.goBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainView.showLogin();
             }
-        });
+        })   ;**/
     }
 
     public void registerSignUpController(ActionListener listener) {
@@ -98,7 +96,6 @@ public class SignUpGUI extends JPanel{
     public void registerController(ActionListener listener) {
         this.goBack.addActionListener(listener);
     }
-
     public String getUser() {
         return this.userText.getText();
     }

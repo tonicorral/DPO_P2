@@ -8,13 +8,12 @@ import Presentation.Views.SignUpGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpController  {
+public class SignUpController {
     private SignUpGUI signupView;
     private UserModel userModel;
     private MainController mainController;
 
-    /*
-    @Override
+  /*  @Override
     public void actionPerformed(ActionEvent e) {
         String user = signupView.getUser();
         String pass = signupView.getPassword();
@@ -24,7 +23,7 @@ public class SignUpController  {
         switch (userModel.signUp(user, pass, passConfirm, email)) {
 
             case UserOption.EVERYTHING_OK:
-                mainController.switchView(MainView.LOGIN_VIEW);
+             //   mainController.switchView(MainView.LOGIN_VIEW);
             case UserOption.EMPTY_FIELD:
                 mainController.showError("There is an empty field!");
             case UserOption.ERROR_SAVE:

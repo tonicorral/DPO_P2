@@ -5,7 +5,6 @@ import Presentation.MainView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
@@ -24,9 +23,10 @@ public class LoginGUI extends JPanel {
 
     private LoginController loginController;
 
-    public LoginGUI(MainView mainView){
+    public static final String LOGIN_BTN = "LOGIN_BTN";
+    public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
 
-        this.mainView = mainView;
+    public LoginGUI(){
 
         //Creation
 
@@ -51,12 +51,14 @@ public class LoginGUI extends JPanel {
         b1.setBackground(new Color(124,136,248));
         b1.setFont(new Font("Inter",Font.PLAIN,24));
         b1.setForeground(Color.white);
+        b1.setActionCommand("LOGIN_BTN");
 
         textR = new JButton("Not registered?");
         textR.setOpaque(false);
         textR.setContentAreaFilled(false);
         textR.setBorder(null);
         textR.setFont(new Font("Inter",Font.PLAIN,14));
+        textR.setActionCommand("LOGIN_BACK_BTN");
 
 
 
@@ -104,7 +106,7 @@ public class LoginGUI extends JPanel {
 
 
 
-        textR.addActionListener(new ActionListener() {
+     /**   textR.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainView.showSignUp();
@@ -116,15 +118,30 @@ public class LoginGUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 goodLogin = loginController.goodLogin();
             }
-        });
+        });**/
 
         setVisible(true);
-
-
-
     }
 
+    public String getUser(){
+        return userLabel.getText();
+    }
 
+    public String getPassword(){
+        return passwordLabel.getText();
+    }
+    public void LoginController(ActionListener listener) {
+        this.b1.addActionListener(listener);
+    }
+
+    public void registerController(ActionListener listener) {
+        this.textR.addActionListener(listener);
+    }
+
+    public void clear () {
+        this.userLabel.setText("");
+        this.passwordLabel.setText("");
+    }
 
 
 

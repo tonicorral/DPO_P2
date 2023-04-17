@@ -13,7 +13,7 @@ public class MenuGUI extends JPanel {
     private Color buttonColor;
     private JPanel generalPanel,borderPanel,twoB;
 
-    public MenuGUI(MainView mainView){
+    public MenuGUI(){
 
         buttonColor = new Color(124,136,248);
 
