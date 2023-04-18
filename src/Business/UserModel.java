@@ -53,6 +53,11 @@ public class UserModel {
         this.userName = userName;
     }
 
-
+    public boolean deleteUser(String username) {
+        return userDAO.deleteUser(username);
+    }
+    public boolean userExists(String username) {
+        return userDAO.checkUserName(username);
+    }
 
 }
