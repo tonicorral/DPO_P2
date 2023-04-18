@@ -1,29 +1,32 @@
 package Presentation.Views;
 
+import Presentation.Controllers.LoginController;
+import Presentation.MainView;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 
-public class LoginGUI extends JFrame {
+public class LoginGUI extends JPanel {
 
-    JButton b1;
-    JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel;
-    JLabel userLabel, passwordLabel,titleLabel;
-    JTextField  userField;
-    JPasswordField passwordField;
+    private boolean goodLogin = true;
+    private  JButton b1,textR;
+    private JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel,borderPanel;
+    private JLabel userLabel, passwordLabel,titleLabel,badPassword;
+    private JTextField  userField;
+    private JPasswordField passwordField;
 
+    private ActionListener loginListener;
+
+    private MainView mainView;
+
+    private LoginController loginController;
+
+    public static final String LOGIN_BTN = "LOGIN_BTN";
+    public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
 
     public LoginGUI(){
-        this.setSize(819,642);
-        this.setTitle("Log in");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-
-
-        this.setVisible(true);
-    }
-
-    public void showLogin(){
 
         //Creation
 
@@ -40,12 +43,23 @@ public class LoginGUI extends JFrame {
         passwordLabel = new JLabel("Contrasenya");
         passwordLabel.setFont(new Font("Inter", Font.BOLD, 13));
         passwordField = new JPasswordField();
+        badPassword = new JLabel("Password or username incorrect");
+        badPassword.setFont(new Font("Inter", Font.PLAIN, 10));
 
         //Button
         b1 = new JButton("Iniciar sessió");
         b1.setBackground(new Color(124,136,248));
         b1.setFont(new Font("Inter",Font.PLAIN,24));
         b1.setForeground(Color.white);
+        b1.setActionCommand("LOGIN_BTN");
+
+        textR = new JButton("Not registered?");
+        textR.setOpaque(false);
+        textR.setContentAreaFilled(false);
+        textR.setBorder(null);
+        textR.setFont(new Font("Inter",Font.PLAIN,14));
+        textR.setActionCommand("LOGIN_BACK_BTN");
+
 
 
         //Add to the layouts
@@ -64,10 +78,15 @@ public class LoginGUI extends JFrame {
         generalPanel.add(userPanel);
 
         //Password
-        passwordPanel = new JPanel(new GridLayout(2,1,5,5));
+        passwordPanel = new JPanel(new GridLayout(3,1,5,5));
         passwordPanel.add(passwordLabel);
         passwordPanel.add(passwordField);
         generalPanel.add(passwordPanel);
+
+        loginController = new LoginController();
+        if(!goodLogin){
+            passwordPanel.add(badPassword);
+        }
 
         //Button
         buttonPanel = new JPanel(new FlowLayout());
@@ -76,11 +95,55 @@ public class LoginGUI extends JFrame {
         generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
 
 
+        borderPanel = new JPanel(new BorderLayout());
+        borderPanel.add("East",textR);
+        generalPanel.add(borderPanel);
+
+
+
         //Center the GridLayout
         add(generalPanel, BorderLayout.CENTER);
 
+
+
+     /**   textR.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainView.showSignUp();
+            }
+        });
+
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goodLogin = loginController.goodLogin();
+            }
+        });**/
+
         setVisible(true);
     }
+
+    public String getUser(){
+        return userLabel.getText();
+    }
+
+    public String getPassword(){
+        return passwordLabel.getText();
+    }
+    public void LoginController(ActionListener listener) {
+        this.b1.addActionListener(listener);
+    }
+
+    public void registerController(ActionListener listener) {
+        this.textR.addActionListener(listener);
+    }
+
+    public void clear () {
+        this.userLabel.setText("");
+        this.passwordLabel.setText("");
+    }
+
+
 
 
 }

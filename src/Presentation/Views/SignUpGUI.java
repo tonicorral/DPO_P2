@@ -1,10 +1,13 @@
 package Presentation.Views;
 
+import Presentation.MainView;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpGUI extends JFrame{
+public class SignUpGUI extends JPanel{
     private JTextField userText;
     private JPasswordField passwordText;
     private JTextField emailText;
@@ -15,21 +18,16 @@ public class SignUpGUI extends JFrame{
     public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
 
     public SignUpGUI() {
-        this.setSize(819, 642);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        setVisible(true);
-    }
-    public void showSignUp(){
 
         JPanel panel = new JPanel(new BorderLayout());
+
         this.signUp = new JButton("Sign up");
         this.signUp.setBackground(new Color(124,136,248));
         this.signUp.setFont(new Font("Inter",Font.PLAIN,12));
         this.signUp.setForeground(Color.white);
         this.signUp.setActionCommand("SIGNUP_BTN");
 
-        this.goBack = new JButton("Go back");
+        this.goBack = new JButton("Go to Login");
         this.goBack.setBackground(new Color(124,136,248));
         this.goBack.setFont(new Font("Inter",Font.PLAIN,12));
         this.goBack.setForeground(Color.white);
@@ -82,6 +80,13 @@ public class SignUpGUI extends JFrame{
         this.add(panel, "Center");
 
         setVisible(true);
+
+         /** this.goBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainView.showLogin();
+            }
+        })   ;**/
     }
 
     public void registerSignUpController(ActionListener listener) {
@@ -91,7 +96,6 @@ public class SignUpGUI extends JFrame{
     public void registerController(ActionListener listener) {
         this.goBack.addActionListener(listener);
     }
-
     public String getUser() {
         return this.userText.getText();
     }
@@ -114,5 +118,7 @@ public class SignUpGUI extends JFrame{
         this.passwordText.setText("");
         this.passwordConfirmText.setText("");
     }
+
+
 
 }
