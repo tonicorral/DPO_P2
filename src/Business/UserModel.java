@@ -48,6 +48,22 @@ public class UserModel {
         }
     }
 
+    public int login(String user, String password){
+        switch(userOption.validLogin(user, password)){
+            case UserOption.EVERYTHING_OK:
+                if(userDAO.validLogin(userName,password)){
+                    this.userName = userDAO.getUserName(userName);
+                    return UserOption.EVERYTHING_OK;
+                }else{
+                    return UserOption.INCORRECT_LOGIN;
+                }
+            case UserOption.EMPTY_FIELD:
+                return UserOption.EMPTY_FIELD;
+
+            default: return UserOption.INCORRECT_LOGIN;
+        }
+    }
+
 
     public void setUser(String userName) {
         this.userName = userName;
