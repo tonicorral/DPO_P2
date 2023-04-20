@@ -1,11 +1,11 @@
 package Presentation;
 
-import Presentation.Views.*;
+import Presentation.Views.LoginGUI;
+import Presentation.Views.MenuGUI;
+import Presentation.Views.SignUpGUI;
+import Presentation.Views.StartGUI;
 
 import javax.swing.*;
-
-import Presentation.Views.LoginGUI;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -59,7 +59,9 @@ public class MainView extends JFrame {
 
     public void setListeners(ActionListener listener){
         startGUI.registerController(listener);
+        loginGUI.LoginController(listener);
         loginGUI.registerController(listener);
+        signUpGUI.registerSignUpController(listener);
         signUpGUI.registerController(listener);
     }
     public int showConfirmPopUp(String text, String[] questions) {

@@ -10,67 +10,57 @@ public class StartGUI extends JPanel {
     public static final String START_LOGIN = "START_LOGIN";
     public static final String START_SIGNUP = "START_SIGNUP";
 
+    private JPanel generalPanel;
+
     public StartGUI(){
 
-        this.setLayout(new GridBagLayout()); // la interfaz tendra un GrindBag layout
+        generalPanel = new JPanel(new GridBagLayout());
 
-        JLabel title1 = new JLabel("Battleship", SwingConstants.CENTER);
+        JLabel title1 = new JLabel("WELCOME TO BATTLESHIP", SwingConstants.CENTER);
 
-        GridBagConstraints constraints = new GridBagConstraints();// necesario para el layout
-        this.setBackground(Color.DARK_GRAY);
+        this.setBackground(Color.white);
 
-        this.add(title1);
-        title1.setForeground(Color.YELLOW);
+        title1.setForeground(new Color(124,136,248));
         title1.setFont(new Font("Inter", Font.BOLD, 100));
-        this.add(title1, constraints);
-        constraints.weightx = 0.0;
-
-
 
         //BUTTONS
         signUp = new JButton("Sign Up");
         signUp.setActionCommand(StartGUI.START_SIGNUP);
         signUp.setFont(new Font("Inter", Font.PLAIN, 20));
-        constraints.gridx= 2;
-        constraints.gridy=3;
-        constraints.gridwidth=1;
-        constraints.gridheight=1;
-        constraints.weightx = 1.0;
-        this.add(signUp, constraints);
-        constraints.weightx = 0.0;
-
+        signUp.setBackground(new Color(124,136,248));
+        signUp.setForeground(Color.white);
 
 
         logIn = new JButton("Log In");
         logIn.setActionCommand(StartGUI.START_LOGIN);
         logIn.setFont(new Font("Helvetica", Font.PLAIN, 20));
-        constraints.gridx= 1;
-        constraints.gridy=3;
-        constraints.gridwidth=1;
-        constraints.gridheight=1;
-        constraints.weightx = 1.0;
-        this.add(logIn, constraints);
-        constraints.weightx = 1.0;
+        logIn.setBackground(new Color(124,136,248));
+        logIn.setForeground(Color.white);
+
 
         JLabel Register = new JLabel("Select Sign up");
-        Register.setForeground(Color.WHITE);
         Register.setFont(new Font("Inter", Font.BOLD, 30));
-        constraints.gridx= 2;
-        constraints.gridy=2;
-        constraints.gridwidth=1;
-        constraints.gridheight=1;
-        this.add(Register, constraints);
+
 
         JLabel Log = new JLabel("Select Log in");
         Log.setFont(new Font("Inter", Font.BOLD, 30));
-        Log.setForeground(Color.WHITE);
-        constraints.gridx= 1;
-        constraints.gridy=2;
-        constraints.gridwidth=1;
-        constraints.gridheight=1;
-        this.add(Log, constraints);
 
 
+        GridBagConstraints c = new GridBagConstraints();
+        JPanel gridButtons = new JPanel(new GridLayout(1,2,30,30));
+
+        c.gridx = 0;
+        c.gridy = 1;
+        c.insets = new Insets(350, 400, 20, 400);
+        generalPanel.add(title1,c);
+
+        c.gridy = 2;
+        c.insets = new Insets(100, 400, 500, 400);
+        gridButtons.add(logIn);
+        gridButtons.add(signUp);
+        generalPanel.add(gridButtons,c);
+
+        this.add(generalPanel);
     }
 
     /**

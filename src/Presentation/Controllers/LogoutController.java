@@ -16,12 +16,14 @@ public class LogoutController implements ActionListener {
         this.view = view;
     }
 
-    @Override
+
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(LogoutGUI.BUTTON_LOGOUT)) {
+       /* if (e.getActionCommand().equals(LogoutGUI.BUTTON_LOGOUT)) {
             userManager.logoutCurrentUser();
             view.dispose();
         }
+        */
+
     }
 
     //cambio de vistas con el mainView

@@ -47,7 +47,7 @@ public class MenuGUI extends JPanel {
         logout.setForeground(Color.white);
 
 
-        generalPanel = new JPanel(new GridLayout(4,1,10,10));
+        generalPanel = new JPanel(new GridLayout(5,1,10,10));
         generalPanel.add(title);
         generalPanel.add(newGame);
         generalPanel.add(oldGame);
@@ -61,12 +61,12 @@ public class MenuGUI extends JPanel {
         twoB.add(delete);
         twoB.add(logout);
         borderPanel.setOpaque(false);
-        borderPanel.add("North",twoB);
+        borderPanel.add("South",twoB);
 
 
 
         this.setBackground(new Color(217,249,253));
-        this.add(borderPanel);
+        generalPanel.add(borderPanel);
         this.add(generalPanel);
 
         setVisible(true);
