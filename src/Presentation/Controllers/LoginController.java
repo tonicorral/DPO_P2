@@ -1,18 +1,11 @@
 package Presentation.Controllers;
 
 import Business.UserModel;
-
-
-
 import Presentation.MainView;
 import Presentation.Views.LoginGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import Business.UserOption;
-import Presentation.Views.SignUpGUI;
-import Presentation.Views.StartGUI;
 
 public class LoginController implements ActionListener {
 

@@ -37,12 +37,9 @@ public class UserModel {
                     return DUPLICATED_LOGIN;
                 }
 
-                if(userDAO.validSignUp(user, password, email)) {
-
-                    setUser(userName);      //que usuario ha iniciado sesion
-                    return EVERYTHING_OK;
-                }
                 else {
+                    userDAO.addUser(user, password, email);
+                    setUser(userName);
                     return ERROR_SAVE;
                 }
 
@@ -103,10 +100,24 @@ public class UserModel {
         return EVERYTHING_OK;
     }
 
+    public void setUser(String userName) {
+        this.userName = userName;
+    }
+
+/*
+    public int validLogin(String user, String password) {
+        if (user.equals("") || password.equals("")) {
+            return EMPTY_FIELD;
+        }
+        else {
+            return EVERYTHING_OK;
+        }
+    }
+
     public int login(String user, String password){
         switch(validLogin(user, password)){
             case EVERYTHING_OK:
-                if(userDAO.validLogin(userName,password)){
+                if(validLogin(userName,password)){
                     this.userName = userDAO.getUserName(userName);
                     return EVERYTHING_OK;
                 }else{
@@ -138,14 +149,16 @@ public class UserModel {
     }
 
     public boolean deleteUser(String username) {
-        return userDAO.deleteUser(username);
+        return deleteUser(username);
     }
-    public boolean userExists(String username) {
-        return userDAO.checkUserName(username);
-    }
+
+    //public boolean userExists(String username) {return checkUserName(username);}
 
     public void logoutCurrentUser() {
         userName = null;
 
     }
+
+
+ */
 }

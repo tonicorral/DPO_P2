@@ -1,12 +1,7 @@
-import Business.UserModel;
-import Business.UserOption;
-import Persistance.Configuration;
 import Persistance.UserDAO;
 import Persistance.UserSQL;
 import Presentation.Controllers.LoginController;
 import Presentation.Controllers.SignUpController;
-import Persistance.UserDAO;
-import Persistance.UserSQL;
 import Presentation.MainController;
 import Presentation.MainView;
 import Presentation.Views.*;
@@ -18,14 +13,13 @@ public class Main {
 
         UserDAO userdao = new UserSQL();
 
-
         LoginGUI loginGUI = new LoginGUI();
         LogoutGUI logoutGUI = new LogoutGUI();
         MenuGUI menuGUI = new MenuGUI();
         SignUpGUI signUpGUI = new SignUpGUI();
         StartGUI startGUI = new StartGUI();
-        Configuration configuration = new Configuration();
-        UserOption userOption = new UserOption();
+
+
        // UserDAO userdao = new UserSQL();
        // UserModel userModel = new UserModel(userdao,userOption);
 

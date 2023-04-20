@@ -3,7 +3,6 @@ package Presentation.Controllers;
 import Business.UserModel;
 import Presentation.Views.DeleteUserGUI;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,6 +19,7 @@ public class DeleteUserController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /*
         if (e.getActionCommand().equals(DeleteUserGUI.BUTTON_DELETE)) {
             String username = view.getUsername();
 
@@ -46,6 +46,9 @@ public class DeleteUserController implements ActionListener {
         } else if (e.getActionCommand().equals(DeleteUserGUI.DELETE_CANCEL_BTN)) {
             view.resetFields();
         }
+
+        */
+
     }
    /* public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(DeleteUserGUI.BUTTON_DELETE)) {
