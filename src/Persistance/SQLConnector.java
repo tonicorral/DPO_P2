@@ -27,15 +27,23 @@ public class SQLConnector {
 
 
     // Parametrized constructor
-    private SQLConnector(String username, String password, String ip, int port, String database) {
-        this.username = username;
-        this.password = password;
+    private SQLConnector(String user, String pass, String ip, int port, String database) {
+        this.username = user;
+        this.password = pass;
 
         this.url = "jdbc:mysql://" + ip + ":" + port + "/" + database;
+        getConexion(url, username, password);
     }
 
 
+    public void getConexion(String url, String user, String password) {
+        try {
+            conn = DriverManager.getConnection(url, user, password);
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Static method that returns the shared instance managed by the singleton.
      *

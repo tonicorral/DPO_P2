@@ -1,10 +1,7 @@
 package Presentation.Views;
 
-import Presentation.MainView;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignUpGUI extends JPanel{
@@ -96,6 +93,8 @@ public class SignUpGUI extends JPanel{
     public void registerController(ActionListener listener) {
         this.goBack.addActionListener(listener);
     }
+
+
     public String getUser() {
         return this.userText.getText();
     }

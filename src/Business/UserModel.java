@@ -32,7 +32,7 @@ public class UserModel {
         switch(validSignUp(user, password, passwordConfirmation, email)) {
             case EVERYTHING_OK:
 
-                if(!userDAO.checkUserName(user)){ //TODO
+                if(userDAO.checkUserName(user)){ //TODO
 
                     return DUPLICATED_LOGIN;
                 }
@@ -40,7 +40,8 @@ public class UserModel {
                 else {
                     userDAO.addUser(user, password, email);
                     setUser(userName);
-                    return ERROR_SAVE;
+                    return EVERYTHING_OK;
+                    //return ERROR_SAVE;
                 }
 
             case EMPTY_FIELD:

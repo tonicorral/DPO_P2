@@ -6,11 +6,10 @@ import java.sql.SQLException;
 public class UserSQL implements UserDAO {
 
     public void addUser(String username, String password, String mail) {
-        String query = "INSERT INTO registro(Usuario, Contraseña, Mail) VALUES (" +
-                username + ", '" +
-                password + "', " +
-                mail +
-                ");";
+        String query = "INSERT INTO registro (Usuario, Contraseña, Mail, Partidas, Victorias) VALUES ('" +
+                username + "', '" + password + "', '" + mail + "', 0, 0);";
+
+
         SQLConnector.getInstance().insertQuery(query);
     }
 
