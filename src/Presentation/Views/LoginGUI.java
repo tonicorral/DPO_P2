@@ -43,8 +43,7 @@ public class LoginGUI extends JPanel {
         passwordLabel = new JLabel("Contrasenya");
         passwordLabel.setFont(new Font("Inter", Font.BOLD, 13));
         passwordField = new JPasswordField();
-        badPassword = new JLabel("Password or username incorrect");
-        badPassword.setFont(new Font("Inter", Font.PLAIN, 10));
+
 
         //Button
         b1 = new JButton("Iniciar sessió");
@@ -83,10 +82,6 @@ public class LoginGUI extends JPanel {
         passwordPanel.add(passwordField);
         generalPanel.add(passwordPanel);
 
-        loginController = new LoginController();
-        if(!goodLogin){
-            passwordPanel.add(badPassword);
-        }
 
         //Button
         buttonPanel = new JPanel(new FlowLayout());
@@ -106,19 +101,7 @@ public class LoginGUI extends JPanel {
 
 
 
-     /**   textR.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainView.showSignUp();
-            }
-        });
 
-        b1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                goodLogin = loginController.goodLogin();
-            }
-        });**/
 
         setVisible(true);
     }
@@ -139,8 +122,8 @@ public class LoginGUI extends JPanel {
     }
 
     public void clear () {
-        this.userLabel.setText("");
-        this.passwordLabel.setText("");
+        this.userField.setText("");
+        this.passwordField.setText("");
     }
 
 

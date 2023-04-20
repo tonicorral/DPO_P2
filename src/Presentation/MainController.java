@@ -1,3 +1,4 @@
+
 package Presentation;
 
 
@@ -40,7 +41,7 @@ public class MainController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
+        switch (e.getActionCommand()) {
 
             case StartGUI.START_LOGIN:
                 mainView.switchView(MainView.LOGIN_VIEW);
@@ -48,24 +49,14 @@ public class MainController implements ActionListener {
             case StartGUI.START_SIGNUP:
                 mainView.switchView(MainView.SIGNUP_VIEW);
                 break;
-
-            case SignUpGUI.SIGNUP_BACK_BTN:
-            case LoginGUI.LOGIN_BACK_BTN:
-                mainView.switchView(MainView.START_VIEW);
-                break;
-            case SignUpGUI.SIGNUP_BTN:
-            case LoginGUI.LOGIN_BTN:
-                mainView.switchView(MainView.MENU_VIEW);
-                break;
-
-
         }
     }
-    /**
 
+
+/*
     public void run(){
         MainView mainView = new MainView();
 
-    }
-**/
+    }*/
+
 }

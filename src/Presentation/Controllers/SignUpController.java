@@ -2,16 +2,39 @@ package Presentation.Controllers;
 
 import Business.UserModel;
 import Business.UserOption;
-import Presentation.MainController;
+//import Presentation.MainController;
+import Presentation.MainView;
+import Presentation.Views.LoginGUI;
 import Presentation.Views.SignUpGUI;
+import Presentation.Views.StartGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpController {
+public class SignUpController implements ActionListener{
     private SignUpGUI signupView;
     private UserModel userModel;
-    private MainController mainController;
+    private MainView mainView;
+  //  private MainController mainController;
+
+    public SignUpController(SignUpGUI signUpGUI,MainView mainView){
+        this.signupView = signUpGUI;
+        this.mainView = mainView;
+
+        mainView.setListeners(this);
+    }
+
+    public void actionPerformed(ActionEvent e){
+        switch (e.getActionCommand()) {
+            case SignUpGUI.SIGNUP_BTN:
+                mainView.switchView(MainView.LOGIN_VIEW);
+                break;
+            case SignUpGUI.SIGNUP_BACK_BTN:
+                mainView.switchView(MainView.LOGIN_VIEW);
+                break;
+        }
+    }
+
 
   /*  @Override
     public void actionPerformed(ActionEvent e) {

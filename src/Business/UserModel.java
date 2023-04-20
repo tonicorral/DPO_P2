@@ -26,6 +26,7 @@ public class UserModel {
 
     }
 
+
     public int signUp(String user, String password, String passwordConfirmation,String email ) {
 
         switch(validSignUp(user, password, passwordConfirmation, email)) {
