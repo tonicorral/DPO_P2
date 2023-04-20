@@ -27,7 +27,7 @@ public class UserModel {
     }
 
 
-    public int signUp(String user, String password, String passwordConfirmation,String email ) {
+    public int signUp(String user, String password, String passwordConfirmation, String email ) {
 
         switch(validSignUp(user, password, passwordConfirmation, email)) {
             case EVERYTHING_OK:
@@ -44,7 +44,7 @@ public class UserModel {
                 }
 
             case EMPTY_FIELD:
-                return EMPTY_FIELD;
+              return EMPTY_FIELD;
 
             case INCORRECT_MAIL:
                 return INCORRECT_MAIL;
