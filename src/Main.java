@@ -23,7 +23,7 @@ public class Main {
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI);
         MainController mainController = new MainController(mainView);//mainview
         UserModel userModel = new UserModel(userdao);
-        LoginController loginController = new LoginController(loginGUI,mainView);
+        LoginController loginController = new LoginController(loginGUI,mainView,mainController,userModel);
         SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel, mainController);
         //mainView.setListeners(mainView);
         mainView.setVisible(true);

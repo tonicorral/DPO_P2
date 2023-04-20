@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
        
 
-public class LogoutGUI extends JFrame {
+public class LogoutGUI extends JPanel {
     private JButton logoutButton; //Botón para hacer el logout
 
     public static final String BUTTON_LOGOUT = "BUTTON_LOGOUT";

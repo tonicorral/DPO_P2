@@ -20,6 +20,9 @@ public class UserModel {
     public static final int INCORRECT_LOGIN = 7;
     public static final int DUPLICATED_LOGIN = 8;
 
+    public static final int NO_USER = 9;
+    public static final int BAD_PASSWORD = 10;
+
 
     public UserModel(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -105,7 +108,7 @@ public class UserModel {
         this.userName = userName;
     }
 
-/*
+
     public int validLogin(String user, String password) {
         if (user.equals("") || password.equals("")) {
             return EMPTY_FIELD;
@@ -118,11 +121,16 @@ public class UserModel {
     public int login(String user, String password){
         switch(validLogin(user, password)){
             case EVERYTHING_OK:
-                if(validLogin(userName,password)){
-                    this.userName = userDAO.getUserName(userName);
-                    return EVERYTHING_OK;
-                }else{
-                    return INCORRECT_LOGIN;
+                if (!userDAO.checkUserName(user) && !userDAO.checkEmail(user)){
+                    return NO_USER;
+                }
+                else{
+                    if(!userDAO.validPassword(user,password)){
+                        return BAD_PASSWORD;
+                    }
+                    else{
+                        return EVERYTHING_OK;
+                    }
                 }
             case EMPTY_FIELD:
                 return EMPTY_FIELD;
@@ -130,7 +138,7 @@ public class UserModel {
             default: return INCORRECT_LOGIN;
         }
     }
-
+    /*
     public int validLogin(String user, String password) {
         if (user.equals("") || password.equals("")) {
             return EMPTY_FIELD;
@@ -138,16 +146,16 @@ public class UserModel {
         else {
             return EVERYTHING_OK;
         }
-    }
+    }*/
 
     public boolean correctUserNameDelete(String userName, String userNameDelete){
 
         return userName.equalsIgnoreCase(userNameDelete);
     }
-
+    /*
     public void setUser(String userName) {
         this.userName = userName;
-    }
+    }*/
 
     public boolean deleteUser(String username) {
         return deleteUser(username);
@@ -161,5 +169,5 @@ public class UserModel {
     }
 
 
- */
+
 }

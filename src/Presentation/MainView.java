@@ -59,6 +59,7 @@ public class MainView extends JFrame {
 
     public void setListeners(ActionListener listener){
         startGUI.registerController(listener);
+        loginGUI.LoginController(listener);
         loginGUI.registerController(listener);
         signUpGUI.registerSignUpController(listener);
         signUpGUI.registerController(listener);

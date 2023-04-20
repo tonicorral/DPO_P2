@@ -107,12 +107,13 @@ public class LoginGUI extends JPanel {
     }
 
     public String getUser(){
-        return userLabel.getText();
+        return userField.getText();
     }
 
     public String getPassword(){
-        return passwordLabel.getText();
+        return passwordField.getText();
     }
+
     public void LoginController(ActionListener listener) {
         this.b1.addActionListener(listener);
     }
