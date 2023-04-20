@@ -1,8 +1,17 @@
-{
-  "databaseName": "BattleshipDB",
+/*{
+  "databaseName": "battleshipp1",
   "username": "admin",
   "password": "admin",
   "host": "localhost",
   "port": "8081",
   "intervalMs": 5000
-}
+}*/
+
+{"dataBase":{
+  "IP": "localhost",
+  "port": 3306,
+  "dbName": "battleshipp1",
+  "dbUser": "root",
+  "password": "admin",
+  "intervalMs": 5000
+}}

@@ -5,16 +5,19 @@ import Persistance.UserDAO;
 import Persistance.UserSQL;
 import Presentation.Controllers.LoginController;
 import Presentation.Controllers.SignUpController;
+import Persistance.UserDAO;
+import Persistance.UserSQL;
 import Presentation.MainController;
 import Presentation.MainView;
 import Presentation.Views.*;
-
-import java.awt.*;
 
 
 public class Main {
 
     public static void main(String[] args) {
+
+        UserDAO userdao = new UserSQL();
+
 
         LoginGUI loginGUI = new LoginGUI();
         LogoutGUI logoutGUI = new LogoutGUI();

@@ -108,9 +108,9 @@ public class UserModel {
             case EVERYTHING_OK:
                 if(userDAO.validLogin(userName,password)){
                     this.userName = userDAO.getUserName(userName);
-                    return UserOption.EVERYTHING_OK;
+                    return EVERYTHING_OK;
                 }else{
-                    return UserOption.INCORRECT_LOGIN;
+                    return INCORRECT_LOGIN;
                 }
             case EMPTY_FIELD:
                 return EMPTY_FIELD;
@@ -119,6 +119,19 @@ public class UserModel {
         }
     }
 
+    public int validLogin(String user, String password) {
+        if (user.equals("") || password.equals("")) {
+            return EMPTY_FIELD;
+        }
+        else {
+            return EVERYTHING_OK;
+        }
+    }
+
+    public boolean correctUserNameDelete(String userName, String userNameDelete){
+
+        return userName.equalsIgnoreCase(userNameDelete);
+    }
 
     public void setUser(String userName) {
         this.userName = userName;

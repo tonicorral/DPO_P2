@@ -1,7 +1,9 @@
 package Persistance;
 
 public interface UserDAO {
-    boolean validSignUp(String user, String pass, String mail);
+    void addUser(String username, String password, String mail);
+
+    /*boolean validSignUp(String user, String pass, String mail);
     boolean validLogin(String name, String password);
 
     boolean checkUserName(String name);
@@ -11,6 +13,8 @@ public interface UserDAO {
 
 
     void logOutUserID();
+    */
+
 
 
 }
