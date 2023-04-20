@@ -76,4 +76,8 @@ public class UserModel {
         return userDAO.checkUserName(username);
     }
 
+    public void logoutCurrentUser() {
+        userName = null;
+
+    }
 }
