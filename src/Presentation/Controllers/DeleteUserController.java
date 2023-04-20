@@ -35,6 +35,7 @@ public class DeleteUserController implements ActionListener {
                         JOptionPane.showMessageDialog(null, "El usuario '" + username + "' ha sido eliminado.");
                         view.resetFields();
                     } else {
+                        //view.MostrarError(), metodo en deleteusergui que se encargue de los jpane.
                         JOptionPane.showMessageDialog(null,
                                 "Error al eliminar el usuario '" + username + "'. Inténtalo de nuevo.");
                     }
@@ -46,4 +47,11 @@ public class DeleteUserController implements ActionListener {
             view.resetFields();
         }
     }
+   /* public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(DeleteUserGUI.BUTTON_DELETE)) {
+            view.deleteUser();
+        } else if (e.getActionCommand().equals(DeleteUserGUI.DELETE_CANCEL_BTN)) {
+            view.resetFields();
+        }
+    }*/
 }

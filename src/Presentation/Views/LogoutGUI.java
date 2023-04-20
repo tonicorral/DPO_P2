@@ -1,5 +1,7 @@
 package Presentation.Views;
 
+import Presentation.Controllers.LogoutController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -53,4 +55,5 @@ public class LogoutGUI extends JFrame {
     public void addLogoutButtonListener(ActionListener listener) {
         logoutButton.addActionListener(listener);
     }
+
 }
