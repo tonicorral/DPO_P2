@@ -1,9 +1,6 @@
 package Presentation;
 
-import Presentation.Views.LoginGUI;
-import Presentation.Views.MenuGUI;
-import Presentation.Views.SignUpGUI;
-import Presentation.Views.StartGUI;
+import Presentation.Views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +14,9 @@ public class MainView extends JFrame {
     private MenuGUI menuGUI;
 
     private StartGUI startGUI;
+
+    private LogoutGUI logoutGUI;
+    private DeleteUserGUI deleteUserGUI;
     private JPanel mainViewPanel;
     private CardLayout cardLayout;
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
@@ -24,12 +24,17 @@ public class MainView extends JFrame {
     public static final String START_VIEW = "START_VIEW";
     public static final String BOARD_VIEW = "BOARD_VIEW";
     public static final String MENU_VIEW = "MENU_VIEW";
+    public static final String LOGOUT_VIEW = "LOGOUT_VIEW";
+    public static final String DELETE_VIEW = "DELETE_VIEW";
 
-    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI) {
+
+    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI, DeleteUserGUI deleteUserGUI) {
         this.loginGUI = loginGUI;
         this.signUpGUI = signUpGUI;
         this.menuGUI = menuGUI;
         this.startGUI = startGUI;
+        this.logoutGUI = logoutGUI;
+        this.deleteUserGUI = deleteUserGUI;
         configurationFrame();
         configLayout();
     }
@@ -48,21 +53,33 @@ public class MainView extends JFrame {
         this.add(MainView.LOGIN_VIEW, loginGUI);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
         this.add(MainView.SIGNUP_VIEW, signUpGUI);
         this.add(MainView.MENU_VIEW, menuGUI);
-
+        this.add(MainView.LOGOUT_VIEW, logoutGUI);
+        this.add(MainView.DELETE_VIEW, deleteUserGUI);
     }
 
     public void switchView(String view) {
         cardLayout.show(getContentPane(),view);
         loginGUI.clear();
         signUpGUI.clear();
+
     }
 
     public void setListeners(ActionListener listener){
         startGUI.registerController(listener);
+
         loginGUI.LoginController(listener);
         loginGUI.registerController(listener);
+
         signUpGUI.registerSignUpController(listener);
         signUpGUI.registerController(listener);
+
+        menuGUI.menuButtonController(listener);
+
+        logoutGUI.addLogoutButtonListener(listener);
+
+        deleteUserGUI.addCancelButtonListener(listener);
+        deleteUserGUI.addDeleteButtonListener(listener);
+
     }
     public int showConfirmPopUp(String text, String[] questions) {
         return JOptionPane.showOptionDialog(this, text, null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, questions, questions[0]);

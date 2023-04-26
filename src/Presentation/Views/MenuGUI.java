@@ -1,9 +1,8 @@
 package Presentation.Views;
 
-import Presentation.MainView;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class MenuGUI extends JPanel {
 
@@ -12,6 +11,13 @@ public class MenuGUI extends JPanel {
     private JPanel titlePanel,newGamePanel,oldGamePanel,statsPanel,logoutPanel,deletePanel;
     private Color buttonColor;
     private JPanel generalPanel,borderPanel,twoB;
+    public static final String NEW_GAME_BTN = "NEW_GAME_BTN";
+
+    public static final String LOAD_GAME_BTN = "LOAD_GAME_BTN";
+
+    public static final String STATS_BTN = "STATS_BTN";
+    public static final String LOGOUT_MENU_BTN = "LOGOUT_MENU_BTN";
+    public static final String DELETE_MENU_BTN = "DELETE_MENU_BTN";
 
     public MenuGUI(){
 
@@ -37,14 +43,18 @@ public class MenuGUI extends JPanel {
         stats.setForeground(Color.white);
 
         delete = new JButton("Eliminar compte");
+        delete.setActionCommand(MenuGUI.DELETE_MENU_BTN);
         delete.setFont(new Font("Inter",Font.BOLD,14));
         delete.setBackground(buttonColor);
         delete.setForeground(Color.white);
 
+
         logout = new JButton("Tancar sessió");
+        logout.setActionCommand(MenuGUI.LOGOUT_MENU_BTN);
         logout.setFont(new Font("Inter",Font.BOLD,14));
         logout.setBackground(buttonColor);
         logout.setForeground(Color.white);
+
 
 
         generalPanel = new JPanel(new GridLayout(5,1,10,10));
@@ -71,6 +81,16 @@ public class MenuGUI extends JPanel {
 
         setVisible(true);
     }
+
+    public void menuButtonController(ActionListener listener) {
+        //Añadir todos los listeners
+        logout.addActionListener(listener);
+        delete.addActionListener(listener);
+
+    }
+
+
+
 
 }
 
