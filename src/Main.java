@@ -28,7 +28,7 @@ public class Main {
         SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel, mainController);
         MenuController menuController = new MenuController(menuGUI, mainController, mainView);
         LogoutController logoutController = new LogoutController(logoutGUI, mainController, mainView);
-        DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainController, mainView);
+        DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainController, mainView, userModel);
         //mainView.setListeners(mainView);
         mainView.setVisible(true);
 

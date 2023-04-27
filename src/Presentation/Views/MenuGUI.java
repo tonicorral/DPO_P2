@@ -28,16 +28,19 @@ public class MenuGUI extends JPanel {
         title.setForeground(Color.white);
 
         newGame = new JButton("Nova partida");
+        newGame.setActionCommand(MenuGUI.NEW_GAME_BTN);
         newGame.setFont(new Font("Inter",Font.BOLD,24));
         newGame.setBackground(buttonColor);
         newGame.setForeground(Color.white);
 
         oldGame = new JButton("Carregar partida");
+        oldGame.setActionCommand(MenuGUI.LOAD_GAME_BTN);
         oldGame.setFont(new Font("Inter",Font.BOLD,24));
         oldGame.setBackground(buttonColor);
         oldGame.setForeground(Color.white);
 
         stats = new JButton("Estadístiques");
+        stats.setActionCommand(MenuGUI.STATS_BTN);
         stats.setFont(new Font("Inter",Font.BOLD,24));
         stats.setBackground(buttonColor);
         stats.setForeground(Color.white);

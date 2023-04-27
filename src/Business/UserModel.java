@@ -104,6 +104,20 @@ public class UserModel {
         return EVERYTHING_OK;
     }
 
+    public int deleteUser(String email) {
+
+        if ( email.equals("") ) {
+            return EMPTY_FIELD;
+        }if (!userDAO.checkEmail(email)) {
+            return NO_USER;
+        }else{
+            userDAO.deleteUser(email);
+            return EVERYTHING_OK;
+        }
+
+
+    }
+
     public void setUser(String userName) {
         this.userName = userName;
     }
@@ -138,28 +152,7 @@ public class UserModel {
             default: return INCORRECT_LOGIN;
         }
     }
-    /*
-    public int validLogin(String user, String password) {
-        if (user.equals("") || password.equals("")) {
-            return EMPTY_FIELD;
-        }
-        else {
-            return EVERYTHING_OK;
-        }
-    }*/
 
-    public boolean correctUserNameDelete(String userName, String userNameDelete){
-
-        return userName.equalsIgnoreCase(userNameDelete);
-    }
-    /*
-    public void setUser(String userName) {
-        this.userName = userName;
-    }*/
-
-    public boolean deleteUser(String username) {
-        return deleteUser(username);
-    }
 
     //public boolean userExists(String username) {return checkUserName(username);}
 

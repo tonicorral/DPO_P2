@@ -2,10 +2,7 @@
 package Presentation;
 
 
-import Presentation.Views.LoginGUI;
-import Presentation.Views.SignUpGUI;
 import Presentation.Views.StartGUI;
-import com.sun.tools.javac.Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +21,7 @@ public class MainController implements ActionListener {
 
 
     public void showError(String error) {
+
         mainView.showError(error);
     }
 
@@ -35,6 +33,7 @@ public class MainController implements ActionListener {
 
 
     public int showConfirm(String text, String[] questions) {
+
         return mainView.showConfirmPopUp(text, questions);
     }
 
