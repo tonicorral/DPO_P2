@@ -17,11 +17,12 @@ public class Main {
         LogoutGUI logoutGUI = new LogoutGUI();
         DeleteUserGUI deleteUserGUI = new DeleteUserGUI();
         MenuGUI menuGUI = new MenuGUI();
+        SetupStageGUI setupStageGUI = new SetupStageGUI();
 
 
         StartGUI startGUI = new StartGUI();
 
-        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI);
+        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI);
         MainController mainController = new MainController(mainView);//mainview
         UserModel userModel = new UserModel(userdao);
         LoginController loginController = new LoginController(loginGUI,mainView,mainController,userModel);

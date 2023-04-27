@@ -17,6 +17,7 @@ public class MainView extends JFrame {
 
     private LogoutGUI logoutGUI;
     private DeleteUserGUI deleteUserGUI;
+    private SetupStageGUI setupStageGUI;
     private JPanel mainViewPanel;
     private CardLayout cardLayout;
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
@@ -26,15 +27,17 @@ public class MainView extends JFrame {
     public static final String MENU_VIEW = "MENU_VIEW";
     public static final String LOGOUT_VIEW = "LOGOUT_VIEW";
     public static final String DELETE_VIEW = "DELETE_VIEW";
+    public static final String SETUP_VIEW = "SETUP_VIEW";
 
 
-    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI, DeleteUserGUI deleteUserGUI) {
+    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI, DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI) {
         this.loginGUI = loginGUI;
         this.signUpGUI = signUpGUI;
         this.menuGUI = menuGUI;
         this.startGUI = startGUI;
         this.logoutGUI = logoutGUI;
         this.deleteUserGUI = deleteUserGUI;
+        this.setupStageGUI = setupStageGUI;
         configurationFrame();
         configLayout();
     }
@@ -55,6 +58,7 @@ public class MainView extends JFrame {
         this.add(MainView.MENU_VIEW, menuGUI);
         this.add(MainView.LOGOUT_VIEW, logoutGUI);
         this.add(MainView.DELETE_VIEW, deleteUserGUI);
+        this.add(MainView.SETUP_VIEW, setupStageGUI);
     }
 
     public void switchView(String view) {
