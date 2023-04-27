@@ -19,6 +19,8 @@ public class SetupStageGUI extends JPanel{
 
     private Color buttonColor;
 
+    public static final String PORTAAVIONS = "PORTAAVIONS";
+
     public SetupStageGUI(){
         rectPorta = new JPanel(new GridLayout(1,5));
         buttonColor = new Color(124,136,248);
@@ -238,12 +240,13 @@ public class SetupStageGUI extends JPanel{
 
 
 
-        grid2.add(boatsPanel);
-        grid2.add(Box.createHorizontalStrut(20));
+
+
         tablePanel.setBorder(BorderFactory.createEmptyBorder(40,0,40,0));
         tablePanel.setOpaque(false);
         grid2.add(tablePanel);
-
+        grid2.add(Box.createHorizontalStrut(20));
+        grid2.add(boatsPanel);
 
         generalPanel.add(grid2);
        // generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
@@ -268,41 +271,10 @@ public class SetupStageGUI extends JPanel{
         this.setBackground(new Color(217,249,253));
 
         rectPorta.setOpaque(false);
-
-        MouseAdapter ma = new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                mouseDownCompCoords = e.getPoint();
-            }
-        };
-
-        rectPorta.addMouseListener(ma);
-        rectDestructor.addMouseListener(ma);
-        rectSubmari.addMouseListener(ma);
-        rectSubmari2.addMouseListener(ma);
-        rectLlanxa.addMouseListener(ma);
-
-        MouseMotionAdapter mma = new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                Point currCoords = e.getLocationOnScreen();
-                setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
-            }
-        };
-        rectPorta.addMouseMotionListener(mma);
+        //rectPorta.setActionCommand(PORTAAVIONS);
 
 
-        rectPorta.addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                // Check if the Ctrl key is pressed
-                if ((e.getModifiers() & InputEvent.CTRL_MASK) != 0) {
-                    // Invert the grid layout based on the mouse wheel direction
-                        rectPorta.setLayout(new GridLayout(5, 1));
-                        rectPorta.revalidate();
 
-
-                }
-            }
-        });
 
 
 
