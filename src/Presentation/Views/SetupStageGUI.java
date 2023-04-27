@@ -2,10 +2,13 @@ package Presentation.Views;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 
 public class SetupStageGUI extends JPanel{
+
+    private int dragX, dragY;
+
+    private Point mouseDownCompCoords = null;
 
     private JLabel titleLabel,players,numberTable,titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;
     private JPanel titlePanel,playersPanel,generalPanel,tablePanel,emptyPanel,boatsPanel,grid2,porta,destructor,submari,llanxa,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;
@@ -17,6 +20,7 @@ public class SetupStageGUI extends JPanel{
     private Color buttonColor;
 
     public SetupStageGUI(){
+        rectPorta = new JPanel(new GridLayout(1,5));
         buttonColor = new Color(124,136,248);
 
         //Title: Iniciar Sessió
@@ -77,7 +81,7 @@ public class SetupStageGUI extends JPanel{
         comboBox.addItem(3);
         comboBox.addItem(4);
         //comboBox.addItemListener(this);
-        playersPanel.setBackground(new Color(217,249,253));
+        playersPanel.setOpaque(false);
         threeB.add(playersPanel);
         threeB.add(Box.createHorizontalStrut(200));
 
@@ -86,7 +90,7 @@ public class SetupStageGUI extends JPanel{
         startGame.setBackground(new Color(124,136,248));
         startGame.setForeground(Color.white);
         startPanel.add(startGame);
-        startPanel.setBackground(new Color(217,249,253));
+        startPanel.setOpaque(false);
         threeB.add(startPanel);
 
         generalPanel.add(threeB);
@@ -125,11 +129,12 @@ public class SetupStageGUI extends JPanel{
             }
         }
 
+        tablePanel.setPreferredSize(new Dimension(400,400));
+
         grid2 = new JPanel();
         grid2.setLayout(new BoxLayout(grid2,BoxLayout.X_AXIS));
 
-        grid2.add(tablePanel);
-        grid2.add(Box.createHorizontalStrut(20));
+
 
         boatsPanel = new JPanel();
         boatsPanel.setLayout(new BoxLayout(boatsPanel,BoxLayout.Y_AXIS));
@@ -146,7 +151,7 @@ public class SetupStageGUI extends JPanel{
         titlePortaLayout.add(titlePorta);
         titlePortaLayout.setBackground(Color.white);
 
-        rectPorta = new JPanel(new GridLayout(1,5));
+
         for (int i=0; i<5;i++){
             JPanel cell = new JPanel();
             JLabel p = new JLabel("P");
@@ -234,20 +239,26 @@ public class SetupStageGUI extends JPanel{
 
 
         grid2.add(boatsPanel);
+        grid2.add(Box.createHorizontalStrut(20));
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(40,0,40,0));
+        tablePanel.setOpaque(false);
+        grid2.add(tablePanel);
+
 
         generalPanel.add(grid2);
        // generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
 
-        titlePanel.setBackground(new Color(217,249,253));
-        generalPanel.setBackground(new Color(217,249,253));
-        grid2.setBackground(new Color(217,249,253));
-        twoB.setBackground(new Color(217,249,253));
-        rectLlanxa.setBackground(Color.white);
-        rectDestructor.setBackground(Color.white);
-        rectSubmari.setBackground(Color.white);
-        rectPorta.setBackground(Color.white);
-        rectSubmari2.setBackground(Color.white);
-        threeB.setBackground(new Color(217,249,253));
+
+        generalPanel.setOpaque(false);
+        titlePanel.setOpaque(false);
+        grid2.setOpaque(false);
+        twoB.setOpaque(false);
+        rectLlanxa.setOpaque(false);
+        rectDestructor.setOpaque(false);
+        rectSubmari.setOpaque(false);
+        rectPorta.setOpaque(false);
+        rectSubmari2.setOpaque(false);
+        threeB.setOpaque(false);
         boatsPanel.setBackground(Color.white);
 
         //Center the GridLayout
@@ -255,6 +266,45 @@ public class SetupStageGUI extends JPanel{
         this.add(generalPanel);
         //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.setBackground(new Color(217,249,253));
+
+        rectPorta.setOpaque(false);
+
+        MouseAdapter ma = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                mouseDownCompCoords = e.getPoint();
+            }
+        };
+
+        rectPorta.addMouseListener(ma);
+        rectDestructor.addMouseListener(ma);
+        rectSubmari.addMouseListener(ma);
+        rectSubmari2.addMouseListener(ma);
+        rectLlanxa.addMouseListener(ma);
+
+        MouseMotionAdapter mma = new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                Point currCoords = e.getLocationOnScreen();
+                setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
+            }
+        };
+        rectPorta.addMouseMotionListener(mma);
+
+
+        rectPorta.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                // Check if the Ctrl key is pressed
+                if ((e.getModifiers() & InputEvent.CTRL_MASK) != 0) {
+                    // Invert the grid layout based on the mouse wheel direction
+                        rectPorta.setLayout(new GridLayout(5, 1));
+                        rectPorta.revalidate();
+
+
+                }
+            }
+        });
+
+
 
         setVisible(true);
     }
