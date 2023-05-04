@@ -278,7 +278,7 @@ public class SetupStageGUI extends JPanel{
 
 
 
-        setVisible(true);
+     setVisible(true);
     }
 
 }

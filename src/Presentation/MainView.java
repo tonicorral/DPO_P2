@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class MainView extends JFrame {
-
-
     private LoginGUI loginGUI;
     private SignUpGUI signUpGUI;
     private MenuGUI menuGUI;
@@ -18,6 +16,8 @@ public class MainView extends JFrame {
     private LogoutGUI logoutGUI;
     private DeleteUserGUI deleteUserGUI;
     private SetupStageGUI setupStageGUI;
+
+    private GameStageGUI gameStageGUI;
     private JPanel mainViewPanel;
     private CardLayout cardLayout;
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
@@ -29,8 +29,9 @@ public class MainView extends JFrame {
     public static final String DELETE_VIEW = "DELETE_VIEW";
     public static final String SETUP_VIEW = "SETUP_VIEW";
 
+    public static final String GAME_STAGE_VIEW = "GAME_STAGE_VIEW";
 
-    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI, DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI) {
+    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI, DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI, GameStageGUI gameStageGUI) {
         this.loginGUI = loginGUI;
         this.signUpGUI = signUpGUI;
         this.menuGUI = menuGUI;
@@ -38,6 +39,7 @@ public class MainView extends JFrame {
         this.logoutGUI = logoutGUI;
         this.deleteUserGUI = deleteUserGUI;
         this.setupStageGUI = setupStageGUI;
+        this.gameStageGUI = gameStageGUI;
         configurationFrame();
         configLayout();
     }
@@ -52,13 +54,16 @@ public class MainView extends JFrame {
     private void configLayout(){
         cardLayout = new CardLayout();
         setLayout(cardLayout);
-        this.add(MainView.START_VIEW, startGUI);
+        /*this.add(MainView.START_VIEW, startGUI);
         this.add(MainView.LOGIN_VIEW, loginGUI);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
         this.add(MainView.SIGNUP_VIEW, signUpGUI);
         this.add(MainView.MENU_VIEW, menuGUI);
         this.add(MainView.LOGOUT_VIEW, logoutGUI);
         this.add(MainView.DELETE_VIEW, deleteUserGUI);
+
+         */
         this.add(MainView.SETUP_VIEW, setupStageGUI);
+        this.add(MainView.GAME_STAGE_VIEW, gameStageGUI);
     }
 
     public void switchView(String view) {

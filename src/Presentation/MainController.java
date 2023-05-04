@@ -37,7 +37,6 @@ public class MainController implements ActionListener {
         return mainView.showConfirmPopUp(text, questions);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -50,12 +49,5 @@ public class MainController implements ActionListener {
                 break;
         }
     }
-
-
-/*
-    public void run(){
-        MainView mainView = new MainView();
-
-    }*/
 
 }
