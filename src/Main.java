@@ -35,7 +35,7 @@ public class Main {
        // mainView.setListeners(mainView);
         mainView.setVisible(true);
         //setupStageGUI.setVisible(true);
-        gameStageGUI.setVisible(true);
+        //gameStageGUI.setVisible(true);
 
     }
 }

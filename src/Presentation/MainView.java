@@ -62,7 +62,7 @@ public class MainView extends JFrame {
         this.add(MainView.DELETE_VIEW, deleteUserGUI);
 
          */
-        this.add(MainView.SETUP_VIEW, setupStageGUI);
+        //this.add(MainView.SETUP_VIEW, setupStageGUI);
         this.add(MainView.GAME_STAGE_VIEW, gameStageGUI);
     }
 

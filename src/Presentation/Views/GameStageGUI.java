@@ -2,55 +2,187 @@ package Presentation.Views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class GameStageGUI extends JPanel {
-    private static int xEnemy, yEnemy;
-    private static int xUser, yUser;
+public class GameStageGUI extends JPanel{
 
-    private JPanel generalPanel, enemyPanel, userPanel, infoPanel, boatsPanel,grid2,porta,destructor,submari,llanxa,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;;
-    private Point mouseCoords = null;
-    private JLabel titleLabel, player, round, titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;;
+    private int dragX, dragY;
 
-    private JButton finalizar;
-    private JTextField playerField, roundField;
-    private JComboBox<Integer> comboBoxEnemy, comboBoxUser;
+    private Point mouseDownCompCoords = null;
+
+    private JLabel titleLabel,players,numberTable,titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;
+    private JPanel titlePanel,playersPanel,generalPanel,tablePanel, tablePanel1,emptyPanel, emptyPanel1,boatsPanel,grid2,porta,destructor,submari,llanxa,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;
+
+    private JPanel twoB,threeB;
+    private JComboBox<Integer> comboBox;
+    private JButton startGame,logout,delete;
 
     private Color buttonColor;
+
+    public static final String PORTAAVIONS = "PORTAAVIONS";
+
     public GameStageGUI(){
         rectPorta = new JPanel(new GridLayout(1,5));
-        //titulo
-        titleLabel = new JLabel("BattleShip Game");
+        buttonColor = new Color(124,136,248);
+
+        //Title: Iniciar Sessió
+        titleLabel = new JLabel("GAME STAGE");
         titleLabel.setFont(new Font("Inter", Font.BOLD, 48));
 
-        //jugador
-        player = new JLabel("Player");
-        titleLabel.setFont(new Font("Inter", Font.BOLD, 12));
-        playerField = new JTextField();
+        //User
+        players = new JLabel("JUGADORS");
+        players.setFont(new Font("Inter", Font.BOLD, 13));
 
-        //ronda
-        round = new JLabel("Round");
-        round.setFont(new Font("Inter", Font.BOLD, 12));
-        roundField = new JTextField();
-
-        //Layouts
+        //Add to the layouts
         generalPanel = new JPanel();
-        generalPanel.setLayout(new BoxLayout(generalPanel, BoxLayout.X_AXIS));
+        generalPanel.setLayout(new BoxLayout(generalPanel,BoxLayout.Y_AXIS));
+        generalPanel.setPreferredSize(new Dimension(1000,800));
+        twoB = new JPanel();
+        twoB.setLayout(new BoxLayout(twoB, BoxLayout.X_AXIS));
+        //twoB.add(Box.createHorizontalGlue());
 
-        enemyPanel = new JPanel();
-        enemyPanel.setLayout(new BoxLayout(enemyPanel, BoxLayout.X_AXIS));
+        threeB = new JPanel();
+        threeB.setLayout(new BoxLayout(threeB,BoxLayout.X_AXIS));
 
-        userPanel = new JPanel();
-        userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.X_AXIS));
 
-        infoPanel = new JPanel();
-        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.X_AXIS));
+        //generalPanel.add(Box.createVerticalStrut(0));
 
-        finalizar = new JButton("Finalizar Partida");
-        //set ActionComant menuGUI
-        finalizar.setFont(new Font("Inter",Font.BOLD,14));
-        finalizar.setBackground(buttonColor);
-        finalizar.setForeground(Color.white);
-        infoPanel.add(finalizar);
+
+
+
+        /*
+        delete = new JButton("Eliminar compte");
+        delete.setActionCommand(MenuGUI.DELETE_MENU_BTN);
+        delete.setFont(new Font("Inter",Font.BOLD,14));
+        delete.setBackground(buttonColor);
+        delete.setForeground(Color.white);
+        twoB.add(delete);
+        twoB.add(Box.createHorizontalStrut(20));
+
+
+        logout = new JButton("Tancar sessió");
+        logout.setActionCommand(MenuGUI.LOGOUT_MENU_BTN);
+        logout.setFont(new Font("Inter",Font.BOLD,14));
+        logout.setBackground(buttonColor);
+        logout.setForeground(Color.white);
+        twoB.add(logout);
+
+        generalPanel.add(Box.createVerticalStrut(50));
+        generalPanel.add(twoB);
+        generalPanel.add(Box.createVerticalStrut(30));
+        */
+        tablePanel1 = new JPanel(new GridLayout(16,16));
+
+        emptyPanel1 = new JPanel();
+        emptyPanel1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        emptyPanel1.setBackground(new Color(89,185,198));
+        tablePanel1.add(emptyPanel1);
+
+        for (int i = 1; i <= 15; i++) {
+            JPanel cellE = new JPanel();
+            cellE.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JLabel label = new JLabel(Integer.toString(i), JLabel.CENTER);
+            label.setFont(new Font("Inter", Font.BOLD, 8));
+            label.setForeground(Color.red);
+            cellE.add(label);
+            tablePanel1.add(cellE);
+        }
+
+        for (char c = 'A'; c <= 'O'; c++) {
+            JPanel cellE1 = new JPanel();
+            cellE1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JLabel label = new JLabel(Character.toString(c), JLabel.CENTER);
+            label.setFont(new Font("Inter", Font.BOLD, 8));
+            label.setForeground(Color.green);
+            cellE1.add(label);
+            tablePanel1.add(cellE1);
+
+            for (int i = 2; i <= 16; i++) {
+                JPanel cellE = new JPanel();
+                cellE.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                tablePanel1.add(cellE);
+            }
+        }
+
+       tablePanel1.setPreferredSize(new Dimension(200,200));
+
+
+
+        twoB.add(tablePanel1);
+        //generalPanel.add(Box.createVerticalStrut(50));
+        titlePanel = new JPanel(new FlowLayout());
+        titlePanel.add(titleLabel);
+        twoB.add(titlePanel);
+        generalPanel.add(twoB);
+        //generalPanel.add(Box.createVerticalStrut(30));
+        //Title
+
+/**
+        //User
+        playersPanel = new JPanel(new FlowLayout());
+        playersPanel.add(players);
+
+        comboBox = new JComboBox<Integer>();
+        comboBox.setBounds(10,10,10,20);
+        playersPanel.add(comboBox);
+        comboBox.addItem(1);
+        comboBox.addItem(2);
+        comboBox.addItem(3);
+        comboBox.addItem(4);
+        //comboBox.addItemListener(this);
+        playersPanel.setOpaque(false);
+        threeB.add(playersPanel);
+        threeB.add(Box.createHorizontalStrut(200));
+
+        JPanel startPanel = new JPanel(new FlowLayout());
+        startGame = new JButton("COMENÇAR");
+        startGame.setBackground(new Color(124,136,248));
+        startGame.setForeground(Color.white);
+        startPanel.add(startGame);
+        startPanel.setOpaque(false);
+        threeB.add(startPanel);
+
+        generalPanel.add(threeB);
+        generalPanel.add(Box.createVerticalStrut(50));
+*/
+        tablePanel = new JPanel(new GridLayout(16,16));
+
+        emptyPanel = new JPanel();
+        emptyPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        emptyPanel.setBackground(new Color(89,185,198));
+        tablePanel.add(emptyPanel);
+
+        for (int i = 1; i <= 15; i++) {
+            JPanel cell = new JPanel();
+            cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JLabel label = new JLabel(Integer.toString(i), JLabel.CENTER);
+            label.setFont(new Font("Inter", Font.BOLD, 12));
+            label.setForeground(Color.red);
+            cell.add(label);
+            tablePanel.add(cell);
+        }
+
+        for (char c = 'A'; c <= 'O'; c++) {
+            JPanel cell1 = new JPanel();
+            cell1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JLabel label = new JLabel(Character.toString(c), JLabel.CENTER);
+            label.setFont(new Font("Inter", Font.BOLD, 12));
+            label.setForeground(Color.green);
+            cell1.add(label);
+            tablePanel.add(cell1);
+
+            for (int i = 2; i <= 16; i++) {
+                JPanel cell = new JPanel();
+                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                tablePanel.add(cell);
+            }
+        }
+
+        tablePanel.setPreferredSize(new Dimension(300,300));
+
+        grid2 = new JPanel();
+        grid2.setLayout(new BoxLayout(grid2,BoxLayout.X_AXIS));
+
 
 
         boatsPanel = new JPanel();
@@ -79,6 +211,7 @@ public class GameStageGUI extends JPanel {
             cell.add(p);
             rectPorta.add(cell);
         }
+
         rectPorta.setBorder(BorderFactory.createEmptyBorder(20,120,20,120));
         boatsPanel.add(titlePortaLayout);
         boatsPanel.add(rectPorta);
@@ -151,9 +284,51 @@ public class GameStageGUI extends JPanel {
         boatsPanel.add(titleLlanxaLayout);
         boatsPanel.add(rectLlanxa);
 
-        infoPanel.add(rectPorta);
+
+
+
+
+
+
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(40,0,40,0));
+        tablePanel.setOpaque(false);
+        grid2.add(tablePanel);
+        grid2.add(Box.createHorizontalStrut(20));
+        grid2.add(boatsPanel);
+
+        generalPanel.add(grid2);
+        // generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
+
+
+        generalPanel.setOpaque(false);
+        titlePanel.setOpaque(false);
+        grid2.setOpaque(false);
+      //  twoB.setOpaque(false);
+        rectLlanxa.setOpaque(false);
+        rectDestructor.setOpaque(false);
+        rectSubmari.setOpaque(false);
+        rectPorta.setOpaque(false);
+        rectSubmari2.setOpaque(false);
+        threeB.setOpaque(false);
+        boatsPanel.setBackground(Color.white);
+
+        //Center the GridLayout
+
+        this.add(generalPanel);
+        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        this.setBackground(new Color(217,249,253));
+
+        rectPorta.setOpaque(false);
+        //rectPorta.setActionCommand(PORTAAVIONS);
+
+
+
+
+
 
         setVisible(true);
     }
 
 }
+
+
