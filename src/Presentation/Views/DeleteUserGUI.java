@@ -1,7 +1,5 @@
 package Presentation.Views;
 
-import Presentation.Controllers.DeleteUserController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -43,7 +41,7 @@ public class DeleteUserGUI extends JPanel {
         user.setLayout(new BoxLayout(user, BoxLayout.PAGE_AXIS));
         bottom.setLayout(new FlowLayout());
 
-        JLabel usernametext = new JLabel("Introduce el nombre del usuario a eliminar:");
+        JLabel usernametext = new JLabel("Introduce el email del usuario a eliminar:");
         usernametext.setFont(new Font("Helvetica", Font.PLAIN, 25));
         user.add(usernametext);
         userText = new JTextField(20);
@@ -79,7 +77,7 @@ public class DeleteUserGUI extends JPanel {
         cancelButton.addActionListener(listener);
     }
 
-    public String getUsername() {
+    public String getEmail() {
         return userText.getText();
     }
 

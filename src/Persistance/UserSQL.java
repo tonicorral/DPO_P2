@@ -70,10 +70,11 @@ public class UserSQL implements UserDAO {
 
     }
 
+    public void deleteUser(String email) {
+        String query = "DELETE FROM registro WHERE Mail = '" + email + "';";
 
-
-
-
+        SQLConnector.getInstance().insertQuery(query);
+    }
 
 
 

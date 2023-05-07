@@ -24,7 +24,7 @@ public class MenuController implements ActionListener {
 
         switch (e.getActionCommand()) {
             case MenuGUI.NEW_GAME_BTN:
-                mainView.switchView(MainView.LOGOUT_VIEW);
+                mainView.switchView(MainView.SETUP_VIEW);
                 break;
 
             case MenuGUI.LOGOUT_MENU_BTN :
@@ -34,6 +34,8 @@ public class MenuController implements ActionListener {
             case MenuGUI.DELETE_MENU_BTN:
                 mainView.switchView(MainView.DELETE_VIEW);
                 break;
+
+
 
         }
     }

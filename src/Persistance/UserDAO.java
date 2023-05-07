@@ -10,7 +10,7 @@ public interface UserDAO {
     boolean validPassword(String name,String password);
     //void logOutUserID();
 
-
+    void deleteUser(String email);
 
 
 }
