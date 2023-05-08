@@ -273,7 +273,24 @@ public class SetupStageGUI extends JPanel{
         rectPorta.setOpaque(false);
         //rectPorta.setActionCommand(PORTAAVIONS);
 
+        rectPorta.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                // Get the starting point of the drag
+                mouseDownCompCoords = e.getPoint();
+            }
+        });
+        rectPorta.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                // Calculate the new position of the button based on the mouse movement
+                int deltaX = e.getX() - mouseDownCompCoords.x;
+                int deltaY = e.getY() - mouseDownCompCoords.y;
+                int newX = rectPorta.getX() + deltaX;
+                int newY = rectPorta.getY() + deltaY;
 
+                // Set the new position of the button
+                rectPorta.setLocation(newX, newY);
+            }
+        });
 
 
 
