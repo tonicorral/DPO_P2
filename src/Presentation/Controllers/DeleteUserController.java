@@ -14,7 +14,7 @@ public class DeleteUserController implements ActionListener {
     private DeleteUserGUI deleteUserGUI;
 
     private MainController mainController;
-    private MainView mainView;
+    private final MainView mainView;
 
     private UserModel userModel;
 
