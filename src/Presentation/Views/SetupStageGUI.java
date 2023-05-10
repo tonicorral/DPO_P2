@@ -19,6 +19,11 @@ public class SetupStageGUI extends JPanel{
 
     private Color buttonColor;
 
+    public static final String BEGIN_BUTTON = "BEGIN_BUTTON";
+    public static final String DELETE_BTN = "DELETE_BTN";
+    public static final String LOGOUT_BTN = "LOGOUT_BTN";
+
+
     public static final String PORTAAVIONS = "PORTAAVIONS";
 
     public SetupStageGUI(){
@@ -46,7 +51,7 @@ public class SetupStageGUI extends JPanel{
         threeB.setLayout(new BoxLayout(threeB,BoxLayout.X_AXIS));
 
         delete = new JButton("Eliminar compte");
-        delete.setActionCommand(MenuGUI.DELETE_MENU_BTN);
+        delete.setActionCommand(SetupStageGUI.DELETE_BTN);
         delete.setFont(new Font("Inter",Font.BOLD,14));
         delete.setBackground(buttonColor);
         delete.setForeground(Color.white);
@@ -55,7 +60,7 @@ public class SetupStageGUI extends JPanel{
 
 
         logout = new JButton("Tancar sessió");
-        logout.setActionCommand(MenuGUI.LOGOUT_MENU_BTN);
+        logout.setActionCommand(SetupStageGUI.LOGOUT_BTN);
         logout.setFont(new Font("Inter",Font.BOLD,14));
         logout.setBackground(buttonColor);
         logout.setForeground(Color.white);
@@ -89,10 +94,12 @@ public class SetupStageGUI extends JPanel{
 
         JPanel startPanel = new JPanel(new FlowLayout());
         startGame = new JButton("COMENÇAR");
+
         startGame.setBackground(new Color(124,136,248));
         startGame.setForeground(Color.white);
         startPanel.add(startGame);
         startPanel.setOpaque(false);
+        startGame.setActionCommand(SetupStageGUI.BEGIN_BUTTON);
         threeB.add(startPanel);
 
         generalPanel.add(threeB);
@@ -296,6 +303,14 @@ public class SetupStageGUI extends JPanel{
 
 
      setVisible(true);
+    }
+
+    public void setUpButtonController(ActionListener listener) {
+        //Añadir todos los listeners
+        logout.addActionListener(listener);
+        delete.addActionListener(listener);
+        startGame.addActionListener(listener);
+
     }
 
 }

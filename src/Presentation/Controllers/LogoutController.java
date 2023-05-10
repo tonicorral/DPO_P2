@@ -27,6 +27,9 @@ public class LogoutController implements ActionListener {
                 mainView.switchView(MainView.START_VIEW);
 
                 break;
+            case LogoutGUI.BUTTON_CANCEL:
+                mainView.switchView(MainView.MENU_VIEW);
+                break;
         }
     }
 

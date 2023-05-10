@@ -1,7 +1,5 @@
 package Presentation.Views;
 
-import Presentation.Controllers.LogoutController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -10,8 +8,11 @@ import java.awt.event.ActionListener;
 public class LogoutGUI extends JPanel {
     private JButton logoutButton; //Botón para hacer el logout
 
+    private JButton cancelLogoutButton;
+
     public static final String BUTTON_LOGOUT = "BUTTON_LOGOUT";
 
+    public static final String BUTTON_CANCEL = "BUTTON_CANCEL";
 
     public LogoutGUI() throws HeadlessException {
         //Si no hay ningún medio de visualización, hago el configurePanel
@@ -36,11 +37,13 @@ public class LogoutGUI extends JPanel {
 
         //creo el botón para hacer el logout
         logoutButton = new JButton("Log out");
-
         logoutButton.setActionCommand(LogoutGUI.BUTTON_LOGOUT);
 
-        center.add(logoutButton);
+        cancelLogoutButton = new JButton("Cancel");
+        cancelLogoutButton.setActionCommand(LogoutGUI.BUTTON_CANCEL);
 
+        center.add(logoutButton);
+        center.add(cancelLogoutButton);
 
         add(title, BorderLayout.NORTH);
         add(Box.createRigidArea(new Dimension(300, 300)), BorderLayout.EAST);
@@ -53,7 +56,9 @@ public class LogoutGUI extends JPanel {
 
 
     public void addLogoutButtonListener(ActionListener listener) {
+
         logoutButton.addActionListener(listener);
+        cancelLogoutButton.addActionListener(listener);
     }
 
 }
