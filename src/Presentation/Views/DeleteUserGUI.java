@@ -77,7 +77,7 @@ public class DeleteUserGUI extends JPanel {
         cancelButton.addActionListener(listener);
     }
 
-    public String getEmail() {
+    public String getInsertEmail() {
         return userText.getText();
     }
 

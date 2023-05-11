@@ -14,7 +14,7 @@ public class DeleteUserController implements ActionListener {
     private DeleteUserGUI deleteUserGUI;
 
     private MainController mainController;
-    private final MainView mainView;
+    private MainView mainView;
 
     private UserModel userModel;
 
@@ -27,7 +27,7 @@ public class DeleteUserController implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        String email = deleteUserGUI.getEmail();
+        String email = deleteUserGUI.getInsertEmail();
 
         switch (e.getActionCommand()) {
             case DeleteUserGUI.BUTTON_DELETE:

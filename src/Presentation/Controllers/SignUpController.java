@@ -36,7 +36,7 @@ public class SignUpController implements ActionListener{
             case SignUpGUI.SIGNUP_BTN:
                 switch (userModel.signUp(user, pass, passConfirm, email)) {
 
-                case EVERYTHING_OK -> mainView.switchView(MainView.LOGIN_VIEW);
+                case EVERYTHING_OK -> mainView.switchView(MainView.MENU_VIEW);
                 case EMPTY_FIELD -> mainController.showError("There is an empty field!");
                 case ERROR_SAVE -> mainController.showError("There has been an error on creating the account!");
                 case INCORRECT_MAIL -> mainController.showError("That is not a valid mail!");

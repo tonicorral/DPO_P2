@@ -38,6 +38,8 @@ public class UserModel {
                 if(userDAO.checkUserName(user)){ //TODO
 
                     return DUPLICATED_LOGIN;
+                } else if(userDAO.checkEmail(email)){
+                    return DUPLICATED_LOGIN;
                 }
 
                 else {

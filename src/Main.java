@@ -35,8 +35,7 @@ public class Main {
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView);
        // mainView.setListeners(mainView);
         mainView.setVisible(true);
-        //setupStageGUI.setVisible(true);
-        //gameStageGUI.setVisible(true);
+
 
     }
 }
