@@ -14,7 +14,9 @@ public class GameStageController {
         this.currentUser = null;
         this.gameEnded = false;
     }
-
+//clases player game etc atodo aqui solo controlar lo que le pasa el usuario por la view
+//
+/*
     public void initializeGame() {
         // Obtener los jugadores del modelo de usuario
         List<String> playerNames = userModel.getPlayerNames();
@@ -29,7 +31,7 @@ public class GameStageController {
         String currentUserName = userModel.getUserName();
         currentUser = getPlayerByUsername(currentUserName);
     }
-
+*/
     public void performAttack(String targetPlayerName, int row, int column) {
         // Verificar si el juego ha finalizado
         if (gameEnded) {
