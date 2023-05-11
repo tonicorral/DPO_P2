@@ -54,15 +54,15 @@ public class MainView extends JFrame {
     private void configLayout(){
         cardLayout = new CardLayout();
         setLayout(cardLayout);
-        /*this.add(MainView.START_VIEW, startGUI);
+        this.add(MainView.START_VIEW, startGUI);
         this.add(MainView.LOGIN_VIEW, loginGUI);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
         this.add(MainView.SIGNUP_VIEW, signUpGUI);
         this.add(MainView.MENU_VIEW, menuGUI);
         this.add(MainView.LOGOUT_VIEW, logoutGUI);
         this.add(MainView.DELETE_VIEW, deleteUserGUI);
 
-         */
-        //this.add(MainView.SETUP_VIEW, setupStageGUI);
+
+        this.add(MainView.SETUP_VIEW, setupStageGUI);
         this.add(MainView.GAME_STAGE_VIEW, gameStageGUI);
     }
 
@@ -89,6 +89,8 @@ public class MainView extends JFrame {
         deleteUserGUI.addCancelButtonListener(listener);
         deleteUserGUI.addDeleteButtonListener(listener);
 
+        setupStageGUI.setUpButtonController(listener);
+
     }
     public int showConfirmPopUp(String text, String[] questions) {
         return JOptionPane.showOptionDialog(this, text, null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, questions, questions[0]);
@@ -108,54 +110,5 @@ public class MainView extends JFrame {
 
 
 
-
-
-            /**
-            this.setSize(819, 642);
-            this.setTitle("Battleships");
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setLocationRelativeTo(null);
-
-            mainViewPanel = new JPanel();
-            cardLayout = new CardLayout();
-            mainViewPanel.setLayout(cardLayout);
-
-            loginGUI = new LoginGUI(this);
-            JPanel card1 = new JPanel();
-            card1.add(loginGUI);
-            mainViewPanel.add(card1,"LOGIN");
-
-            signUpGUI = new SignUpGUI(this);
-            JPanel card2 = new JPanel();
-            card2.add(signUpGUI);
-            mainViewPanel.add(card2,"SIGNUP");
-
-            menuGUI = new MenuGUI(this);
-            JPanel card3 = new JPanel();
-            card3.add(menuGUI);
-            mainViewPanel.add(card3,"MENU");
-
-            add(mainViewPanel,BorderLayout.CENTER);
-
-            cardLayout.show(mainViewPanel,"LOGIN");
-
-            setVisible(true);
-
-
-        }
-
-        public void showSignUp(){
-            cardLayout.show(mainViewPanel,"SIGNUP");
-        }
-
-        public void showLogin(){
-            cardLayout.show(mainViewPanel,"LOGIN");
-        }
-
-        public void showMenu(){
-            cardLayout.show(mainViewPanel,"MENU");
-        }
-
-**/
 }
 

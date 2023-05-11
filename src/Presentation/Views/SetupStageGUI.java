@@ -19,6 +19,11 @@ public class SetupStageGUI extends JPanel{
 
     private Color buttonColor;
 
+    public static final String BEGIN_BUTTON = "BEGIN_BUTTON";
+    public static final String DELETE_BTN = "DELETE_BTN";
+    public static final String LOGOUT_BTN = "LOGOUT_BTN";
+
+
     public static final String PORTAAVIONS = "PORTAAVIONS";
 
     public SetupStageGUI(){
@@ -46,7 +51,7 @@ public class SetupStageGUI extends JPanel{
         threeB.setLayout(new BoxLayout(threeB,BoxLayout.X_AXIS));
 
         delete = new JButton("Eliminar compte");
-        delete.setActionCommand(MenuGUI.DELETE_MENU_BTN);
+        delete.setActionCommand(SetupStageGUI.DELETE_BTN);
         delete.setFont(new Font("Inter",Font.BOLD,14));
         delete.setBackground(buttonColor);
         delete.setForeground(Color.white);
@@ -55,7 +60,7 @@ public class SetupStageGUI extends JPanel{
 
 
         logout = new JButton("Tancar sessió");
-        logout.setActionCommand(MenuGUI.LOGOUT_MENU_BTN);
+        logout.setActionCommand(SetupStageGUI.LOGOUT_BTN);
         logout.setFont(new Font("Inter",Font.BOLD,14));
         logout.setBackground(buttonColor);
         logout.setForeground(Color.white);
@@ -89,10 +94,12 @@ public class SetupStageGUI extends JPanel{
 
         JPanel startPanel = new JPanel(new FlowLayout());
         startGame = new JButton("COMENÇAR");
+
         startGame.setBackground(new Color(124,136,248));
         startGame.setForeground(Color.white);
         startPanel.add(startGame);
         startPanel.setOpaque(false);
+        startGame.setActionCommand(SetupStageGUI.BEGIN_BUTTON);
         threeB.add(startPanel);
 
         generalPanel.add(threeB);
@@ -273,12 +280,37 @@ public class SetupStageGUI extends JPanel{
         rectPorta.setOpaque(false);
         //rectPorta.setActionCommand(PORTAAVIONS);
 
+        rectPorta.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                // Get the starting point of the drag
+                mouseDownCompCoords = e.getPoint();
+            }
+        });
+        rectPorta.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                // Calculate the new position of the button based on the mouse movement
+                int deltaX = e.getX() - mouseDownCompCoords.x;
+                int deltaY = e.getY() - mouseDownCompCoords.y;
+                int newX = rectPorta.getX() + deltaX;
+                int newY = rectPorta.getY() + deltaY;
 
+                // Set the new position of the button
+                rectPorta.setLocation(newX, newY);
+            }
+        });
 
 
 
 
      setVisible(true);
+    }
+
+    public void setUpButtonController(ActionListener listener) {
+        //Añadir todos los listeners
+        logout.addActionListener(listener);
+        delete.addActionListener(listener);
+        startGame.addActionListener(listener);
+
     }
 
 }
