@@ -16,6 +16,7 @@ public class GameStageGUI extends JPanel{
     private JPanel twoB,threeB;
     private JComboBox<Integer> comboBox;
     private JButton startGame,logout,delete;
+    private boolean isRecharging = false;
 
     private Color buttonColor;
 
@@ -328,7 +329,12 @@ public class GameStageGUI extends JPanel{
 
         setVisible(true);
     }
-
+    public void receiveAttack(int x, int y) {
+        return;
+    }
+    public boolean isRecharging() {
+        return isRecharging;
+    }
 }
 
 
