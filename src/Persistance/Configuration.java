@@ -1,11 +1,13 @@
 package Persistance;
 
 
+import Business.Boat;
 import com.google.gson.*;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 
 /**
  * Configuacion de la partida jugada
@@ -15,6 +17,7 @@ public class Configuration implements ConfigurationDAO {
     private final Gson gson;
 
     private Reader config;
+    private Reader boat;
 
     private String IP;
     private int port;
@@ -22,16 +25,17 @@ public class Configuration implements ConfigurationDAO {
     private String user;
     private String password;
 
+
     /**
      * Contructor de la configuació
 
      * @param config informacio de la configuració
      */
-    public Configuration(String config) {
+    public Configuration(String config, String boat) {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             this.config = new FileReader(config);
-
+            this.boat = new FileReader(boat);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,4 +105,15 @@ public class Configuration implements ConfigurationDAO {
 
     }
 
+    @Override
+    public ArrayList<Boat> loadBoats() {
+        ArrayList<Boat> list = new ArrayList<>();
+        Boat[] list1 = new Boat[3];
+        list1 = gson.fromJson(boat, list1.getClass());
+
+        for (int i = 0; i < list1.length; i++){
+            list.add(list1[i]);
+        }
+        return list;
+    }
 }

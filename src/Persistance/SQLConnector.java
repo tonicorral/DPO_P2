@@ -51,7 +51,7 @@ public class SQLConnector {
      */
     public static SQLConnector getInstance(){
         if (instance == null ){
-            Configuration config = new Configuration("Files/config.json");
+            Configuration config = new Configuration("Files/config.json", "File/boat.json");
             // NOT a good practice to hardcode connection data! Be aware of this for your project delivery ;)
             instance = new SQLConnector(config.getUser(), config.getPassword(), config.getIP(), config.getPort(), config.getName());
             instance.connect();
