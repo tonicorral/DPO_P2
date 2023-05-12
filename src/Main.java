@@ -32,7 +32,7 @@ public class Main {
         MenuController menuController = new MenuController(menuGUI, mainController, mainView);
         LogoutController logoutController = new LogoutController(logoutGUI, mainController, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainController, mainView, userModel);
-        SetUpController setUpController = new SetUpController(setupStageGUI, mainView);
+        SetUpController setUpController = new SetUpController(setupStageGUI, mainView,mainController);
        // mainView.setListeners(mainView);
         mainView.setVisible(true);
 

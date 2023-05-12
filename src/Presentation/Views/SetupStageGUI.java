@@ -1,5 +1,7 @@
 package Presentation.Views;
 
+import Presentation.Controllers.SetUpController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,9 +17,16 @@ public class SetupStageGUI extends JPanel{
 
     private JPanel twoB,threeB;
     private JComboBox<Integer> comboBox;
-    private JButton startGame,logout,delete;
+    private JButton startGame,logout,delete,cell2,rotate;
+
+    private JButton[][] cells;
+
+    private JPanel[] llanxaCells,portaCells,destructorCells,submariCells,submari2Cells;
 
     private Color buttonColor;
+
+    public static final String CELL = "CELL";
+    public static final String ROTATE = "ROTATE";
 
     public static final String BEGIN_BUTTON = "BEGIN_BUTTON";
     public static final String DELETE_BTN = "DELETE_BTN";
@@ -26,7 +35,10 @@ public class SetupStageGUI extends JPanel{
 
     public static final String PORTAAVIONS = "PORTAAVIONS";
 
+    private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
+
     public SetupStageGUI(){
+
         rectPorta = new JPanel(new GridLayout(1,5));
         buttonColor = new Color(124,136,248);
 
@@ -90,6 +102,9 @@ public class SetupStageGUI extends JPanel{
         //comboBox.addItemListener(this);
         playersPanel.setOpaque(false);
         threeB.add(playersPanel);
+        rotate = new JButton("ROTATE");
+        rotate.setActionCommand(SetupStageGUI.ROTATE);
+        threeB.add(rotate);
         threeB.add(Box.createHorizontalStrut(200));
 
         JPanel startPanel = new JPanel(new FlowLayout());
@@ -122,6 +137,16 @@ public class SetupStageGUI extends JPanel{
             tablePanel.add(cell);
         }
 
+        cells = new JButton[15][15];
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cells[i][j] = new JButton();
+                cells[i][j].setName(String.format("cell%d%d", i, j));
+                // Add button to panel or container
+            }
+        }
+
         for (char c = 'A'; c <= 'O'; c++) {
             JPanel cell1 = new JPanel();
             cell1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -131,12 +156,17 @@ public class SetupStageGUI extends JPanel{
             cell1.add(label);
             tablePanel.add(cell1);
 
-            for (int i = 2; i <= 16; i++) {
-                JPanel cell = new JPanel();
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                tablePanel.add(cell);
+            for (int i = 1; i <= 15; i++) {
+                String actionCommand = String.format("cell%c%d", c, i);
+                System.out.println(actionCommand);
+                cells[i - 1][c - 'A'].setActionCommand(actionCommand);
+                cells[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                cells[i - 1][c - 'A'].setBackground(Color.white);
+                tablePanel.add(cells[i - 1][c - 'A']);
             }
         }
+
+
 
         tablePanel.setPreferredSize(new Dimension(400,400));
 
@@ -161,15 +191,17 @@ public class SetupStageGUI extends JPanel{
         titlePortaLayout.setBackground(Color.white);
 
 
+        portaCells = new JPanel[5];
+
         for (int i=0; i<5;i++){
-            JPanel cell = new JPanel();
+            portaCells[i] = new JPanel();
             JLabel p = new JLabel("P");
-            cell.setBackground(new Color(124,136,248));
-            cell.setBorder(BorderFactory.createLineBorder(Color.gray));
+            portaCells[i].setBackground(new Color(124,136,248));
+            portaCells[i].setBorder(BorderFactory.createLineBorder(Color.gray));
             p.setHorizontalAlignment(JLabel.CENTER);
             p.setVerticalAlignment(JLabel.CENTER);
-            cell.add(p);
-            rectPorta.add(cell);
+            portaCells[i].add(p);
+            rectPorta.add(portaCells[i]);
         }
         rectPorta.setBorder(BorderFactory.createEmptyBorder(20,120,20,120));
         boatsPanel.add(titlePortaLayout);
@@ -181,13 +213,15 @@ public class SetupStageGUI extends JPanel{
         titleDestructorLayout.setBackground(Color.white);
 
         rectDestructor = new JPanel(new GridLayout(1,4));
+        destructorCells = new JPanel[4];
+
         for (int i=0; i<4;i++){
-            JPanel cell = new JPanel();
+            destructorCells[i] = new JPanel();
             JLabel p = new JLabel("D");
-            cell.setBorder(BorderFactory.createLineBorder(Color.gray));
-            cell.setBackground(Color.yellow);
-            cell.add(p);
-            rectDestructor.add(cell);
+            destructorCells[i].setBorder(BorderFactory.createLineBorder(Color.gray));
+            destructorCells[i].setBackground(Color.yellow);
+            destructorCells[i].add(p);
+            rectDestructor.add(destructorCells[i]);
         }
         rectDestructor.setBorder(BorderFactory.createEmptyBorder(20,130,20,130));
         boatsPanel.add(titleDestructorLayout);
@@ -199,24 +233,26 @@ public class SetupStageGUI extends JPanel{
         titleSubmariLayout.setBackground(Color.white);
 
         rectSubmari = new JPanel(new GridLayout(1,3));
+        submariCells = new JPanel[3];
         for (int i=0; i<3;i++){
-            JPanel cell = new JPanel();
+            submariCells[i] = new JPanel();
             JLabel p = new JLabel("S");
-            cell.setBorder(BorderFactory.createLineBorder(Color.gray));
-            cell.setBackground(Color.pink);
-            cell.add(p);
-            rectSubmari.add(cell);
+            submariCells[i].setBorder(BorderFactory.createLineBorder(Color.gray));
+            submariCells[i].setBackground(Color.pink);
+            submariCells[i].add(p);
+            rectSubmari.add(submariCells[i]);
         }
         rectSubmari.setBorder(BorderFactory.createEmptyBorder(20,140,20,140));
 
         rectSubmari2 = new JPanel(new GridLayout(1,3));
+        submari2Cells = new JPanel[3];
         for (int i=0; i<3;i++){
-            JPanel cell = new JPanel();
+            submari2Cells[i] = new JPanel();
             JLabel p = new JLabel("S");
-            cell.setBorder(BorderFactory.createLineBorder(Color.gray));
-            cell.setBackground(Color.pink);
-            cell.add(p);
-            rectSubmari2.add(cell);
+            submari2Cells[i].setBorder(BorderFactory.createLineBorder(Color.gray));
+            submari2Cells[i].setBackground(Color.pink);
+            submari2Cells[i].add(p);
+            rectSubmari2.add(submari2Cells[i]);
         }
         rectSubmari2.setBorder(BorderFactory.createEmptyBorder(20,140,20,140));
 
@@ -231,13 +267,16 @@ public class SetupStageGUI extends JPanel{
 
         rectLlanxa = new JPanel(new GridLayout(1,2));
 
+        llanxaCells = new JPanel[2];
+
         for (int i=0; i<2;i++){
-            JPanel cell = new JPanel();
+            //JPanel cell = new JPanel();
+            llanxaCells[i] = new JPanel();
             JLabel p = new JLabel("L");
-            cell.setBorder(BorderFactory.createLineBorder(Color.gray));
-            cell.setBackground(Color.green);
-            cell.add(p);
-            rectLlanxa.add(cell);
+            llanxaCells[i].setBorder(BorderFactory.createLineBorder(Color.gray));
+            llanxaCells[i].setBackground(Color.green);
+            llanxaCells[i].add(p);
+            rectLlanxa.add(llanxaCells[i]);
         }
         rectLlanxa.setBorder(BorderFactory.createEmptyBorder(20,150,20,150));
         boatsPanel.add(titleLlanxaLayout);
@@ -280,37 +319,148 @@ public class SetupStageGUI extends JPanel{
         rectPorta.setOpaque(false);
         //rectPorta.setActionCommand(PORTAAVIONS);
 
-        rectPorta.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                // Get the starting point of the drag
-                mouseDownCompCoords = e.getPoint();
-            }
-        });
-        rectPorta.addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                // Calculate the new position of the button based on the mouse movement
-                int deltaX = e.getX() - mouseDownCompCoords.x;
-                int deltaY = e.getY() - mouseDownCompCoords.y;
-                int newX = rectPorta.getX() + deltaX;
-                int newY = rectPorta.getY() + deltaY;
-
-                // Set the new position of the button
-                rectPorta.setLocation(newX, newY);
-            }
-        });
-
-
-
-
      setVisible(true);
     }
 
-    public void setUpButtonController(ActionListener listener) {
+    public void setUpButtonController(ActionListener listener,MouseListener mouseListener) {
         //Añadir todos los listeners
         logout.addActionListener(listener);
         delete.addActionListener(listener);
         startGame.addActionListener(listener);
+        //cell2.addActionListener(listener);
+        rectPorta.addMouseListener(mouseListener);
+        rectDestructor.addMouseListener(mouseListener);
+        rectSubmari.addMouseListener(mouseListener);
+        rectSubmari2.addMouseListener(mouseListener);
+        rectLlanxa.addMouseListener(mouseListener);
+        rotate.addActionListener(listener);
+        //tablePanel.addMouseListener(mouseListener);
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cells[i][j].addActionListener(listener);
+                // Add button to panel or container
+            }
+        }
 
+    }
+
+    public void showBoatTable(int positionBoat, String positionBoatTable, boolean rotation) {
+        int size = 0;
+        String boat = "boat";
+        String text = "text";
+        Color boatColor = Color.white;
+        switch (positionBoat) {
+            case 55 -> {
+                size = 5;
+                boat = "PortaAvions";
+                text = "P";
+                boatColor = new Color(124,136,248);
+                rectPorta.setBackground(Color.gray);
+            }
+            case 149 -> {
+                size = 4;
+                boat = "Destructor";
+                text = "D";
+                boatColor = Color.yellow;
+                rectDestructor.setBackground(Color.gray);
+            }
+            case 243 -> {
+                size = 3;
+                boat = "Submari";
+                text = "S";
+                boatColor = Color.pink;
+                rectSubmari.setBackground(Color.gray);
+            }
+            case 311 -> {
+                size = 3;
+                boat = "Submari2";
+                text = "S";
+                boatColor = Color.pink;
+                rectSubmari2.setBackground(Color.gray);
+            }
+            case 405 -> {
+                size = 2;
+                boat = "Llanxa";
+                text = "L";
+                boatColor = Color.green;
+                rectLlanxa.setBackground(Color.gray);
+            }
+        }
+        char letter = positionBoatTable.charAt(4);
+        int positionLetter = letter - 'A' + 1;
+        int number = Integer.parseInt(positionBoatTable.substring(5,positionBoatTable.length()));
+        if (rotation && positionLetter+size-1 > 15){
+            JOptionPane.showMessageDialog(this, "Place the boat in the table please!");
+        }
+        else if (!rotation && number+size-1 > 15){
+            JOptionPane.showMessageDialog(this, "Place the boat in the table please!");
+        } else if (isClickedPorta && boat.equals("PortaAvions")) {
+            JOptionPane.showMessageDialog(this, "Porta avions already used!");
+        }
+        else if (isClickedDestructor && boat.equals("Destructor")) {
+            JOptionPane.showMessageDialog(this, "Destructor already used!");
+        }
+        else if (isClickedSubmari && boat.equals("Submari")) {
+            JOptionPane.showMessageDialog(this, "Submari already used!");
+        }
+        else if (isClickedSubmari2 && boat.equals("Submari2")) {
+            JOptionPane.showMessageDialog(this, "Submari2 already used!");
+        }
+        else if (isClickedLlanxa && boat.equals("Llanxa")) {
+            JOptionPane.showMessageDialog(this, "Llanxa already used!");
+        }else{
+            if (rotation){
+                for (int i = 0; i < size; i++){
+                    saveBoatPosition(boat,"vertical",number,positionLetter);
+                    paintUsedBoats(i,boat);
+                    cells[number-1][positionLetter+i-1].setBackground(boatColor);
+                    cells[number-1][positionLetter+i-1].setText(text);
+                }
+
+
+            }
+            else{
+                for (int i = 0; i < size; i++){
+                    saveBoatPosition(boat,"horizontal",number,positionLetter);
+                    paintUsedBoats(i,boat);
+                    cells[number+i-1][positionLetter-1].setBackground(boatColor);
+                    cells[number+i-1][positionLetter-1].setText(text);
+                }
+            }
+            isClickedBoat(boat);
+        }
+
+    }
+
+    private void isClickedBoat(String boat){
+
+        switch(boat){
+            case "PortaAvions" -> isClickedPorta = true;
+            case "Destructor" -> isClickedDestructor = true;
+            case "Submari" -> isClickedSubmari = true;
+            case "Submari2" -> isClickedSubmari2 = true;
+            case "Llanxa" -> isClickedLlanxa = true;
+        }
+    }
+
+    private void paintUsedBoats(int i,String boat){
+        switch(boat){
+            case "PortaAvions" -> portaCells[i].setBackground(Color.gray);
+            case "Destructor" -> destructorCells[i].setBackground(Color.gray);
+            case "Submari" -> submariCells[i].setBackground(Color.gray);
+            case "Submari2" -> submari2Cells[i].setBackground(Color.gray);
+            case "Llanxa" -> llanxaCells[i].setBackground(Color.gray);
+        }
+    }
+
+    private void saveBoatPosition(String boat,String orientation,int number, int positionLetter){
+        /*switch(boat){
+            //case "PortaAvions" -> //guardar porta aviones(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
+            //case "Destructor" -> //guardar destructor(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
+            //case "Submari" -> //guardar submarino(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
+            //case "Submari2" -> //guardar submarino(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
+            //case "Llanxa" -> //guardar lancha(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
+        }*/
     }
 
 }
