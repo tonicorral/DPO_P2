@@ -350,35 +350,35 @@ public class SetupStageGUI extends JPanel{
         String text = "text";
         Color boatColor = Color.white;
         switch (positionBoat) {
-            case 55 -> {
+            case 55,54 -> {
                 size = 5;
                 boat = "PortaAvions";
                 text = "P";
                 boatColor = new Color(124,136,248);
                 rectPorta.setBackground(Color.gray);
             }
-            case 149 -> {
+            case 149,148 -> {
                 size = 4;
                 boat = "Destructor";
                 text = "D";
                 boatColor = Color.yellow;
                 rectDestructor.setBackground(Color.gray);
             }
-            case 243 -> {
+            case 243,242 -> {
                 size = 3;
                 boat = "Submari";
                 text = "S";
                 boatColor = Color.pink;
                 rectSubmari.setBackground(Color.gray);
             }
-            case 311 -> {
+            case 311,310 -> {
                 size = 3;
                 boat = "Submari2";
                 text = "S";
                 boatColor = Color.pink;
                 rectSubmari2.setBackground(Color.gray);
             }
-            case 405 -> {
+            case 405,404 -> {
                 size = 2;
                 boat = "Llanxa";
                 text = "L";
@@ -386,9 +386,10 @@ public class SetupStageGUI extends JPanel{
                 rectLlanxa.setBackground(Color.gray);
             }
         }
+
         char letter = positionBoatTable.charAt(4);
         int positionLetter = letter - 'A' + 1;
-        int number = Integer.parseInt(positionBoatTable.substring(5,positionBoatTable.length()));
+        int number = Integer.parseInt(positionBoatTable.substring(5));
         if (rotation && positionLetter+size-1 > 15){
             JOptionPane.showMessageDialog(this, "Place the boat in the table please!");
         }
@@ -409,19 +410,18 @@ public class SetupStageGUI extends JPanel{
         else if (isClickedLlanxa && boat.equals("Llanxa")) {
             JOptionPane.showMessageDialog(this, "Llanxa already used!");
         }else{
+
             if (rotation){
                 for (int i = 0; i < size; i++){
-                    saveBoatPosition(boat,"vertical",number,positionLetter,size);
+                    //saveBoatPosition(boat,"vertical",number,positionLetter,size);
                     paintUsedBoats(i,boat);
                     cells[number-1][positionLetter+i-1].setBackground(boatColor);
                     cells[number-1][positionLetter+i-1].setText(text);
                 }
-
-
             }
             else{
                 for (int i = 0; i < size; i++){
-                    saveBoatPosition(boat,"horizontal",number,positionLetter,size);
+                    //saveBoatPosition(boat,"horizontal",number,positionLetter,size);
                     paintUsedBoats(i,boat);
                     cells[number+i-1][positionLetter-1].setBackground(boatColor);
                     cells[number+i-1][positionLetter-1].setText(text);

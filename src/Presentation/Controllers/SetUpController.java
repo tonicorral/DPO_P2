@@ -38,7 +38,6 @@ public class SetUpController implements ActionListener, MouseListener {
         System.out.println(e.getActionCommand().equals(SetupStageGUI.ROTATE));
 
         if (e.getActionCommand().startsWith("cell") && mouseClicked) {
-
             positionBoatTable = e.getActionCommand();
             setUpGUI.showBoatTable(positionBoat,positionBoatTable,rotation);
             rotation = false;
