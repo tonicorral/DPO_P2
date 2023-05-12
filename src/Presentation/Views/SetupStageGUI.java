@@ -411,7 +411,7 @@ public class SetupStageGUI extends JPanel{
         }else{
             if (rotation){
                 for (int i = 0; i < size; i++){
-                    saveBoatPosition(boat,"vertical",number,positionLetter);
+                    saveBoatPosition(boat,"vertical",number,positionLetter,size);
                     paintUsedBoats(i,boat);
                     cells[number-1][positionLetter+i-1].setBackground(boatColor);
                     cells[number-1][positionLetter+i-1].setText(text);
@@ -421,7 +421,7 @@ public class SetupStageGUI extends JPanel{
             }
             else{
                 for (int i = 0; i < size; i++){
-                    saveBoatPosition(boat,"horizontal",number,positionLetter);
+                    saveBoatPosition(boat,"horizontal",number,positionLetter,size);
                     paintUsedBoats(i,boat);
                     cells[number+i-1][positionLetter-1].setBackground(boatColor);
                     cells[number+i-1][positionLetter-1].setText(text);
@@ -453,7 +453,7 @@ public class SetupStageGUI extends JPanel{
         }
     }
 
-    private void saveBoatPosition(String boat,String orientation,int number, int positionLetter){
+    private void saveBoatPosition(String boat,String orientation,int number, int positionLetter,int size){
         /*switch(boat){
             //case "PortaAvions" -> //guardar porta aviones(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
             //case "Destructor" -> //guardar destructor(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
