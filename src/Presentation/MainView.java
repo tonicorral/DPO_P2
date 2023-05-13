@@ -89,7 +89,7 @@ public class MainView extends JFrame {
         deleteUserGUI.addCancelButtonListener(listener);
         deleteUserGUI.addDeleteButtonListener(listener);
 
-        setupStageGUI.setUpButtonController(listener);
+       // setupStageGUI.setUpButtonController(listener);
 
     }
     public int showConfirmPopUp(String text, String[] questions) {
