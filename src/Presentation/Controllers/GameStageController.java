@@ -1,4 +1,4 @@
-package Presentation.Controllers;
+/*package Presentation.Controllers;
 
 import Business.UserModel;
 
@@ -32,7 +32,7 @@ public class GameStageController {
         currentUser = getPlayerByUsername(currentUserName);
     }
 */
-    public void performAttack(String targetPlayerName, int row, int column) {
+    /*public void performAttack(String targetPlayerName, int row, int column) {
         // Verificar si el juego ha finalizado
         if (gameEnded) {
             return;
@@ -108,4 +108,4 @@ public class GameStageController {
                 break;
         }
     }
-}
+}*/
