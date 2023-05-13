@@ -4,14 +4,19 @@ public class Boat {
     private String name;
     private int size;
     private char referenceName;
-    private int[] firstCoordinate;
-    private int[] lastCoordinate;
+    private int positionX;
+    private int positionY;
     private boolean alive;
 
-    public Boat(String name, int size, char referenceName) {
+    private boolean orientation;
+
+    public Boat(String name, int size, char referenceName,int positionX,int positionY,boolean orientation) {
         this.name = name;
         this.size = size;
         this.referenceName = referenceName;
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.orientation = orientation;
     }
 
     public String getName() {
@@ -38,27 +43,35 @@ public class Boat {
         this.referenceName = referenceName;
     }
 
-    public int[] getFirstCoordinate() {
-        return firstCoordinate;
-    }
-
-    public void setFirstCoordinate(int[] firstCoordinate) {
-        this.firstCoordinate = firstCoordinate;
-    }
-
-    public int[] getLastCoordinate() {
-        return lastCoordinate;
-    }
-
-    public void setLastCoordinate(int[] lastCoordinate) {
-        this.lastCoordinate = lastCoordinate;
-    }
-
     public boolean isAlive() {
         return alive;
     }
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
+    }
+
+    public boolean isOrientation() {
+        return orientation;
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
+    }
+
+    public void setOrientation(boolean orientation) {
+        this.orientation = orientation;
     }
 }
