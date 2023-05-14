@@ -33,7 +33,11 @@ public class Game {
     }
 
     public void setNumberPlayers(int numberPlayers) {
-        this.numberPlayers = numberPlayers;
+        if (numberPlayers > 0) {
+            this.numberPlayers = numberPlayers;
+        } else {
+            throw new IllegalArgumentException("El número de jugadores debe ser mayor que cero.");
+        }
     }
 
     public boolean isFinishedGame() {
@@ -49,6 +53,10 @@ public class Game {
     }
 
     public void setPlayerTurn(int playerTurn) {
-        this.playerTurn = playerTurn;
+        if (playerTurn >= 0 && playerTurn < numberPlayers) {
+            this.playerTurn = playerTurn;
+        } else {
+            throw new IllegalArgumentException("El turno del jugador no es válido.");
+        }
     }
 }

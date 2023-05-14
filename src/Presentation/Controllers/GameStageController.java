@@ -1,111 +1,47 @@
-/*package Presentation.Controllers;
+package Presentation.Controllers;
 
-import Business.UserModel;
+import Presentation.Views.GameStageGUI;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameStageController {
-    private UserModel userModel;
-    private List<Player> players;
-    private Player currentUser;
-    private boolean gameEnded;
+    private GameStageGUI gameStageGUI;
 
-    public GameStageLogic(UserModel userModel) {
-        this.userModel = userModel;
-        this.players = new ArrayList<>();
-        this.currentUser = null;
-        this.gameEnded = false;
-    }
-//clases player game etc atodo aqui solo controlar lo que le pasa el usuario por la view
-//
-/*
-    public void initializeGame() {
-        // Obtener los jugadores del modelo de usuario
-        List<String> playerNames = userModel.getPlayerNames();
-
-        // Crear los jugadores y agregarlos a la lista
-        for (String playerName : playerNames) {
-            Player player = new Player(playerName);
-            players.add(player);
-        }
-
-        // Establecer el jugador actual como el usuario actual
-        String currentUserName = userModel.getUserName();
-        currentUser = getPlayerByUsername(currentUserName);
-    }
-*/
-    /*public void performAttack(String targetPlayerName, int row, int column) {
-        // Verificar si el juego ha finalizado
-        if (gameEnded) {
-            return;
-        }
-
-        // Verificar si el jugador actual está en período de recarga
-        if (currentUser.isRecharging()) {
-            return;
-        }
-
-        // Obtener el jugador objetivo
-        Player targetPlayer = getPlayerByUsername(targetPlayerName);
-        if (targetPlayer == null) {
-            return;
-        }
-
-        // Realizar el ataque y obtener el resultado
-        AttackResult result = targetPlayer.receiveAttack(row, column);
-
-        // Actualizar el estado del juego según el resultado del ataque
-        updateGameStatus(result);
-
-        // Actualizar los datos del juego en el modelo de usuario
-        userModel.updateGameStatus(players);
+    public GameStageController() {
+        gameStageGUI = new GameStageGUI();
+        gameStageGUI.addEliminarListener(new EliminarListener());
+        gameStageGUI.addTancarListener(new TancarListener());
+        gameStageGUI.addAbandonarListener(new AbandonarListener());
     }
 
-    public void receiveAttack(String attackerName, int row, int column) {
-        // Verificar si el juego ha finalizado
-        if (gameEnded) {
-            return;
-        }
+   /* public void displayGUI() {
+        JFrame frame = new JFrame("Game Stage");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(gameStageGUI.getMainPanel());
+        frame.pack();
+        frame.setVisible(true);
+    }*/
 
-        // Obtener el jugador atacante
-        Player attacker = getPlayerByUsername(attackerName);
-        if (attacker == null) {
-            return;
-        }
-
-        // Realizar el ataque y obtener el resultado
-        AttackResult result = currentUser.receiveAttack(row, column);
-
-        // Actualizar el estado del juego según el resultado del ataque
-        updateGameStatus(result);
-
-        // Actualizar los datos del juego en el modelo de usuario
-        userModel.updateGameStatus(players);
-    }
-
-    private Player getPlayerByUsername(String username) {
-        for (Player player : players) {
-            if (player.getUsername().equals(username)) {
-                return player;
-            }
-        }
-        return null;
-    }
-
-    private void updateGameStatus(AttackResult result) {
-        // Actualizar el estado del juego según el resultado del ataque
-        switch (result) {
-            case HIT:
-                // Acción cuando hay un acierto en el ataque
-                break;
-            case MISS:
-                // Acción cuando hay un fallo en el ataque
-                break;
-            case SUNK:
-                // Acción cuando se hunde un barco
-                break;
-            case GAME_OVER:
-                // Acción cuando el juego ha terminado
-                gameEnded = true;
-                break;
+    private static class EliminarListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // Lógica para el botón "Eliminar"
         }
     }
-}*/
+
+    private static class TancarListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // Lógica para el botón "Tancar"
+        }
+    }
+
+    private static class AbandonarListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // Lógica para el botón "Abandonar"
+        }
+    }
+
+
+}

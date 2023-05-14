@@ -1,5 +1,7 @@
 package Presentation.Views;
 
+import Presentation.Controllers.GameStageController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -508,4 +510,15 @@ public class GameStageGUI extends JPanel{
         setVisible(true);
     }
 
+    public void addEliminarListener(ActionListener listener) {
+        eliminar.addActionListener(listener);
+    }
+
+    public void addTancarListener(ActionListener listener) {
+        tancar.addActionListener(listener);
+    }
+
+    public void addAbandonarListener(ActionListener listener) {
+        abandonar.addActionListener(listener);
+    }
 }
