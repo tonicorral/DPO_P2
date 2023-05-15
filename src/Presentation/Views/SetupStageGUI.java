@@ -382,7 +382,9 @@ public class SetupStageGUI extends JPanel{
         cells[number+i-1][positionLetter-1].setText(text);
     }
 
-
+    public int getNumPlayers(){
+        return (int) comboBox.getSelectedItem();
+    }
 
 
 }

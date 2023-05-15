@@ -20,13 +20,12 @@ public abstract class Player {
 
     private int turnToPlay;
 
-    public Player(ArrayList<Boat> boats, int[] positionAttackedX, int[] positionAttackedY, boolean turno, Tablero tablero, int turnToPlay) {
+    public Player(ArrayList<Boat> boats, int[] positionAttackedX, int[] positionAttackedY, Tablero tablero, int turnToPlay) {
         this.boats = boats;
         this.barcoPosicionX = new ArrayList<>();;
         this.barcoPosicionY = new ArrayList<>();;
         this.positionAttackedX = positionAttackedX;
         this.positionAttackedY = positionAttackedY;
-        this.turno = turno;
         this.tablero = tablero;
         this.turnToPlay = turnToPlay;
     }

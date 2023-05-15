@@ -1,7 +1,9 @@
 package Presentation.Controllers;
 
 import Business.Boat;
+//import Business.JugadorHumano;
 import Business.Player;
+import Business.Tablero;
 import Presentation.MainController;
 import Presentation.MainView;
 import Presentation.Views.SetupStageGUI;
@@ -14,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SetUpController implements ActionListener, MouseListener {
 
@@ -34,6 +37,8 @@ public class SetUpController implements ActionListener, MouseListener {
 
     private  ArrayList<Boat> boats;
 
+    private ArrayList<Player> players;
+
 
     public SetUpController(SetupStageGUI setUpGUI, MainView mainView,MainController mainController) {
         this.setUpGUI = setUpGUI;
@@ -47,6 +52,10 @@ public class SetUpController implements ActionListener, MouseListener {
         boats = new ArrayList<>();
         for(int i =0;i<5;i++){
             boats.add(null);
+        }
+        players = new ArrayList<>();
+        for(int i =0;i< setUpGUI.getNumPlayers();i++){
+            players.add(null);
         }
     }
 
@@ -256,6 +265,28 @@ public class SetUpController implements ActionListener, MouseListener {
     }
 
     private void savePlayer(ArrayList<Boat> boats){
+        int randomNumber = 0;
+        int numPlayers = setUpGUI.getNumPlayers()+1;
+        int[] numbers = new int[numPlayers+1];
+        for(int i = 0;i<numPlayers+1;i++){
+            numbers[i] = i+1;
+        }
+        Random random = new Random();
+        randomNumber = random.nextInt(numPlayers) + 1;
+        //JugadorHumano player1 = new JugadorHumano(boats,new int[0],new int[0],new Tablero(),numbers[randomNumber]);
+        //players.set(0,player1);
+        System.out.println(numbers[randomNumber]-1);
+        numbers[randomNumber] = 0;
+        for (int i = 0;i<numPlayers-1;i++){
+            do{
+                randomNumber = random.nextInt(numPlayers) + 1;
+            }while(numbers[randomNumber] == 0);
+            //JugadorIA playerIA = new JugadorIA(boats,new int[0],new int[0],new Tablero(),numbers[randomNumber]);
+            //players.set(i+1,playerIA);
+            System.out.println(numbers[randomNumber]-1);
+            numbers[randomNumber] = 0;
+        }
+
         for (Boat boat : boats) {
             System.out.printf(boat.getName());
             System.out.printf(boat.getReferenceName());
@@ -263,6 +294,8 @@ public class SetUpController implements ActionListener, MouseListener {
             System.out.println(boat.getPositionY());
             System.out.println(boat.getSize());
             System.out.println(boat.getOrientation());
+            System.out.println(numPlayers);
+            System.out.println(randomNumber);
         }
     }
 
