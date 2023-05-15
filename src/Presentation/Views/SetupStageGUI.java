@@ -409,8 +409,9 @@ public class SetupStageGUI extends JPanel{
         }
         else if (isClickedLlanxa && boat.equals("Llanxa")) {
             JOptionPane.showMessageDialog(this, "Llanxa already used!");
+        }else if (!badPositionBoat(number,positionLetter,size,rotation)) {
+            JOptionPane.showMessageDialog(this, "Cell already occupied!");
         }else{
-
             if (rotation){
                 for (int i = 0; i < size; i++){
                     //saveBoatPosition(boat,"vertical",number,positionLetter,size);
@@ -431,6 +432,8 @@ public class SetupStageGUI extends JPanel{
         }
 
     }
+
+
 
     private void isClickedBoat(String boat){
 
@@ -461,6 +464,27 @@ public class SetupStageGUI extends JPanel{
             //case "Submari2" -> //guardar submarino(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
             //case "Llanxa" -> //guardar lancha(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
         }*/
+    }
+
+    private boolean badPositionBoat(int number,int positionLetter,int size,boolean rotation){
+       boolean goodPosition = true;
+        if (rotation) {
+            for (int i = 0; i < size; i++) {
+                if (!cells[number - 1][positionLetter + i - 1].getBackground().equals(Color.white)) {
+                    goodPosition = false;
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (!cells[number + i - 1][positionLetter - 1].getBackground().equals(Color.white)) {
+                    goodPosition = false;
+                    break;
+                }
+            }
+        }
+
+        return goodPosition;
     }
 
 }
