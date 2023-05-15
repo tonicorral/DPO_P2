@@ -1,5 +1,7 @@
 package Presentation.Controllers;
 
+import Business.Boat;
+import Business.Player;
 import Presentation.MainController;
 import Presentation.MainView;
 import Presentation.Views.SetupStageGUI;
@@ -11,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 
 public class SetUpController implements ActionListener, MouseListener {
 
@@ -29,6 +32,9 @@ public class SetUpController implements ActionListener, MouseListener {
     private MainView mainView;
     private MainController mainController;
 
+    private  ArrayList<Boat> boats;
+
+
     public SetUpController(SetupStageGUI setUpGUI, MainView mainView,MainController mainController) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
@@ -37,6 +43,11 @@ public class SetUpController implements ActionListener, MouseListener {
 
         this.mainController = mainController;
         //mainView.setListeners(this);
+
+        boats = new ArrayList<>();
+        for(int i =0;i<5;i++){
+            boats.add(null);
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -50,7 +61,8 @@ public class SetUpController implements ActionListener, MouseListener {
         mouseClicked = false;
 
         switch (e.getActionCommand()) {
-            case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
+            //case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
+            case SetupStageGUI.BEGIN_BUTTON -> savePlayer(boats);
             case SetupStageGUI.LOGOUT_BTN -> mainView.switchView(MainView.LOGOUT_VIEW);
             case SetupStageGUI.DELETE_BTN -> mainView.switchView(MainView.DELETE_VIEW);
             case SetupStageGUI.ROTATE -> rotation = true;
@@ -179,17 +191,17 @@ public class SetUpController implements ActionListener, MouseListener {
         }else{
             if (rotation){
                 for (int i = 0; i < size; i++){
-                    //saveBoatPosition(boat,"vertical",number,positionLetter,size);
                     setUpGUI.paintUsedBoats(i,boat);
                     setUpGUI.paintBoatVertical(number,positionLetter,i,boatColor,text);
                 }
+                saveBoatPosition(boat, true,number,positionLetter,size,text);
             }
             else{
                 for (int i = 0; i < size; i++){
-                    //saveBoatPosition(boat,"horizontal",number,positionLetter,size);
                     setUpGUI.paintUsedBoats(i,boat);
                     setUpGUI.paintBoatHorizontal(number,positionLetter,i,boatColor,text);
                 }
+                saveBoatPosition(boat, false,number,positionLetter,size,text);
             }
             isClickedBoat(boat);
         }
@@ -216,14 +228,42 @@ public class SetUpController implements ActionListener, MouseListener {
         return goodPosition;
     }
 
-    private void saveBoatPosition(String boat,String orientation,int number, int positionLetter,int size){
-        /*switch(boat){
-            //case "PortaAvions" -> //guardar porta aviones(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Destructor" -> //guardar destructor(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Submari" -> //guardar submarino(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Submari2" -> //guardar submarino(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Llanxa" -> //guardar lancha(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-        }*/
+    private void saveBoatPosition(String boat, Boolean orientation, int number, int positionLetter, int size, String text){
+
+       switch(boat){
+            case "PortaAvions" -> {
+                Boat boat1 = new Boat(boat,size,text,number,positionLetter,orientation);
+                boats.set(0,boat1);
+            }
+            case "Destructor" -> {
+                Boat boat2 = new Boat(boat,size,text,number,positionLetter,orientation);
+                boats.set(1,boat2);
+            }
+            case "Submari" ->{
+                Boat boat3 = new Boat(boat,size,text,number,positionLetter,orientation);
+                boats.set(2,boat3);
+            }
+            case "Submari2" -> {
+                Boat boat4 = new Boat(boat,size,text,number,positionLetter,orientation);
+                boats.set(3,boat4);
+            }
+            case "Llanxa" -> {
+                Boat boat5 = new Boat(boat,size,text,number,positionLetter,orientation);
+                boats.set(4,boat5);
+            }
+        }
+
+    }
+
+    private void savePlayer(ArrayList<Boat> boats){
+        for (Boat boat : boats) {
+            System.out.printf(boat.getName());
+            System.out.printf(boat.getReferenceName());
+            System.out.println(boat.getPositionX());
+            System.out.println(boat.getPositionY());
+            System.out.println(boat.getSize());
+            System.out.println(boat.getOrientation());
+        }
     }
 
 }

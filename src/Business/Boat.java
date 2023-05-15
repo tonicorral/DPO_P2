@@ -4,14 +4,14 @@ package Business;
 public class Boat {
     private String name;
     private int size;
-    private char referenceName;
+    private String referenceName;
     private int positionX;
     private int positionY;
     private boolean alive;
 
     private boolean orientation;
 
-    public Boat(String name, int size, char referenceName,int positionX,int positionY,boolean orientation) {
+    public Boat(String name, int size, String referenceName,int positionX,int positionY,boolean orientation) {
         this.name = name;
         this.size = size;
         this.referenceName = referenceName;
@@ -36,11 +36,11 @@ public class Boat {
         this.size = size;
     }
 
-    public char getReferenceName() {
+    public String getReferenceName() {
         return referenceName;
     }
 
-    public void setReferenceName(char referenceName) {
+    public void setReferenceName(String referenceName) {
         this.referenceName = referenceName;
     }
 
@@ -60,7 +60,7 @@ public class Boat {
         return positionY;
     }
 
-    public boolean isOrientation() {
+    public boolean getOrientation() {
         return orientation;
     }
 
