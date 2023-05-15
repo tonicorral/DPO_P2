@@ -295,7 +295,7 @@ public class SetupStageGUI extends JPanel{
         grid2.add(boatsPanel);
 
         generalPanel.add(grid2);
-       // generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
+        // generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
 
 
         generalPanel.setOpaque(false);
@@ -319,7 +319,7 @@ public class SetupStageGUI extends JPanel{
         rectPorta.setOpaque(false);
         //rectPorta.setActionCommand(PORTAAVIONS);
 
-     setVisible(true);
+        setVisible(true);
     }
 
     public void setUpButtonController(ActionListener listener,MouseListener mouseListener) {
@@ -344,109 +344,13 @@ public class SetupStageGUI extends JPanel{
 
     }
 
-    public void showBoatTable(int positionBoat, String positionBoatTable, boolean rotation) {
-        int size = 0;
-        String boat = "boat";
-        String text = "text";
-        Color boatColor = Color.white;
-        switch (positionBoat) {
-            case 55,54 -> {
-                size = 5;
-                boat = "PortaAvions";
-                text = "P";
-                boatColor = new Color(124,136,248);
-                rectPorta.setBackground(Color.gray);
-            }
-            case 149,148 -> {
-                size = 4;
-                boat = "Destructor";
-                text = "D";
-                boatColor = Color.yellow;
-                rectDestructor.setBackground(Color.gray);
-            }
-            case 243,242 -> {
-                size = 3;
-                boat = "Submari";
-                text = "S";
-                boatColor = Color.pink;
-                rectSubmari.setBackground(Color.gray);
-            }
-            case 311,310 -> {
-                size = 3;
-                boat = "Submari2";
-                text = "S";
-                boatColor = Color.pink;
-                rectSubmari2.setBackground(Color.gray);
-            }
-            case 405,404 -> {
-                size = 2;
-                boat = "Llanxa";
-                text = "L";
-                boatColor = Color.green;
-                rectLlanxa.setBackground(Color.gray);
-            }
-        }
-
-        char letter = positionBoatTable.charAt(4);
-        int positionLetter = letter - 'A' + 1;
-        int number = Integer.parseInt(positionBoatTable.substring(5));
-        if (rotation && positionLetter+size-1 > 15){
-            JOptionPane.showMessageDialog(this, "Place the boat in the table please!");
-        }
-        else if (!rotation && number+size-1 > 15){
-            JOptionPane.showMessageDialog(this, "Place the boat in the table please!");
-        } else if (isClickedPorta && boat.equals("PortaAvions")) {
-            JOptionPane.showMessageDialog(this, "Porta avions already used!");
-        }
-        else if (isClickedDestructor && boat.equals("Destructor")) {
-            JOptionPane.showMessageDialog(this, "Destructor already used!");
-        }
-        else if (isClickedSubmari && boat.equals("Submari")) {
-            JOptionPane.showMessageDialog(this, "Submari already used!");
-        }
-        else if (isClickedSubmari2 && boat.equals("Submari2")) {
-            JOptionPane.showMessageDialog(this, "Submari2 already used!");
-        }
-        else if (isClickedLlanxa && boat.equals("Llanxa")) {
-            JOptionPane.showMessageDialog(this, "Llanxa already used!");
-        }else if (!badPositionBoat(number,positionLetter,size,rotation)) {
-            JOptionPane.showMessageDialog(this, "Cell already occupied!");
-        }else{
-            if (rotation){
-                for (int i = 0; i < size; i++){
-                    //saveBoatPosition(boat,"vertical",number,positionLetter,size);
-                    paintUsedBoats(i,boat);
-                    cells[number-1][positionLetter+i-1].setBackground(boatColor);
-                    cells[number-1][positionLetter+i-1].setText(text);
-                }
-            }
-            else{
-                for (int i = 0; i < size; i++){
-                    //saveBoatPosition(boat,"horizontal",number,positionLetter,size);
-                    paintUsedBoats(i,boat);
-                    cells[number+i-1][positionLetter-1].setBackground(boatColor);
-                    cells[number+i-1][positionLetter-1].setText(text);
-                }
-            }
-            isClickedBoat(boat);
-        }
-
-    }
 
 
 
-    private void isClickedBoat(String boat){
 
-        switch(boat){
-            case "PortaAvions" -> isClickedPorta = true;
-            case "Destructor" -> isClickedDestructor = true;
-            case "Submari" -> isClickedSubmari = true;
-            case "Submari2" -> isClickedSubmari2 = true;
-            case "Llanxa" -> isClickedLlanxa = true;
-        }
-    }
 
-    private void paintUsedBoats(int i,String boat){
+
+    public void paintUsedBoats(int i,String boat){
         switch(boat){
             case "PortaAvions" -> portaCells[i].setBackground(Color.gray);
             case "Destructor" -> destructorCells[i].setBackground(Color.gray);
@@ -456,37 +360,29 @@ public class SetupStageGUI extends JPanel{
         }
     }
 
-    private void saveBoatPosition(String boat,String orientation,int number, int positionLetter,int size){
-        /*switch(boat){
-            //case "PortaAvions" -> //guardar porta aviones(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Destructor" -> //guardar destructor(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Submari" -> //guardar submarino(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Submari2" -> //guardar submarino(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-            //case "Llanxa" -> //guardar lancha(orientation(vertical o horizontal), number(numero casilla),positionletter(casilla de letras)
-        }*/
+
+
+    public boolean  checkCellVertical(int number,int positionLetter, int i){
+
+        return cells[number - 1][positionLetter + i - 1].getBackground().equals(Color.white);
     }
 
-    private boolean badPositionBoat(int number,int positionLetter,int size,boolean rotation){
-       boolean goodPosition = true;
-        if (rotation) {
-            for (int i = 0; i < size; i++) {
-                if (!cells[number - 1][positionLetter + i - 1].getBackground().equals(Color.white)) {
-                    goodPosition = false;
-                    break;
-                }
-            }
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (!cells[number + i - 1][positionLetter - 1].getBackground().equals(Color.white)) {
-                    goodPosition = false;
-                    break;
-                }
-            }
-        }
 
-        return goodPosition;
+    public boolean  checkCellHorizontal(int number,int positionLetter, int i){
+
+        return cells[number + i - 1][positionLetter - 1].getBackground().equals(Color.white);
     }
+
+    public void paintBoatVertical(int number,int positionLetter, int i, Color boatColor, String text){
+        cells[number-1][positionLetter+i-1].setBackground(boatColor);
+        cells[number-1][positionLetter+i-1].setText(text);
+    }
+    public void paintBoatHorizontal(int number,int positionLetter, int i, Color boatColor, String text){
+        cells[number+i-1][positionLetter-1].setBackground(boatColor);
+        cells[number+i-1][positionLetter-1].setText(text);
+    }
+
+
+
 
 }
-
-
