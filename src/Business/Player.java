@@ -2,39 +2,55 @@ package Business;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Player {
+public abstract class Player {
 
+    protected Tablero tablero;
+    protected boolean turno;
     private ArrayList<Boat> boats;
 
-    private int[] positionX;
-
-    private int[] positionY;
+    private ArrayList<Integer> barcoPosicionX;
+    private ArrayList<Integer> barcoPosicionY;
 
     private int[] positionAttackedX;
     private int[] positionAttackedY;
 
-    private boolean turno;
+    //private boolean turno;
 
     private int turnToPlay;
 
-    public Player(ArrayList<Boat> boats, int[] positionX, int[] positionY, int[] positionAttackedX, int[] positionAttackedY, boolean turno, int turnToPlay) {
+    public Player(ArrayList<Boat> boats, int[] positionAttackedX, int[] positionAttackedY, boolean turno, Tablero tablero, int turnToPlay) {
         this.boats = boats;
-        this.positionX = positionX;
-        this.positionY = positionY;
+        this.barcoPosicionX = new ArrayList<>();;
+        this.barcoPosicionY = new ArrayList<>();;
         this.positionAttackedX = positionAttackedX;
         this.positionAttackedY = positionAttackedY;
         this.turno = turno;
+        this.tablero = tablero;
         this.turnToPlay = turnToPlay;
     }
+    public void addBarcoPosicion(int posicionX, int posicionY) {
+        barcoPosicionX.add(posicionX);
+        barcoPosicionY.add(posicionY);
+    }
 
-    public int[] getPositionX() {
+    public List<Integer> getBarcoPosicionX() {
+        return barcoPosicionX;
+    }
+
+    public List<Integer> getBarcoPosicionY() {
+        return barcoPosicionY;
+    }
+    public abstract void realizarMovimiento(Player oponente);
+
+   /*public int[] getPositionX() {
         return positionX;
     }
 
     public int[] getPositionY() {
         return positionY;
-    }
+    }*/
 
     public boolean isTurno() {
         return turno;
@@ -43,7 +59,7 @@ public class Player {
     public int getTurnToPlay() {
         return turnToPlay;
     }
-
+/*
     public void setPositionX(int[] positionX) {
         this.positionX = positionX;
     }
@@ -51,7 +67,7 @@ public class Player {
     public void setPositionY(int[] positionY) {
         this.positionY = positionY;
     }
-
+*/
     public void setTurno(boolean turno) {
         this.turno = turno;
     }

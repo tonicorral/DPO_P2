@@ -1,5 +1,6 @@
 package Business;
 
+
 public class Boat {
     private String name;
     private int size;
@@ -75,3 +76,4 @@ public class Boat {
         this.orientation = orientation;
     }
 }
+
