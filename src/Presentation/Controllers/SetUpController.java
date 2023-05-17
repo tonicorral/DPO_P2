@@ -31,7 +31,6 @@ public class SetUpController implements ActionListener, MouseListener {
     private boolean rotation = false;
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
 
-    // MainController mainController;
     private MainView mainView;
     private MainController mainController;
 
@@ -40,14 +39,12 @@ public class SetUpController implements ActionListener, MouseListener {
     private ArrayList<Player> players;
 
 
-    public SetUpController(SetupStageGUI setUpGUI, MainView mainView,MainController mainController) {
+    public SetUpController(SetupStageGUI setUpGUI, MainView mainView, MainController mainController) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
-
-        setUpGUI.setUpButtonController(this,this);
-
         this.mainController = mainController;
-        //mainView.setListeners(this);
+
+        mainView.setActionMouseListeners(this, this);
 
         boats = new ArrayList<>();
         for(int i =0;i<5;i++){
@@ -71,10 +68,21 @@ public class SetUpController implements ActionListener, MouseListener {
 
         switch (e.getActionCommand()) {
             //case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
-            case SetupStageGUI.BEGIN_BUTTON -> savePlayer(boats);
-            case SetupStageGUI.LOGOUT_BTN -> mainView.switchView(MainView.LOGOUT_VIEW);
-            case SetupStageGUI.DELETE_BTN -> mainView.switchView(MainView.DELETE_VIEW);
-            case SetupStageGUI.ROTATE -> rotation = true;
+            case SetupStageGUI.BEGIN_BUTTON:
+                    savePlayer(boats);
+                    mainView.switchView(MainView.GAME_STAGE_VIEW);
+                    break;
+
+            case SetupStageGUI.LOGOUT_BTN:
+                mainView.switchView(MainView.LOGOUT_VIEW);
+                break;
+            case SetupStageGUI.DELETE_BTN:
+                mainView.switchView(MainView.DELETE_VIEW);
+                break;
+            case SetupStageGUI.ROTATE:
+                rotation = true;
+                break;
+
         }
 
 

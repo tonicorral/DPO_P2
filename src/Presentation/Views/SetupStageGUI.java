@@ -109,12 +109,12 @@ public class SetupStageGUI extends JPanel{
 
         JPanel startPanel = new JPanel(new FlowLayout());
         startGame = new JButton("COMENÇAR");
-
+        startGame.setActionCommand(SetupStageGUI.BEGIN_BUTTON);
         startGame.setBackground(new Color(124,136,248));
         startGame.setForeground(Color.white);
         startPanel.add(startGame);
         startPanel.setOpaque(false);
-        startGame.setActionCommand(SetupStageGUI.BEGIN_BUTTON);
+
         threeB.add(startPanel);
 
         generalPanel.add(threeB);
@@ -281,10 +281,6 @@ public class SetupStageGUI extends JPanel{
         rectLlanxa.setBorder(BorderFactory.createEmptyBorder(20,150,20,150));
         boatsPanel.add(titleLlanxaLayout);
         boatsPanel.add(rectLlanxa);
-
-
-
-
 
 
 

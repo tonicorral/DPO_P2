@@ -5,6 +5,7 @@ import Presentation.Views.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 public class MainView extends JFrame {
     private LoginGUI loginGUI;
@@ -92,6 +93,14 @@ public class MainView extends JFrame {
        // setupStageGUI.setUpButtonController(listener);
 
     }
+
+    public void setActionMouseListeners(ActionListener listener, MouseListener mouseListener){
+
+        setupStageGUI.setUpButtonController(listener, mouseListener);
+        gameStageGUI.setGameListener(listener, mouseListener);
+
+    }
+
     public int showConfirmPopUp(String text, String[] questions) {
         return JOptionPane.showOptionDialog(this, text, null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, questions, questions[0]);
 

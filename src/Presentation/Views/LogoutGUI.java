@@ -28,8 +28,8 @@ public class LogoutGUI extends JPanel {
         main.setBackground(Color.DARK_GRAY);
         center.setBackground(Color.LIGHT_GRAY);
         JLabel title = new JLabel("¿Do you want to log out?");
-        title.setFont(new Font("Helvetica", Font.BOLD, 30));
-        title.setForeground(Color.YELLOW);
+        title.setFont(new Font("Inter", Font.BOLD, 48));
+        title.setForeground(Color.DARK_GRAY);
         title.setHorizontalAlignment(JLabel.CENTER);
 
         main.add(Box.createRigidArea(new Dimension(50, 100)), BorderLayout.NORTH);

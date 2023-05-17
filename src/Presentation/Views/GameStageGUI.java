@@ -15,7 +15,7 @@ public class GameStageGUI extends JPanel{
     private JComboBox<Integer> comboBoxUser, comboBox1, comboBox2, comboBox3, comboBox4;
     public static final String ELIMINAR = "ELIMINAR";
     public static final String TANCAR = "TANCAR";
-    public static final String ABANDORNAR = "ABANDONAR";
+    public static final String ABANDONAR = "ABANDONAR";
 
     private Color buttonColor;
 
@@ -53,13 +53,13 @@ public class GameStageGUI extends JPanel{
 
 
         eliminar = new JButton("Eliminar Compte");
-        //eliminar.setActionCommand();
+        eliminar.setActionCommand("ELIMINAR");
         eliminar.setFont(new Font("Inter",Font.BOLD,14));
         eliminar.setBackground(buttonColor);
         eliminar.setForeground(Color.white);
 
         tancar = new JButton("Tancar Sessió");
-        //tancar.setActionCommand();
+        tancar.setActionCommand("TANCAR");
         tancar.setFont(new Font("Inter",Font.BOLD,14));
         tancar.setBackground(buttonColor);
         tancar.setForeground(Color.white);
@@ -70,7 +70,7 @@ public class GameStageGUI extends JPanel{
         buttonPanel.add(flowButton, BorderLayout.NORTH);
 
         abandonar = new JButton("Abandonar Partida");
-        //abandonar.setActionCommand();
+        abandonar.setActionCommand("ABANDONAR");
         abandonar.setFont(new Font("Inter",Font.BOLD,14));
         abandonar.setBackground(buttonColor);
         abandonar.setForeground(Color.white);
@@ -510,15 +510,11 @@ public class GameStageGUI extends JPanel{
         setVisible(true);
     }
 
-    public void addEliminarListener(ActionListener listener) {
+    public void setGameListener(ActionListener listener, MouseListener mouseListener){
         eliminar.addActionListener(listener);
-    }
-
-    public void addTancarListener(ActionListener listener) {
         tancar.addActionListener(listener);
+        abandonar.addActionListener(listener);
+
     }
 
-    public void addAbandonarListener(ActionListener listener) {
-        abandonar.addActionListener(listener);
-    }
 }

@@ -25,7 +25,7 @@ public class Main {
         StartGUI startGUI = new StartGUI();
 
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI);
-        MainController mainController = new MainController(mainView);//mainview
+        MainController mainController = new MainController(mainView);
         UserModel userModel = new UserModel(userdao);
         LoginController loginController = new LoginController(loginGUI,mainView,mainController,userModel);
         SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel, mainController);
@@ -33,7 +33,7 @@ public class Main {
         LogoutController logoutController = new LogoutController(logoutGUI, mainController, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainController, mainView, userModel);
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView,mainController);
-       // mainView.setListeners(mainView);
+        GameStageController gameStageController = new GameStageController(gameStageGUI, mainView, mainController);
         mainView.setVisible(true);
 
 
