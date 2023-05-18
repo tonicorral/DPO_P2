@@ -17,7 +17,7 @@ public class SetupStageGUI extends JPanel{
 
     private JPanel twoB,threeB;
     private JComboBox<Integer> comboBox;
-    private JButton startGame,logout,delete,cell2,rotate;
+    private JButton startGame,logout,delete,cell2,rotate,eliminate;
 
     private JButton[][] cells;
 
@@ -27,6 +27,7 @@ public class SetupStageGUI extends JPanel{
 
     public static final String CELL = "CELL";
     public static final String ROTATE = "ROTATE";
+    public static final String ELIMINATE = "ELIMINATE";
 
     public static final String BEGIN_BUTTON = "BEGIN_BUTTON";
     public static final String DELETE_BTN = "DELETE_BTN";
@@ -105,6 +106,10 @@ public class SetupStageGUI extends JPanel{
         rotate = new JButton("ROTATE");
         rotate.setActionCommand(SetupStageGUI.ROTATE);
         threeB.add(rotate);
+        threeB.add(Box.createHorizontalStrut(10));
+        eliminate = new JButton("ELIMINATE");
+        eliminate.setActionCommand(SetupStageGUI.ELIMINATE);
+        threeB.add(eliminate);
         threeB.add(Box.createHorizontalStrut(200));
 
         JPanel startPanel = new JPanel(new FlowLayout());
@@ -330,6 +335,7 @@ public class SetupStageGUI extends JPanel{
         rectSubmari2.addMouseListener(mouseListener);
         rectLlanxa.addMouseListener(mouseListener);
         rotate.addActionListener(listener);
+        eliminate.addActionListener(listener);
         //tablePanel.addMouseListener(mouseListener);
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
@@ -359,8 +365,58 @@ public class SetupStageGUI extends JPanel{
 
 
     public boolean  checkCellVertical(int number,int positionLetter, int i){
+        boolean ok1 = false,ok2 = false,ok3 = false,ok4 = false,ok5 = false,ok6 = false,ok7 = false,ok8=false;
 
-        return cells[number - 1][positionLetter + i - 1].getBackground().equals(Color.white);
+        if(number > 15){
+            ok1 = true;
+        } else{
+            ok1 = cells[number][positionLetter + i - 1].getBackground().equals(Color.white);
+        }
+
+        if(number-2 < 0){
+            ok2 = true;
+        } else{
+            ok2 = cells[number - 2][positionLetter + i - 1].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i-2 < 0){
+            ok3 = true;
+        } else{
+            ok3 = cells[number - 1][positionLetter + i - 2].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i > 15){
+            ok4 = true;
+        } else{
+            ok4 = cells[number - 1][positionLetter + i].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i > 15 && number > 15) {
+            ok5 = true;
+        }   else{
+                ok5 = cells[number][positionLetter + i].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i > 15 && number-2 < 0) {
+            ok6 = true;
+        }   else{
+            ok6 = cells[number-2][positionLetter + i].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i-2 < 0 && number-2 < 0) {
+            ok7 = true;
+        }   else{
+            ok7 = cells[number-2][positionLetter + i-2].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i-2 < 0 && number > 15) {
+            ok8 = true;
+        }   else{
+            ok8 = cells[number][positionLetter + i-2].getBackground().equals(Color.white);
+        }
+
+
+        return cells[number - 1][positionLetter + i - 1].getBackground().equals(Color.white) && ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8;
     }
 
 
@@ -382,5 +438,31 @@ public class SetupStageGUI extends JPanel{
         return (int) comboBox.getSelectedItem();
     }
 
+    public void unPaintBoats(){
+        for (int i = 0;i<5;i++){
+            portaCells[i].setBackground(new Color(124,136,248));
+        }
+        for (int i = 0;i<4;i++){
+            destructorCells[i].setBackground(Color.yellow);
+        }
+        for(int i = 0;i<3;i++){
+            submariCells[i].setBackground(Color.pink);
+        }
+        for(int i = 0;i<3;i++){
+            submari2Cells[i].setBackground(Color.pink);
+        }
+        for(int i = 0;i<2;i++){
+            llanxaCells[i].setBackground(Color.green);
+        }
+    }
+
+    public void unPaintTable(){
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cells[i][j].setBackground(Color.white);
+                cells[i][j].setText("");
+            }
+        }
+    }
 
 }

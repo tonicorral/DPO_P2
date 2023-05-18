@@ -69,8 +69,12 @@ public class SetUpController implements ActionListener, MouseListener {
         switch (e.getActionCommand()) {
             //case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
             case SetupStageGUI.BEGIN_BUTTON:
+                if(!checkAllBoatsPut()){
+                    mainController.showError("Put all boats in the table before starting the game!");
+                }else{
                     savePlayer(boats);
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
+                }
                     break;
 
             case SetupStageGUI.LOGOUT_BTN:
@@ -81,6 +85,9 @@ public class SetUpController implements ActionListener, MouseListener {
                 break;
             case SetupStageGUI.ROTATE:
                 rotation = true;
+                break;
+            case SetupStageGUI.ELIMINATE:
+                eliminateBoats();
                 break;
 
         }
@@ -306,6 +313,24 @@ public class SetUpController implements ActionListener, MouseListener {
             System.out.println(randomNumber);
         }
     }
+
+    private void eliminateBoats(){
+        isClickedDestructor = false;
+        isClickedLlanxa = false;
+        isClickedPorta = false;
+        isClickedSubmari = false;
+        isClickedSubmari2 = false;
+        setUpGUI.unPaintTable();
+        setUpGUI.unPaintBoats();
+    }
+
+    private boolean checkAllBoatsPut(){
+        return isClickedSubmari2 && isClickedSubmari && isClickedPorta && isClickedLlanxa && isClickedDestructor;
+    }
+
+
+
+
 
 }
 
