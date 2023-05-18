@@ -91,7 +91,7 @@ public class MainView extends JFrame {
         deleteUserGUI.addDeleteButtonListener(listener);
 
        // setupStageGUI.setUpButtonController(listener);
-
+        //gameStageGUI.setGameListener(listener);
     }
 
     public void setActionMouseListeners(ActionListener listener, MouseListener mouseListener){

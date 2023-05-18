@@ -38,11 +38,9 @@ public class GameStageController {
         this.mainView = mainView;
         this.mainController = mainController;
 
-        mainView.setActionMouseListeners((ActionListener) this, (MouseListener) this);
+        //mainView.setActionMouseListeners(this, this);
 
     }
-
-
     public void actionPerformed(ActionEvent e) {
 
         //System.out.println(e.getActionCommand().equals(GameStageGUI.ROTATE));
