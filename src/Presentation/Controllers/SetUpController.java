@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class SetUpController implements ActionListener, MouseListener {
@@ -26,7 +25,7 @@ public class SetUpController implements ActionListener, MouseListener {
 
     private String positionBoatTable;
 
-    private boolean rotation = false;
+    private boolean rotation = false,rotationPorta = false,rotationDestructor = false,rotationSubmari = false,rotationSubmari2 = false,rotationLlanxa = false;
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
 
     private MainView mainView;
@@ -36,9 +35,9 @@ public class SetUpController implements ActionListener, MouseListener {
 
     private ArrayList<Player> players;
 
-    private int[] positionPortaX,positionDestructorX,positionSubmariX,positionSubmari2X,positionLlanxaX;
+    private int positionPortaX,positionDestructorX,positionSubmariX,positionSubmari2X,positionLlanxaX;
 
-    private int[] positionPortaY,positionDestructorY,positionSubmariY,positionSubmari2Y,positionLlanxaY;
+    private int positionPortaY,positionDestructorY,positionSubmariY,positionSubmari2Y,positionLlanxaY;
 
     private int[][] positionPorta,positionDestructor,positionSubmari,positionSubmari2,positionLlanxa;
     public SetUpController(SetupStageGUI setUpGUI, MainView mainView, MainController mainController) {
@@ -76,7 +75,7 @@ public class SetUpController implements ActionListener, MouseListener {
                 }else{
                     savePlayer(boats);
                     createRandomBoatPositions();
-                    mainView.switchView(MainView.GAME_STAGE_VIEW);
+                   // mainView.switchView(MainView.GAME_STAGE_VIEW);
                 }
                     break;
 
@@ -233,7 +232,7 @@ public class SetUpController implements ActionListener, MouseListener {
             isClickedBoat(boat);
         }
     }
-
+//hola
     private boolean badPositionBoat(int number,int positionLetter,int size,boolean rotation){
         boolean goodPosition = true;
         if (rotation) {
@@ -333,19 +332,16 @@ public class SetUpController implements ActionListener, MouseListener {
 
     private void createRandomBoatPositions(){
         int positionRandomX,positionRandomY;
-        //for (int i = 0;i<5;i++){
-            Random random = new Random();
-            positionRandomX = random.nextInt(15)+1;
-            positionRandomY = random.nextInt(15)+1;
-            positionPorta = createPortaAvions(positionRandomX,positionRandomY,randomRotation());
-            do{
-                positionRandomX = random.nextInt(15)+1;
-                positionRandomY = random.nextInt(15)+1;
-                positionDestructor = createDestructor(positionRandomX,positionRandomY,randomRotation());
-            } while(!checkDestructorIA(positionPorta,positionRandomX,positionRandomY,randomRotation()));
-        //}
-        System.out.println(Arrays.deepToString(positionPorta));
-        System.out.println(Arrays.deepToString(positionDestructor));
+        createPortaAvions();
+        createDestructor();
+        createSubmari();
+        createSubmari2();
+        createLlanxa();
+    }
+
+    private int randomPosition(){
+        Random random = new Random();
+        return random.nextInt(15)+1;
     }
 
     private boolean randomRotation(){
@@ -355,277 +351,158 @@ public class SetUpController implements ActionListener, MouseListener {
         return rotation == 2;
     }
 
-    private int[][] createPortaAvions(int positionRandomX,int positionRandomY,boolean rotation){
-        positionPortaX = new int[5];
-        positionPortaY = new int[5];
-
-        for (int i = 0;i<5;i++){
-            if(rotation){
-                positionPortaX[i] = positionRandomX;
-                positionPortaY[i] = positionRandomY + i;
-            }
-            else{
-                positionPortaX[i] = positionRandomX + i;
-                positionPortaY[i] = positionRandomY;
-            }
-        }
-
-        return new int[][]{positionPortaX,positionPortaY};
+    private void createPortaAvions(){
+        do{
+            positionPortaX = randomPosition(); //Extract positionX
+            positionPortaY = randomPosition(); //Extract positionY
+            rotationPorta = randomRotation(); //Extract orientation
+            System.out.println("porta" + positionPortaX);
+            System.out.println(positionPortaY);
+            System.out.println(rotationPorta);
+        }while(checkInTable(positionPortaX,positionPortaY,rotationPorta,5));
     }
 
-    private int[][] createDestructor(int positionRandomX, int positionRandomY, boolean rotation){
-        positionDestructorX = new int[5];
-        positionDestructorY = new int[5];
-        for (int i = 0;i<4;i++){
-            if(rotation){
-                positionDestructorX[i] = positionRandomX;
-                positionDestructorY[i] = positionRandomY + i;
-            }
-            else{
-                positionDestructorX[i] = positionRandomX + i;
-                positionDestructorY[i] = positionRandomY;
-            }
-        }
-        return new int[][]{positionDestructorX,positionDestructorY};
-    }
+    private boolean checkInTable(int positionX,int positionY,boolean rotation,int size){
 
-    private void createSubmari(int positionRandomX,int positionRandomY,boolean rotation){
-        positionSubmariX = new int[5];
-        positionSubmariY = new int[5];
-        for (int i = 0;i<3;i++){
-            if(rotation){
-                positionSubmariX[i] = positionRandomX;
-                positionSubmariY[i] = positionRandomY + i;
-            }
-            else{
-                positionSubmariX[i] = positionRandomX + i;
-                positionSubmariY[i] = positionRandomY;
-            }
+        if(rotation){
+            return positionY + size > 16;
+        } else{
+            return positionX + size > 16;
         }
     }
 
-    private void createSubmari2(int positionRandomX,int positionRandomY,boolean rotation){
-        positionSubmari2X = new int[5];
-        positionSubmari2Y = new int[5];
-        for (int i = 0;i<3;i++){
-            if(rotation){
-                positionSubmari2X[i] = positionRandomX;
-                positionSubmari2Y[i] = positionRandomY + i;
-            }
-            else{
-                positionSubmari2X[i] = positionRandomX + i;
-                positionSubmari2Y[i] = positionRandomY;
-            }
-        }
+    private void createDestructor(){
+        do{
+            positionDestructorX = randomPosition();
+            positionDestructorY = randomPosition();
+            rotationDestructor = randomRotation();
+            System.out.println("destr" + positionDestructorX);
+            System.out.println(positionDestructorY);
+            System.out.println(rotationDestructor);
+        }while(checkInTable(positionDestructorX,positionDestructorY,rotationDestructor,4)
+                || checkBoatWithAnother(positionDestructorX,positionDestructorY,rotationDestructor,4,positionPortaX,positionPortaY,rotationPorta,5));
     }
 
-    private void createLlanxa(int positionRandomX,int positionRandomY,boolean rotation){
-        positionLlanxaX = new int[5];
-        positionLlanxaY = new int[5];
-        for (int i = 0;i<2;i++){
-            if(rotation){
-                positionLlanxaX[i] = positionRandomX;
-                positionLlanxaY[i] = positionRandomY + i;
-            }
-            else{
-                positionLlanxaX[i] = positionRandomX + i;
-                positionLlanxaY[i] = positionRandomY;
-            }
-        }
+
+    private void createSubmari(){
+        do{
+            positionSubmariX = randomPosition();
+            positionSubmariY = randomPosition();
+            rotationSubmari = randomRotation();
+            System.out.println("sub" + positionSubmariX);
+            System.out.println(positionSubmariY);
+            System.out.println(rotationSubmari);
+        }while (checkInTable(positionSubmariX,positionSubmariY,rotationSubmari,3)
+        || checkBoatWithAnother(positionSubmariX,positionSubmariY,rotationSubmari,3,positionPortaX,positionPortaY,rotationPorta,5)
+        || checkBoatWithAnother(positionSubmariX,positionSubmariY,rotationSubmari,3,positionDestructorX,positionDestructorY,rotationDestructor,4));
     }
 
-    private boolean checkDestructorIA(int[][] positionPorta,int positionRandomX,int positionRandomY,boolean rotation){
-        boolean ok1 = false,ok2 = false,ok3 = false,ok4 = false,ok5 = false,ok6 = false,ok7 = false,ok8=false,ok9=false;
-        int[] positionPortaX = positionPorta[0];
-        int[] positionPortaY = positionPorta[1];
+    private void createSubmari2(){
+        do{
+            positionSubmari2X = randomPosition();
+            positionSubmari2Y = randomPosition();
+            rotationSubmari2 = randomRotation();
+            System.out.println("sub2" + positionSubmari2X);
+            System.out.println(positionSubmari2Y);
+            System.out.println(rotationSubmari2);
+        }while (checkInTable(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3)
+                || checkBoatWithAnother(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3,positionPortaX,positionPortaY,rotationPorta,5)
+                || checkBoatWithAnother(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3,positionDestructorX,positionDestructorY,rotationDestructor,4)
+                || checkBoatWithAnother(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3,positionSubmariX,positionSubmariY,rotationSubmari,3)
+        );
+    }
+
+    private void createLlanxa(){
+        do{
+            positionLlanxaX = randomPosition();
+            positionLlanxaY = randomPosition();
+            rotationLlanxa = randomRotation();
+            System.out.println("llanxa" + positionLlanxaX);
+            System.out.println(positionLlanxaY);
+            System.out.println(rotationLlanxa);
+        }while (checkInTable(positionLlanxaX,positionLlanxaY,rotationLlanxa,2)
+                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionPortaX,positionPortaY,rotationPorta,5)
+                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionDestructorX,positionDestructorY,rotationDestructor,4)
+                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionSubmariX,positionSubmariY,rotationSubmari,3)
+                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionSubmari2X,positionSubmari2Y,rotationSubmari2,3));
+    }
 
 
 
-                if(rotation){
-                    for(int i = 0;i<4;i++) {
-                        if (positionRandomX - 1 < 0) {
-                            ok1 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok1 = positionRandomX - 1 == positionPortaX[j] && positionRandomY + i == positionPortaY[j];
-                                if (ok1) {
-                                    break;
-                                }
-                            }
-                        }
-                        if (positionRandomY - 1 < 0) {
-                            ok2 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok2 = positionRandomX == positionPortaX[j] && positionRandomY + i - 1 == positionPortaY[j];
-                                if (ok2) {
-                                    break;
-                                }
-                            }
-                        }
-                        if (positionRandomX + 1 > 15) {
-                            ok3 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok3 = positionRandomX + 1 == positionPortaX[j] && positionRandomY + i == positionPortaY[j];
-                                if (ok3) {
-                                    break;
-                                }
-                            }
-                        }
-                        if (positionRandomY + 1 > 15) {
-                            ok4 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok4 = positionRandomX == positionPortaX[j] && positionRandomY + i + 1 == positionPortaY[j];
-                                if (ok4) {
-                                    break;
-                                }
-                            }
-                        }
-                        if (positionRandomY + 1 > 15 && positionRandomX + 1 > 15) {
-                            ok5 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok5 = positionRandomX + 1 == positionPortaX[j] && positionRandomY + i + 1 == positionPortaY[j];
-                                if (ok5) {
-                                    break;
-                                }
-                            }
-                        }
-                        if (positionRandomY + 1 > 15 && positionRandomX - 1 < 0) {
-                            ok6 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok6 = positionRandomX - 1 == positionPortaX[j] && positionRandomY + i + 1 == positionPortaY[j];
-                                if (ok6) {
-                                    break;
-                                }
-                            }
-                        }
-                        if (positionRandomY - 1 < 0 && positionRandomX - 1 < 0) {
-                            ok7 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok7 = positionRandomX - 1 == positionPortaX[j] && positionRandomY + i - 1 == positionPortaY[j];
-                                if (ok7) {
-                                    break;
-                                }
-                            }
-                        }
-                        if (positionRandomY - 1 < 0 && positionRandomX + 1 > 15) {
-                            ok8 = true;
-                        } else {
-                            for (int j = 0; j < 5; j++) {
-                                ok8 = positionRandomX + 1 == positionPortaX[j] && positionRandomY + i - 1 == positionPortaY[j];
-                                if (ok8) {
-                                    break;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < 5; j++) {
-                            ok9 = positionRandomX == positionPortaX[j] && positionRandomY + i == positionPortaY[j];
-                            if (ok9) {
-                                break;
-                            }
-                        }
-                    }
-                    return ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8 && ok9;
-                }
-                else{
-                    for(int i = 0;i<4;i++) {
-                    if(positionRandomX-1 < 0){
-                        ok1 = true;
-                    }else{
-                        for(int j =0;j<5;j++){
-                            ok1 = positionRandomX+i-1 == positionPortaX[j] && positionRandomY == positionPortaY[j];
-                            if(ok1){
-                                break;
-                            }
-                        }
-                    }
-                    if(positionRandomY-1 <0) {
-                        ok2 = true;
-                    }
-                    else{
-                        for(int j =0;j<5;j++){
-                            ok2 = positionRandomX+i == positionPortaX[j] && positionRandomY-1 == positionPortaY[j];
-                            if(ok2){
-                                break;
-                            }
-                        }
-                    }
-                    if(positionRandomX+1 > 15){
-                        ok3 = true;
-                    }else{
-                        for(int j =0;j<5;j++){
-                            ok3 = positionRandomX+i+1 == positionPortaX[j] && positionRandomY == positionPortaY[j];
-                            if(ok3){
-                                break;
-                            }
-                        }
-                    }
-                    if(positionRandomY+1 > 15){
-                        ok4 = true;
-                    } else{
-                        for(int j =0;j<5;j++){
-                            ok4 = positionRandomX+i == positionPortaX[j] && positionRandomY+1 == positionPortaY[j];
-                            if(ok4){
-                                break;
-                            }
-                        }
-                    }
-                    if(positionRandomY+1 > 15 && positionRandomX+1>15){
-                        ok5 = true;
-                    } else{
-                        for(int j =0;j<5;j++){
-                            ok5 = positionRandomX+1+i == positionPortaX[j] && positionRandomY+1 == positionPortaY[j];
-                            if(ok5){
-                                break;
-                            }
-                        }
-                    }
-                    if(positionRandomY+1 > 15 && positionRandomX-1<0){
-                        ok6 = true;
-                    } else{
-                        for(int j =0;j<5;j++){
-                            ok6 = positionRandomX+i-1 == positionPortaX[j] && positionRandomY+1 == positionPortaY[j];
-                            if(ok6){
-                                break;
-                            }
-                        }
-                    }
-                    if(positionRandomY-1 < 0 && positionRandomX - 1 < 0){
-                        ok7 = true;
-                    } else{
-                        for(int j =0;j<5;j++){
-                            ok7 = positionRandomX+i-1 == positionPortaX[j] && positionRandomY-1 == positionPortaY[j];
-                            if(ok7){
-                                break;
-                            }
-                        }
-                    }
-                    if(positionRandomY-1 < 0 && positionRandomX+1 > 15){
-                        ok8 = true;
-                    } else{
-                        for(int j =0;j<5;j++){
-                            ok8 = positionRandomX+1+i == positionPortaX[j] && positionRandomY-1 == positionPortaY[j];
-                            if(ok8){
-                                break;
-                            }
-                        }
-                    }
-                    for(int j =0;j<5;j++){
-                        ok9 = positionRandomX+i == positionPortaX[j] && positionRandomY == positionPortaY[j];
-                        if(ok9){
+
+    private boolean checkBoatWithAnother(int positionX, int positionY, boolean rotation,int size,int positionOutX,int positionOutY,boolean rotationOut,int sizeOut){
+        boolean checkBoat = false;
+        if(rotation){
+            if(rotationOut){
+                for(int i = 0;i<size;i++){
+                    for(int j = 0;j<sizeOut;j++){
+                        if      (positionX-1 == positionOutX && positionY+i == positionOutY+j ||
+                                positionX-1 == positionOutX && positionY+i-1 == positionOutY+j ||
+                                positionX-1 == positionOutX && positionY+i+1 == positionOutY+j ||
+                                positionX + 1 == positionOutX && positionY+i == positionOutY+j ||
+                                positionX + 1 == positionOutX && positionY+i+1 == positionOutY+j ||
+                                positionX+1 == positionOutX && positionY+i-1 == positionOutY+j){
+                            checkBoat = true;
                             break;
                         }
                     }
 
                 }
-                    return ok1&&ok2&&ok3&&ok4&&ok5&&ok6&&ok7&&ok8&&ok9;
             }
+            else{
+                for(int i = 0;i<size;i++){
+                    for(int j = 0;j<sizeOut;j++){
+                        if      (positionX-1 == positionOutX+j && positionY+i == positionOutY ||
+                                positionX-1 == positionOutX+j && positionY+i-1 == positionOutY ||
+                                positionX-1 == positionOutX+j && positionY+i+1 == positionOutY ||
+                                positionX + 1 == positionOutX+j && positionY+i == positionOutY ||
+                                positionX + 1 == positionOutX+j && positionY+i+1 == positionOutY ||
+                                positionX+1 == positionOutX+j && positionY+i-1 == positionOutY){
+                            checkBoat = true;
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+        }else{
+            if(rotationOut){
+                for(int i = 0;i<size;i++){
+                    for(int j = 0;j<sizeOut;j++){
+                        if      (positionX-1+i == positionOutX && positionY == positionOutY+j ||
+                                positionX-1+i == positionOutX && positionY-1 == positionOutY+j ||
+                                positionX-1+i == positionOutX && positionY+1 == positionOutY+j ||
+                                positionX + 1+i == positionOutX && positionY == positionOutY+j ||
+                                positionX + 1+i == positionOutX && positionY+1 == positionOutY+j ||
+                                positionX+1+i == positionOutX && positionY-1 == positionOutY+j){
+                            checkBoat = true;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            else{
+                for(int i = 0;i<size;i++){
+                    for(int j = 0;j<sizeOut;j++){
+                        if      (positionX-1+i == positionOutX+j && positionY == positionOutY ||
+                                positionX-1+i == positionOutX+j && positionY-1 == positionOutY ||
+                                positionX-1+i == positionOutX+j && positionY+1 == positionOutY ||
+                                positionX + 1+i == positionOutX+j && positionY == positionOutY ||
+                                positionX + 1+i == positionOutX+j && positionY+1 == positionOutY ||
+                                positionX+1+i == positionOutX+j && positionY-1 == positionOutY){
+                            checkBoat = true;
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+        return checkBoat;
     }
+
 
 
 
