@@ -35,6 +35,10 @@ public class MenuController implements ActionListener {
                 mainView.switchView(MainView.DELETE_VIEW);
                 break;
 
+            case MenuGUI.STATS_BTN:
+                mainView.switchView(MainView.STATISTICS_VIEW);
+                break;
+
 
 
         }

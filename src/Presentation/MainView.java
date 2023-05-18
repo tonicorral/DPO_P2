@@ -19,6 +19,8 @@ public class MainView extends JFrame {
     private SetupStageGUI setupStageGUI;
 
     private GameStageGUI gameStageGUI;
+
+    private StatisticsGUI statisticsGUI;
     private JPanel mainViewPanel;
     private CardLayout cardLayout;
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
@@ -32,7 +34,9 @@ public class MainView extends JFrame {
 
     public static final String GAME_STAGE_VIEW = "GAME_STAGE_VIEW";
 
-    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI, DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI, GameStageGUI gameStageGUI) {
+    public static final String STATISTICS_VIEW = "STATISTICS_VIEW";
+    public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI,
+                    DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI, GameStageGUI gameStageGUI, StatisticsGUI statisticsGUI) {
         this.loginGUI = loginGUI;
         this.signUpGUI = signUpGUI;
         this.menuGUI = menuGUI;
@@ -41,6 +45,8 @@ public class MainView extends JFrame {
         this.deleteUserGUI = deleteUserGUI;
         this.setupStageGUI = setupStageGUI;
         this.gameStageGUI = gameStageGUI;
+        this.statisticsGUI = statisticsGUI;
+
         configurationFrame();
         configLayout();
     }
@@ -65,6 +71,7 @@ public class MainView extends JFrame {
 
         this.add(MainView.SETUP_VIEW, setupStageGUI);
         this.add(MainView.GAME_STAGE_VIEW, gameStageGUI);
+        this.add(MainView.STATISTICS_VIEW, statisticsGUI);
     }
 
     public void switchView(String view) {
@@ -90,6 +97,7 @@ public class MainView extends JFrame {
         deleteUserGUI.addCancelButtonListener(listener);
         deleteUserGUI.addDeleteButtonListener(listener);
 
+        statisticsGUI.addStatListeners(listener);
        // setupStageGUI.setUpButtonController(listener);
         //gameStageGUI.setGameListener(listener);
     }

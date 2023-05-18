@@ -90,7 +90,7 @@ public class MenuGUI extends JPanel {
         logout.addActionListener(listener);
         delete.addActionListener(listener);
         newGame.addActionListener(listener);
-
+        stats.addActionListener(listener);
     }
 
 

@@ -19,12 +19,13 @@ public class Main {
         MenuGUI menuGUI = new MenuGUI();
         SetupStageGUI setupStageGUI = new SetupStageGUI();
         GameStageGUI gameStageGUI = new GameStageGUI();
+        StatisticsGUI statisticsGUI = new StatisticsGUI();
         //setupStageGUI.setVisible(true);
         //gameStageGUI.setVisible(true);
 
         StartGUI startGUI = new StartGUI();
 
-        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI);
+        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
         MainController mainController = new MainController(mainView);
         UserModel userModel = new UserModel(userdao);
         LoginController loginController = new LoginController(loginGUI,mainView,mainController,userModel);

@@ -156,12 +156,6 @@ public class UserModel {
     }
 
 
-    //public boolean userExists(String username) {return checkUserName(username);}
-
-    public void logoutCurrentUser() {
-        userName = null;
-
-    }
 
 
 
