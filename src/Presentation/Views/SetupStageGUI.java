@@ -422,7 +422,58 @@ public class SetupStageGUI extends JPanel{
 
     public boolean  checkCellHorizontal(int number,int positionLetter, int i){
 
-        return cells[number + i - 1][positionLetter - 1].getBackground().equals(Color.white);
+        boolean ok1 = false,ok2 = false,ok3 = false,ok4 = false,ok5 = false,ok6 = false,ok7 = false,ok8=false;
+
+        if(number > 15){
+            ok1 = true;
+        } else{
+            ok1 = cells[number+i][positionLetter- 1].getBackground().equals(Color.white);
+        }
+
+        if(number-2 < 0){
+            ok2 = true;
+        } else{
+            ok2 = cells[number+i - 2][positionLetter - 1].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i-2 < 0){
+            ok3 = true;
+        } else{
+            ok3 = cells[number+i - 1][positionLetter - 2].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i > 15){
+            ok4 = true;
+        } else{
+            ok4 = cells[number+i - 1][positionLetter].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i > 15 && number > 15) {
+            ok5 = true;
+        }   else{
+            ok5 = cells[number+i][positionLetter].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i > 15 && number-2 < 0) {
+            ok6 = true;
+        }   else{
+            ok6 = cells[number+i-2][positionLetter].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i-2 < 0 && number-2 < 0) {
+            ok7 = true;
+        }   else{
+            ok7 = cells[number+i-2][positionLetter-2].getBackground().equals(Color.white);
+        }
+
+        if(positionLetter+i-2 < 0 && number > 15) {
+            ok8 = true;
+        }   else{
+            ok8 = cells[number+i][positionLetter-2].getBackground().equals(Color.white);
+        }
+
+        return cells[number + i - 1][positionLetter - 1].getBackground().equals(Color.white) && ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8;
+
     }
 
     public void paintBoatVertical(int number,int positionLetter, int i, Color boatColor, String text){
