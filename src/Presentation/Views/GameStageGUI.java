@@ -3,15 +3,19 @@ package Presentation.Views;
 import Presentation.Controllers.GameStageController;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 
 public class GameStageGUI extends JPanel{
     private Point mouseSelect = null;
     private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
-    private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2;
+    private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable;
     private JButton eliminar, tancar, abandonar;
+    private JTable[] tables;
+    private JTable userTable;
     private JButton[][] cellsUser;
+    private DefaultTableModel model;
     private JComboBox<Integer> comboBoxUser, comboBox1, comboBox2, comboBox3, comboBox4;
     public static final String ELIMINAR = "ELIMINAR";
     public static final String TANCAR = "TANCAR";
@@ -20,10 +24,10 @@ public class GameStageGUI extends JPanel{
     private Color buttonColor;
 
     public GameStageGUI(){
-
+        this.setLayout(new BorderLayout());
         buttonColor = new Color(124,136,248);
         generalPanel = new JPanel();
-        generalPanel.setLayout(new BorderLayout());
+        //generalPanel.setLayout(new BorderLayout());
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
@@ -90,19 +94,19 @@ public class GameStageGUI extends JPanel{
         clock.setBorder(BorderFactory.createEmptyBorder(20,500,10,20));
         gamePanel.add(clock, BorderLayout.CENTER);
         //parte de arriba done
-        generalPanel.add(gamePanel, BorderLayout.NORTH);
-        generalPanel.add(Box.createVerticalStrut(50));
+        add(gamePanel, BorderLayout.NORTH);
+        add(Box.createVerticalStrut(50));
 
         grid1 = new JPanel();
         grid1.setLayout(new GridLayout(2, 1));
 
         emptyPanel1 = new JPanel();
         emptyPanel1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        emptyPanel1.setBackground(new Color(89,185,198));
+        emptyPanel1.setBackground(Color.YELLOW);
 
         emptyPanel2 = new JPanel();
         emptyPanel2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        emptyPanel2.setBackground(new Color(89,185,198));
+        emptyPanel2.setBackground(Color.RED);
         //tablePanel.add(emptyPanel);
         tablePanel1 = new JPanel(new GridLayout(16,16));
         tablePanel1.add(emptyPanel1);
@@ -121,15 +125,6 @@ public class GameStageGUI extends JPanel{
             tablePanel1.add(cell);
         }
 
-        /*cells1 = new JButton[15][15];
-
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                cells1[i][j] = new JButton();
-                cells1[i][j].setName(String.format("cell%d%d", i, j));
-                // Add button to panel or container
-            }
-        }*/
 
         for (char c = 'A'; c <= 'O'; c++) {
             JPanel cell1 = new JPanel();
@@ -146,14 +141,6 @@ public class GameStageGUI extends JPanel{
                 tablePanel1.add(cell);
             }
 
-/*            for (int i = 1; i <= 15; i++) {
-                String actionCommand = String.format("cell%c%d", c, i);
-                System.out.println(actionCommand);
-                cells1[i - 1][c - 'A'].setActionCommand(actionCommand);
-                cells1[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                cells1[i - 1][c - 'A'].setBackground(Color.white);
-                grid1.add(cells1[i - 1][c - 'A']);
-            }*/
         }
         //   tablePanel1.add(Box.createHorizontalStrut(20));
         tablePanel1.setPreferredSize(new Dimension(50, 50));
@@ -170,15 +157,6 @@ public class GameStageGUI extends JPanel{
 
         }
 
-       /* cells2 = new JButton[15][15];
-
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                cells2[i][j] = new JButton();
-                cells2[i][j].setName(String.format("cell%d%d", i, j));
-                // Add button to panel or container
-            }
-        }*/
 
         for (char c = 'A'; c <= 'O'; c++) {
             JPanel cell1 = new JPanel();
@@ -194,30 +172,23 @@ public class GameStageGUI extends JPanel{
                 tablePanel2.add(cell);
             }
 
-           /* for (int i = 1; i <= 15; i++) {
-                String actionCommand = String.format("cell%c%d", c, i);
-                System.out.println(actionCommand);
-                cells2[i - 1][c - 'A'].setActionCommand(actionCommand);
-                cells2[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                cells2[i - 1][c - 'A'].setBackground(Color.white);
-                grid1.add(cells2[i - 1][c - 'A']);
-            }*/
+
         }
         //tablePanel2.add(Box.createHorizontalStrut(20));
         // tablePanel2.setPreferredSize(new Dimension(100, 100));
         grid1.add(tablePanel2);
         grid1.setPreferredSize(new Dimension(300,0));
-        generalPanel.add(grid1, BorderLayout.WEST);
+        add(grid1, BorderLayout.WEST);
 
 
 
         emptyPanel3 = new JPanel();
         emptyPanel3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        emptyPanel3.setBackground(new Color(89,185,198));
+        emptyPanel3.setBackground(Color.PINK);
 
         emptyPanel4= new JPanel();
         emptyPanel4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        emptyPanel4.setBackground(new Color(89,185,198));
+        emptyPanel4.setBackground(Color.ORANGE);
 
         grid2 = new JPanel();
         grid2.setLayout(new GridLayout(2,1));
@@ -238,15 +209,7 @@ public class GameStageGUI extends JPanel{
             tablePanel3.add(cell);
         }
 
-        /*cells3 = new JButton[15][15];
 
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                cells3[i][j] = new JButton();
-                cells3[i][j].setName(String.format("cell%d%d", i, j));
-                // Add button to panel or container
-            }
-        }*/
 
         for (char c = 'A'; c <= 'O'; c++) {
             JPanel cell1 = new JPanel();
@@ -262,14 +225,6 @@ public class GameStageGUI extends JPanel{
                 tablePanel3.add(cell);
             }
 
-            /*for (int i = 1; i <= 15; i++) {
-                String actionCommand = String.format("cell%c%d", c, i);
-                System.out.println(actionCommand);
-                cells3[i - 1][c - 'A'].setActionCommand(actionCommand);
-                cells3[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                cells3[i - 1][c - 'A'].setBackground(Color.white);
-                grid2.add(cells3[i - 1][c - 'A']);
-            }*/
         }
         grid2.add(tablePanel3);
 
@@ -283,15 +238,7 @@ public class GameStageGUI extends JPanel{
             tablePanel4.add(cell);
         }
 
-        /*cells4 = new JButton[15][15];
 
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                cells4[i][j] = new JButton();
-                cells4[i][j].setName(String.format("cell%d%d", i, j));
-                // Add button to panel or container
-            }
-        }*/
 
         for (char c = 'A'; c <= 'O'; c++) {
             JPanel cell1 = new JPanel();
@@ -307,18 +254,11 @@ public class GameStageGUI extends JPanel{
                 cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 tablePanel4.add(cell);
             }
-            /*for (int i = 1; i <= 15; i++) {
-                String actionCommand = String.format("cell%c%d", c, i);
-                System.out.println(actionCommand);
-                cells4[i - 1][c - 'A'].setActionCommand(actionCommand);
-                cells4[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                cells4[i - 1][c - 'A'].setBackground(Color.white);
-                grid2.add(cells4[i - 1][c - 'A']);
-            }*/
+
         }
         grid2.add(tablePanel4);
         grid2.setPreferredSize(new Dimension(300,0));
-        generalPanel.add(grid2, BorderLayout.EAST);
+        add(grid2, BorderLayout.EAST);
 
 
 
@@ -331,6 +271,7 @@ public class GameStageGUI extends JPanel{
 
         tablePanelUser = new JPanel(new GridLayout(16,16));
         tablePanelUser.add(emptyPanelUser);
+
 
         for (int i = 1; i <= 15; i++) {
             JPanel cell = new JPanel();
@@ -362,11 +303,7 @@ public class GameStageGUI extends JPanel{
             cell1.add(label);
             tablePanelUser.add(cell1);
 
-           /* for (int i = 2; i <= 16; i++) {
-                JPanel cell = new JPanel();
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                tablePanelUser.add(cell);
-            }*/
+
 
             for (int i = 1; i <= 15; i++) {
                 String actionCommand = String.format("cell%c%d", c, i);
@@ -378,135 +315,63 @@ public class GameStageGUI extends JPanel{
             }
         }
 
-        tablePanelUser.setPreferredSize(new Dimension(200,200));
-        // boxUser.add(tablePanelUser);
-        tablePanelUser.setBorder(BorderFactory.createEmptyBorder(20,40,5,40));
+        tablePanelUser.setPreferredSize(new Dimension(350,420));
+
+        //tablePanelUser.setBorder(BorderFactory.createEmptyBorder(20,20,10,20));
         tablePanelUser.setOpaque(false);
-        //boxUser.add(tablePanelUser);
-        //boxUser.setPreferredSize(new Dimension(300,300));
 
 
+        infoTable = new JPanel();
+        infoTable.setLayout(new FlowLayout());
+        tables = new JTable[5];
+        userTable = new JTable();
 
-        gridTabla = new JPanel();
-        gridTabla.setLayout(new BoxLayout(gridTabla,BoxLayout.Y_AXIS));
-
-        title = new JPanel();
-        title.setLayout(new BoxLayout(title, BoxLayout.X_AXIS));
-
-        p = new JPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
-
-        d = new JPanel();
-        d.setLayout(new BoxLayout(d, BoxLayout.X_AXIS));
-
-        s = new JPanel();
-        s.setLayout(new BoxLayout(s, BoxLayout.X_AXIS));
-
-        l1 = new JPanel();
-        l1.setLayout(new BoxLayout(l1, BoxLayout.X_AXIS));
-
-        l2 = new JPanel();
-        l2.setLayout(new BoxLayout(l2, BoxLayout.X_AXIS));
-
-        hundidoP =  new JLabel("      Enfonsat                  ");
-        hundidoP.setFont(new Font("Inter", Font.BOLD, 10));
-        floteP =  new JLabel("       Navegant   ");
-        floteP.setFont(new Font("Inter", Font.BOLD, 10));
-
-        hundidoD =  new JLabel("      Enfonsat                  ");
-        hundidoD.setFont(new Font("Inter", Font.BOLD, 10));
-        floteD =  new JLabel("       Navegant   ");
-        floteD.setFont(new Font("Inter", Font.BOLD, 10));
+        for(int i = 0; i < 5; i++){
+            if(i == 0){
+                tables[i] = createTable();
+                tables[i].setBackground(Color.YELLOW);
+                infoTable.add(tables[i]);
 
 
-        hundidoS =  new JLabel("      Enfonsat                  ");
-        hundidoS.setFont(new Font("Inter", Font.BOLD, 10));
-        floteS =  new JLabel("       Navegant   ");
-        floteS.setFont(new Font("Inter", Font.BOLD, 10));
+            }
+            if(i == 1){
+                tables[i] = createTable();
+                tables[i].setBackground(Color.RED);
+                infoTable.add(tables[i]);
+            }
+            if(i == 3){
+                tables[i] = createTable();
+                tables[i].setBackground(Color.ORANGE);
+                infoTable.add(tables[i]);
 
-        hundidoL1 =  new JLabel("      Enfonsat                  ");
-        hundidoL1.setFont(new Font("Inter", Font.BOLD, 10));
-        floteL1 =  new JLabel("      Navegant   ");
-        floteL1.setFont(new Font("Inter", Font.BOLD, 10));
+            }
+            if(i == 4){
+                tables[i] = createTable();
+                tables[i].setBackground(Color.PINK);
+                infoTable.add(tables[i]);
+            }
+            if(i == 2){
+                userTable = createUserTable();
+                userTable.setBackground(new Color(89,185,198));
+                infoTable.add(userTable);
 
+            }
+        }
 
-        hundidoL2 =  new JLabel("      Enfonsat                  ");
-        hundidoL2.setFont(new Font("Inter", Font.BOLD, 10));
-        floteL2=  new JLabel("       Navegant   ");
-        floteL2.setFont(new Font("Inter", Font.BOLD, 10));
-
-
-
-
-
-        barcos = new JLabel("           Vaixells                          ");
-        barcos.setFont(new Font("Inter", Font.BOLD, 10));
-        title.add(barcos);
-        estado = new JLabel("Estat Actual                                   ");
-        estado.setFont(new Font("Inter", Font.BOLD, 10));
-        title.add(estado);
-        gridTabla.add(title);
-
-
-        portaviones =  new JLabel("      Portaviones              ");
-        portaviones.setFont(new Font("Inter", Font.BOLD, 10));
-        p.add(portaviones);
-        p.add(floteP);
-        p.add(hundidoP);
-        gridTabla.add(p);
-
-
-        destructores =  new JLabel("      Destructors               ");
-        destructores.setFont(new Font("Inter", Font.BOLD, 10));
-        d.add(destructores);
-        d.add(floteD);
-        d.add(hundidoD);
-        gridTabla.add(d);
-
-
-        submarino =  new JLabel("      Submarí                    ");
-        submarino.setFont(new Font("Inter", Font.BOLD, 10));
-        s.add(submarino);
-        s.add(floteS);
-        s.add(hundidoS);
-        gridTabla.add(s);
-
-
-        lancha1 =  new JLabel("     Llanxa1                      ");
-        lancha1.setFont(new Font("Inter", Font.BOLD, 10));
-        l1.add(lancha1);
-        l1.add(floteL1);
-        l1.add(hundidoL1);
-        gridTabla.add(l1);
-
-        lancha2 =  new JLabel("     Llanxa2                     ");
-        lancha2.setFont(new Font("Inter", Font.BOLD, 10));
-        l2.add(lancha2);
-        l2.add(floteL2);
-        l2.add(hundidoL2);
-        gridTabla.add(l2);
-
-
-        gridTabla.setBackground(Color.lightGray);
-
-        gridTabla.setPreferredSize(new Dimension(150, 100));
-        gridTabla.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        //  info.add(gridTabla);
-        //  info.setBackground(Color.WHITE);
-        //info.setBorder(BorderFactory.createEmptyBorder(10,40, 10, 40));
-
+        infoTable.setBackground(Color.gray);
         empty = new JPanel();
         empty.setLayout(new BoxLayout(empty, BoxLayout.X_AXIS));
-        empty.setBorder(BorderFactory.createEmptyBorder(60,40, 10, 40));
-        generalPanel.add(empty, BorderLayout.SOUTH);
+        empty.setBorder(BorderFactory.createEmptyBorder(60,10, 10, 40));
+        add(empty, BorderLayout.SOUTH);
 
 
-        //centerPanel.add(boxUser);
+
         centerPanel.add(tablePanelUser);
-        centerPanel.add(gridTabla);
-        generalPanel.add(centerPanel, BorderLayout.CENTER);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(infoTable);
+        add(centerPanel, BorderLayout.CENTER);
 
-        this.add(generalPanel);
+
         setVisible(true);
     }
 
@@ -517,4 +382,33 @@ public class GameStageGUI extends JPanel{
 
     }
 
+    private JTable createTable() {
+        String[] columnNames = {"Barco", "Estado"};
+        String[][] rowData = {
+                {"Portaviones", "TOCADO"},
+                {"Destructor", "Hundido"},
+                {"Submarino", "Tocado"},
+                {"Lancha", "Intacto"},
+                {"Lancha2", "Intacto"}
+        };
+        DefaultTableModel model = new DefaultTableModel(rowData, columnNames);
+        JTable table = new JTable(model);
+
+        table.setPreferredSize(new Dimension(120, 90));
+        return table;
+    }
+    private JTable createUserTable() {
+        String[] columnNames = {"BarcoUser", "Estado"};
+        String[][] rowData = {
+                {"Portaviones", "TOCADO"},
+                {"Destructor", "Hundido"},
+                {"Submarino", "Tocado"},
+                {"Lancha", "Intacto"},
+                {"Lancha2", "Intacto"}
+        };
+        DefaultTableModel model = new DefaultTableModel(rowData, columnNames);
+        JTable table = new JTable(model);
+        table.setPreferredSize(new Dimension(200, 100));
+        return table;
+    }
 }
