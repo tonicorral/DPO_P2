@@ -30,6 +30,7 @@ public class Main {
         //gameStageGUI.setVisible(true);
 
         StartGUI startGUI = new StartGUI();
+        GameModel gameModel = new GameModel(iaModel,tableroModel);
 
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
         MainController mainController = new MainController(mainView);
@@ -39,9 +40,8 @@ public class Main {
         MenuController menuController = new MenuController(menuGUI, mainController, mainView);
         LogoutController logoutController = new LogoutController(logoutGUI, mainController, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainController, mainView, userModel);
-        GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, mainController);
-        GameModel gameModel = new GameModel(iaModel,tableroModel);
-        SetUpController setUpController = new SetUpController(setupStageGUI, mainView,mainController,iaModel,gameModel);
+        GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, mainController, gameModel);
+        SetUpController setUpController = new SetUpController(setupStageGUI, mainView,mainController,iaModel,gameModel, gameStageController);
         mainView.setVisible(true);
 
 

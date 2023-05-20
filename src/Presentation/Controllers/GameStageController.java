@@ -30,16 +30,18 @@ public class GameStageController {
 
     private IAModel iaModel;
 
-    private Game game;
+    private GameModel gameModel;
 
+    private Game game;
     private  ArrayList<Boat> boats;
 
     private ArrayList<Player> players;
 
-    public GameStageController(GameStageGUI gameStageGUI, MainView mainView, MainController mainController) {
+    public GameStageController(GameStageGUI gameStageGUI, MainView mainView, MainController mainController, GameModel gameModel) {
         this.gameStageGUI = gameStageGUI;
         this.mainView = mainView;
         this.mainController = mainController;
+        this.gameModel = gameModel;
         //mainView.setActionMouseListeners(this, this);
     }
 
@@ -73,8 +75,11 @@ public class GameStageController {
         }
     }
 
+    public void initTable() {
+        game = gameModel.getGame();
+        gameStageGUI.setBoats(game);
 
-
+    }
 
 
    /* public void displayGUI() {

@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GameStageGUI extends JPanel{
+
     private Point mouseSelect = null;
     private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
     private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable;
@@ -27,6 +28,7 @@ public class GameStageGUI extends JPanel{
     private Color buttonColor;
 
     public GameStageGUI(){
+
         this.setLayout(new BorderLayout());
         buttonColor = new Color(124,136,248);
         generalPanel = new JPanel();
@@ -316,21 +318,7 @@ public class GameStageGUI extends JPanel{
                 cellsUser[i - 1][c - 'A'].setActionCommand(actionCommand);
                 cellsUser[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 cellsUser[i - 1][c - 'A'].setBackground(Color.white);
-                if(setBarcos(i,c) == 1){
-                    cellsUser[i-1][c-'A'].setBackground(new Color(124,136,248));
-                }
-                if(setBarcos() == 2){
-                    cellsUser[i-1][c-'A'].setBackground(Color.yellow);
-                }
-                if(setBarcos() == 3){
-                    cellsUser[i-1][c-'A'].setBackground(Color.pink);
-                }
-                if(setBarcos() == 4){
-                    cellsUser[i-1][c-'A'].setBackground(Color.pink);
-                }
-                if(setBarcos() == 5){
-                    cellsUser[i-1][c-'A'].setBackground(Color.green);
-                }
+
                 tablePanelUser.add(cellsUser[i - 1][c - 'A']);
             }
         }
@@ -432,26 +420,52 @@ public class GameStageGUI extends JPanel{
         return table;
     }
 
-
-    private int setBarcos(int i,int c){
-        int barco = 0;
-
-        int[][] tablero = new int[15][15];
-
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                tablero[i][j] = 0;
-                for(int m = 0;m<5;m++){
-                    tablero[game.getPlayer().getBoats().get(m).getPositionX()-1][game.getPlayer().getBoats().get(m).getPositionY()-1]
-                }
+    public void setBoats(Game game){
+        for(int m = 0; m < 5; m++){
+            if(game.getPlayer().getBoats().get(0).getOrientation()){
+                cellsUser[game.getPlayer().getBoats().get(0).getPositionX()-1][game.getPlayer().getBoats().get(0).getPositionY()+m-1].setBackground(new Color(124,136,248));
             }
+            else{
+                cellsUser[game.getPlayer().getBoats().get(0).getPositionX()+m-1][game.getPlayer().getBoats().get(0).getPositionY()-1].setBackground(new Color(124,136,248));
+            }
+
         }
+        for(int m = 0; m < 4; m++){
+            if(game.getPlayer().getBoats().get(1).getOrientation()){
+                cellsUser[game.getPlayer().getBoats().get(1).getPositionX()-1][game.getPlayer().getBoats().get(1).getPositionY()+m-1].setBackground(Color.YELLOW);
+            }
+            else{
+                cellsUser[game.getPlayer().getBoats().get(1).getPositionX()+m-1][game.getPlayer().getBoats().get(1).getPositionY()-1].setBackground(Color.YELLOW);
+            }
 
+        }
+        for(int m = 0; m < 3; m++){
+            if(game.getPlayer().getBoats().get(2).getOrientation()){
+                cellsUser[game.getPlayer().getBoats().get(2).getPositionX()-1][game.getPlayer().getBoats().get(2).getPositionY()+m-1].setBackground(Color.PINK);
+            }
+            else{
+                cellsUser[game.getPlayer().getBoats().get(2).getPositionX()+m-1][game.getPlayer().getBoats().get(2).getPositionY()-1].setBackground(Color.PINK);
+            }
 
+        }
+        for(int m = 0; m < 3; m++){
+            if(game.getPlayer().getBoats().get(3).getOrientation()){
+                cellsUser[game.getPlayer().getBoats().get(3).getPositionX()-1][game.getPlayer().getBoats().get(3).getPositionY()+m-1].setBackground(Color.PINK);
+            }
+            else{
+                cellsUser[game.getPlayer().getBoats().get(3).getPositionX()+m-1][game.getPlayer().getBoats().get(3).getPositionY()-1].setBackground(Color.PINK);
+            }
 
+        }
+        for(int m = 0; m < 2; m++){
+            if(game.getPlayer().getBoats().get(4).getOrientation()){
+                cellsUser[game.getPlayer().getBoats().get(4).getPositionX()-1][game.getPlayer().getBoats().get(4).getPositionY()+m-1].setBackground(Color.GREEN);
+            }
+            else{
+                cellsUser[game.getPlayer().getBoats().get(4).getPositionX()+m-1][game.getPlayer().getBoats().get(4).getPositionY()-1].setBackground(Color.GREEN);
+            }
 
-        return barco;
+        }
     }
-
 
 }

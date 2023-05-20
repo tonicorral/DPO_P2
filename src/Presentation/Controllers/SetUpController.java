@@ -17,6 +17,7 @@ public class SetUpController implements ActionListener, MouseListener {
 
     private SetupStageGUI setUpGUI;
 
+
     private boolean mouseClicked = false;
 
     private int positionBoat;
@@ -43,12 +44,13 @@ public class SetUpController implements ActionListener, MouseListener {
     private boolean rotation = false;
 
 
-    public SetUpController(SetupStageGUI setUpGUI, MainView mainView, MainController mainController,IAModel iaModel,GameModel gameModel) {
+    public SetUpController(SetupStageGUI setUpGUI, MainView mainView, MainController mainController,IAModel iaModel,GameModel gameModel, GameStageController gameStageController) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
         this.mainController = mainController;
         this.iaModel = iaModel;
         this.gameModel = gameModel;
+        this.gameStageController = gameStageController;
 
         mainView.setActionMouseListeners(this, this);
 
@@ -82,7 +84,9 @@ public class SetUpController implements ActionListener, MouseListener {
                     gameModel.getNumberPlayers(getNumberPlayers());
                     gameModel.createGame(savePlayer(boats));
                     //iaModel.createBoats();
+                    gameStageController.initTable();
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
+
                 }
                     break;
 

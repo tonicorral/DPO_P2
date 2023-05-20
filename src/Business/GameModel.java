@@ -38,6 +38,10 @@ public class GameModel {
         game = new Game(player,getIA(),numberPlayers,false);
     }
 
+    public Game getGame(){
+        return game;
+    }
+
 
 
 
