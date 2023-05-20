@@ -1,5 +1,8 @@
 package Presentation.Views;
 
+import Business.Boat;
+import Business.Game;
+import Business.Tablero;
 import Presentation.Controllers.GameStageController;
 
 import javax.swing.*;
@@ -289,10 +292,12 @@ public class GameStageGUI extends JPanel{
             for (int j = 0; j < 15; j++) {
                 cellsUser[i][j] = new JButton();
                 cellsUser[i][j].setName(String.format("cell%d%d", i, j));
+
                 // Add button to panel or container
                 // tablePanelUser.add(cellsUser[i][j]);
             }
         }
+
 
         for (char c = 'A'; c <= 'O'; c++) {
             JPanel cell1 = new JPanel();
@@ -311,6 +316,21 @@ public class GameStageGUI extends JPanel{
                 cellsUser[i - 1][c - 'A'].setActionCommand(actionCommand);
                 cellsUser[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 cellsUser[i - 1][c - 'A'].setBackground(Color.white);
+                if(setBarcos(i,c) == 1){
+                    cellsUser[i-1][c-'A'].setBackground(new Color(124,136,248));
+                }
+                if(setBarcos() == 2){
+                    cellsUser[i-1][c-'A'].setBackground(Color.yellow);
+                }
+                if(setBarcos() == 3){
+                    cellsUser[i-1][c-'A'].setBackground(Color.pink);
+                }
+                if(setBarcos() == 4){
+                    cellsUser[i-1][c-'A'].setBackground(Color.pink);
+                }
+                if(setBarcos() == 5){
+                    cellsUser[i-1][c-'A'].setBackground(Color.green);
+                }
                 tablePanelUser.add(cellsUser[i - 1][c - 'A']);
             }
         }
@@ -411,4 +431,27 @@ public class GameStageGUI extends JPanel{
         table.setPreferredSize(new Dimension(200, 100));
         return table;
     }
+
+
+    private int setBarcos(int i,int c){
+        int barco = 0;
+
+        int[][] tablero = new int[15][15];
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                tablero[i][j] = 0;
+                for(int m = 0;m<5;m++){
+                    tablero[game.getPlayer().getBoats().get(m).getPositionX()-1][game.getPlayer().getBoats().get(m).getPositionY()-1]
+                }
+            }
+        }
+
+
+
+
+        return barco;
+    }
+
+
 }

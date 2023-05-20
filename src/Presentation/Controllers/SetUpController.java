@@ -1,8 +1,7 @@
 package Presentation.Controllers;
 
-import Business.Boat;
+import Business.*;
 //import Business.JugadorHumano;
-import Business.Player;
 import Presentation.MainController;
 import Presentation.MainView;
 import Presentation.Views.SetupStageGUI;
@@ -13,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class SetUpController implements ActionListener, MouseListener {
 
@@ -25,25 +23,32 @@ public class SetUpController implements ActionListener, MouseListener {
 
     private String positionBoatTable;
 
-    private boolean rotation = false,rotationPorta = false,rotationDestructor = false,rotationSubmari = false,rotationSubmari2 = false,rotationLlanxa = false;
+
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
 
     private MainView mainView;
     private MainController mainController;
+    private GameModel gameModel;
+
+    private GameStageController gameStageController;
+
+    private IAModel iaModel;
 
     private  ArrayList<Boat> boats;
 
     private ArrayList<Player> players;
 
-    private int positionPortaX,positionDestructorX,positionSubmariX,positionSubmari2X,positionLlanxaX;
+    private Player player;
 
-    private int positionPortaY,positionDestructorY,positionSubmariY,positionSubmari2Y,positionLlanxaY;
+    private boolean rotation = false;
 
-    private int[][] positionPorta,positionDestructor,positionSubmari,positionSubmari2,positionLlanxa;
-    public SetUpController(SetupStageGUI setUpGUI, MainView mainView, MainController mainController) {
+
+    public SetUpController(SetupStageGUI setUpGUI, MainView mainView, MainController mainController,IAModel iaModel,GameModel gameModel) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
         this.mainController = mainController;
+        this.iaModel = iaModel;
+        this.gameModel = gameModel;
 
         mainView.setActionMouseListeners(this, this);
 
@@ -74,8 +79,10 @@ public class SetUpController implements ActionListener, MouseListener {
                     mainController.showError("Put all boats in the table before starting the game!");
                 }else{
                     savePlayer(boats);
-                    createRandomBoatPositions();
-                   // mainView.switchView(MainView.GAME_STAGE_VIEW);
+                    gameModel.getNumberPlayers(getNumberPlayers());
+                    gameModel.createGame(savePlayer(boats));
+                    //iaModel.createBoats();
+                    mainView.switchView(MainView.GAME_STAGE_VIEW);
                 }
                     break;
 
@@ -281,39 +288,9 @@ public class SetUpController implements ActionListener, MouseListener {
 
     }
 
-    private void savePlayer(ArrayList<Boat> boats){
-        int randomNumber = 0;
-        int numPlayers = setUpGUI.getNumPlayers()+1;
-        int[] numbers = new int[numPlayers+1];
-        for(int i = 0;i<numPlayers+1;i++){
-            numbers[i] = i+1;
-        }
-        Random random = new Random();
-        randomNumber = random.nextInt(numPlayers) + 1;
-        //JugadorHumano player1 = new JugadorHumano(boats,new int[0],new int[0],new Tablero(),numbers[randomNumber]);
-        //players.set(0,player1);
-        System.out.println(numbers[randomNumber]-1);
-        numbers[randomNumber] = 0;
-        for (int i = 0;i<numPlayers-1;i++){
-            do{
-                randomNumber = random.nextInt(numPlayers) + 1;
-            }while(numbers[randomNumber] == 0);
-            //JugadorIA playerIA = new JugadorIA(boats,new int[0],new int[0],new Tablero(),numbers[randomNumber]);
-            //players.set(i+1,playerIA);
-            System.out.println(numbers[randomNumber]-1);
-            numbers[randomNumber] = 0;
-        }
-
-        for (Boat boat : boats) {
-            System.out.printf(boat.getName());
-            System.out.printf(boat.getReferenceName());
-            System.out.println(boat.getPositionX());
-            System.out.println(boat.getPositionY());
-            System.out.println(boat.getSize());
-            System.out.println(boat.getOrientation());
-            System.out.println(numPlayers);
-            System.out.println(randomNumber);
-        }
+    private Player savePlayer(ArrayList<Boat> boats){
+        player = new JugadorHumano(boats,new int[0],new int[0],new Tablero(boats));
+        return player;
     }
 
     private void eliminateBoats(){
@@ -330,178 +307,13 @@ public class SetUpController implements ActionListener, MouseListener {
         return isClickedSubmari2 && isClickedSubmari && isClickedPorta && isClickedLlanxa && isClickedDestructor;
     }
 
-    private void createRandomBoatPositions(){
-        int positionRandomX,positionRandomY;
-        createPortaAvions();
-        createDestructor();
-        createSubmari();
-        createSubmari2();
-        createLlanxa();
-    }
-
-    private int randomPosition(){
-        Random random = new Random();
-        return random.nextInt(15)+1;
-    }
-
-    private boolean randomRotation(){
-        int rotation;
-        Random random = new Random();
-        rotation = random.nextInt(2) + 1;
-        return rotation == 2;
-    }
-
-    private void createPortaAvions(){
-        do{
-            positionPortaX = randomPosition(); //Extract positionX
-            positionPortaY = randomPosition(); //Extract positionY
-            rotationPorta = randomRotation(); //Extract orientation
-            System.out.println("porta" + positionPortaX);
-            System.out.println(positionPortaY);
-            System.out.println(rotationPorta);
-        }while(checkInTable(positionPortaX,positionPortaY,rotationPorta,5));
-    }
-
-    private boolean checkInTable(int positionX,int positionY,boolean rotation,int size){
-
-        if(rotation){
-            return positionY + size > 16;
-        } else{
-            return positionX + size > 16;
-        }
-    }
-
-    private void createDestructor(){
-        do{
-            positionDestructorX = randomPosition();
-            positionDestructorY = randomPosition();
-            rotationDestructor = randomRotation();
-            System.out.println("destr" + positionDestructorX);
-            System.out.println(positionDestructorY);
-            System.out.println(rotationDestructor);
-        }while(checkInTable(positionDestructorX,positionDestructorY,rotationDestructor,4)
-                || checkBoatWithAnother(positionDestructorX,positionDestructorY,rotationDestructor,4,positionPortaX,positionPortaY,rotationPorta,5));
-    }
-
-
-    private void createSubmari(){
-        do{
-            positionSubmariX = randomPosition();
-            positionSubmariY = randomPosition();
-            rotationSubmari = randomRotation();
-            System.out.println("sub" + positionSubmariX);
-            System.out.println(positionSubmariY);
-            System.out.println(rotationSubmari);
-        }while (checkInTable(positionSubmariX,positionSubmariY,rotationSubmari,3)
-        || checkBoatWithAnother(positionSubmariX,positionSubmariY,rotationSubmari,3,positionPortaX,positionPortaY,rotationPorta,5)
-        || checkBoatWithAnother(positionSubmariX,positionSubmariY,rotationSubmari,3,positionDestructorX,positionDestructorY,rotationDestructor,4));
-    }
-
-    private void createSubmari2(){
-        do{
-            positionSubmari2X = randomPosition();
-            positionSubmari2Y = randomPosition();
-            rotationSubmari2 = randomRotation();
-            System.out.println("sub2" + positionSubmari2X);
-            System.out.println(positionSubmari2Y);
-            System.out.println(rotationSubmari2);
-        }while (checkInTable(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3)
-                || checkBoatWithAnother(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3,positionPortaX,positionPortaY,rotationPorta,5)
-                || checkBoatWithAnother(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3,positionDestructorX,positionDestructorY,rotationDestructor,4)
-                || checkBoatWithAnother(positionSubmari2X,positionSubmari2Y,rotationSubmari2,3,positionSubmariX,positionSubmariY,rotationSubmari,3)
-        );
-    }
-
-    private void createLlanxa(){
-        do{
-            positionLlanxaX = randomPosition();
-            positionLlanxaY = randomPosition();
-            rotationLlanxa = randomRotation();
-            System.out.println("llanxa" + positionLlanxaX);
-            System.out.println(positionLlanxaY);
-            System.out.println(rotationLlanxa);
-        }while (checkInTable(positionLlanxaX,positionLlanxaY,rotationLlanxa,2)
-                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionPortaX,positionPortaY,rotationPorta,5)
-                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionDestructorX,positionDestructorY,rotationDestructor,4)
-                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionSubmariX,positionSubmariY,rotationSubmari,3)
-                || checkBoatWithAnother(positionLlanxaX,positionLlanxaY,rotationLlanxa,2,positionSubmari2X,positionSubmari2Y,rotationSubmari2,3));
+    public int getNumberPlayers(){
+        return setUpGUI.getNumPlayers();
     }
 
 
 
 
-    private boolean checkBoatWithAnother(int positionX, int positionY, boolean rotation,int size,int positionOutX,int positionOutY,boolean rotationOut,int sizeOut){
-        boolean checkBoat = false;
-        if(rotation){
-            if(rotationOut){
-                for(int i = 0;i<size;i++){
-                    for(int j = 0;j<sizeOut;j++){
-                        if      (positionX-1 == positionOutX && positionY+i == positionOutY+j ||
-                                positionX-1 == positionOutX && positionY+i-1 == positionOutY+j ||
-                                positionX-1 == positionOutX && positionY+i+1 == positionOutY+j ||
-                                positionX + 1 == positionOutX && positionY+i == positionOutY+j ||
-                                positionX + 1 == positionOutX && positionY+i+1 == positionOutY+j ||
-                                positionX+1 == positionOutX && positionY+i-1 == positionOutY+j){
-                            checkBoat = true;
-                            break;
-                        }
-                    }
-
-                }
-            }
-            else{
-                for(int i = 0;i<size;i++){
-                    for(int j = 0;j<sizeOut;j++){
-                        if      (positionX-1 == positionOutX+j && positionY+i == positionOutY ||
-                                positionX-1 == positionOutX+j && positionY+i-1 == positionOutY ||
-                                positionX-1 == positionOutX+j && positionY+i+1 == positionOutY ||
-                                positionX + 1 == positionOutX+j && positionY+i == positionOutY ||
-                                positionX + 1 == positionOutX+j && positionY+i+1 == positionOutY ||
-                                positionX+1 == positionOutX+j && positionY+i-1 == positionOutY){
-                            checkBoat = true;
-                            break;
-                        }
-                    }
-
-                }
-            }
-
-        }else{
-            if(rotationOut){
-                for(int i = 0;i<size;i++){
-                    for(int j = 0;j<sizeOut;j++){
-                        if      (positionX-1+i == positionOutX && positionY == positionOutY+j ||
-                                positionX-1+i == positionOutX && positionY-1 == positionOutY+j ||
-                                positionX-1+i == positionOutX && positionY+1 == positionOutY+j ||
-                                positionX + 1+i == positionOutX && positionY == positionOutY+j ||
-                                positionX + 1+i == positionOutX && positionY+1 == positionOutY+j ||
-                                positionX+1+i == positionOutX && positionY-1 == positionOutY+j){
-                            checkBoat = true;
-                            break;
-                        }
-                    }
-
-                }
-            }
-            else{
-                for(int i = 0;i<size;i++){
-                    for(int j = 0;j<sizeOut;j++){
-                        if      (positionX-1+i == positionOutX+j && positionY == positionOutY ||
-                                positionX-1+i == positionOutX+j && positionY-1 == positionOutY ||
-                                positionX-1+i == positionOutX+j && positionY+1 == positionOutY ||
-                                positionX + 1+i == positionOutX+j && positionY == positionOutY ||
-                                positionX + 1+i == positionOutX+j && positionY+1 == positionOutY ||
-                                positionX+1+i == positionOutX+j && positionY-1 == positionOutY){
-                            checkBoat = true;
-                            break;
-                        }
-                    }
-
-                }
-            }
-        }
-        return checkBoat;
-    }
 
 
 

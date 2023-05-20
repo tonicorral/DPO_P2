@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Game {
 
 
-    private ArrayList<Player> player;
+    private Player player;
+
+    private ArrayList<JugadorIA> jugadorIA;
 
     private int playerTurn;
 
@@ -13,19 +15,36 @@ public class Game {
 
     private boolean finishedGame;
 
-    public Game(ArrayList<Player> player, int numberPlayers, boolean finishedGame) {
+    public Game(Player player,ArrayList<JugadorIA> jugadorIA, int numberPlayers, boolean finishedGame) {
         this.player = player;
+        this.jugadorIA = jugadorIA;
         this.numberPlayers = numberPlayers;
         this.finishedGame = finishedGame;
     }
 
 
-    public ArrayList<Player> getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(ArrayList<Player> player) {
+    public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public ArrayList<JugadorIA> getJugadorIA() {
+        return jugadorIA;
+    }
+
+    public void setJugadorIA(ArrayList<JugadorIA> jugadorIA) {
+        this.jugadorIA = jugadorIA;
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
     public int getNumberPlayers() {
@@ -33,11 +52,7 @@ public class Game {
     }
 
     public void setNumberPlayers(int numberPlayers) {
-        if (numberPlayers > 0) {
-            this.numberPlayers = numberPlayers;
-        } else {
-            throw new IllegalArgumentException("El número de jugadores debe ser mayor que cero.");
-        }
+        this.numberPlayers = numberPlayers;
     }
 
     public boolean isFinishedGame() {
@@ -46,17 +61,5 @@ public class Game {
 
     public void setFinishedGame(boolean finishedGame) {
         this.finishedGame = finishedGame;
-    }
-
-    public int getPlayerTurn() {
-        return playerTurn;
-    }
-
-    public void setPlayerTurn(int playerTurn) {
-        if (playerTurn >= 0 && playerTurn < numberPlayers) {
-            this.playerTurn = playerTurn;
-        } else {
-            throw new IllegalArgumentException("El turno del jugador no es válido.");
-        }
     }
 }

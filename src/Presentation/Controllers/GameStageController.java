@@ -1,7 +1,6 @@
 package Presentation.Controllers;
 
-import Business.Boat;
-import Business.Player;
+import Business.*;
 import Presentation.MainController;
 import Presentation.MainView;
 import Presentation.Views.GameStageGUI;
@@ -29,6 +28,10 @@ public class GameStageController {
     private MainView mainView;
     private MainController mainController;
 
+    private IAModel iaModel;
+
+    private Game game;
+
     private  ArrayList<Boat> boats;
 
     private ArrayList<Player> players;
@@ -37,11 +40,9 @@ public class GameStageController {
         this.gameStageGUI = gameStageGUI;
         this.mainView = mainView;
         this.mainController = mainController;
-
         //mainView.setActionMouseListeners(this, this);
-
-
     }
+
     public void actionPerformed(ActionEvent e) {
 
         //System.out.println(e.getActionCommand().equals(GameStageGUI.ROTATE));
@@ -71,6 +72,11 @@ public class GameStageController {
 
         }
     }
+
+
+
+
+
    /* public void displayGUI() {
         JFrame frame = new JFrame("Game Stage");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

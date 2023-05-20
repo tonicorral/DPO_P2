@@ -1,3 +1,6 @@
+import Business.GameModel;
+import Business.IAModel;
+import Business.TableroModel;
 import Business.UserModel;
 import Persistance.UserDAO;
 import Persistance.UserSQL;
@@ -20,6 +23,9 @@ public class Main {
         SetupStageGUI setupStageGUI = new SetupStageGUI();
         GameStageGUI gameStageGUI = new GameStageGUI();
         StatisticsGUI statisticsGUI = new StatisticsGUI();
+        IAModel iaModel = new IAModel();
+        TableroModel tableroModel = new TableroModel();
+
         //setupStageGUI.setVisible(true);
         //gameStageGUI.setVisible(true);
 
@@ -33,8 +39,9 @@ public class Main {
         MenuController menuController = new MenuController(menuGUI, mainController, mainView);
         LogoutController logoutController = new LogoutController(logoutGUI, mainController, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainController, mainView, userModel);
-        SetUpController setUpController = new SetUpController(setupStageGUI, mainView,mainController);
-        GameStageController gameStageController = new GameStageController(gameStageGUI, mainView, mainController);
+        GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, mainController);
+        GameModel gameModel = new GameModel(iaModel,tableroModel);
+        SetUpController setUpController = new SetUpController(setupStageGUI, mainView,mainController,iaModel,gameModel);
         mainView.setVisible(true);
 
 
