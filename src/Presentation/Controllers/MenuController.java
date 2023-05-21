@@ -1,6 +1,6 @@
 package Presentation.Controllers;
 
-import Presentation.MainController;
+
 import Presentation.MainView;
 import Presentation.Views.MenuGUI;
 
@@ -9,14 +9,12 @@ import java.awt.event.ActionListener;
 
 public class MenuController implements ActionListener {
     private MenuGUI menuGUI;
-
-    private MainController mainController;
     private MainView mainView;
 
-    public MenuController(MenuGUI menuGUI, MainController mainController, MainView mainView) {
+    public MenuController(MenuGUI menuGUI, MainView mainView) {
         this.menuGUI = menuGUI;
         this.mainView = mainView;
-        this.mainController = mainController;
+
         mainView.setListeners(this);
     }
 

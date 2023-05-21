@@ -1,7 +1,7 @@
 package Presentation.Controllers;
 
 import Business.UserModel;
-import Presentation.MainController;
+
 import Presentation.MainView;
 import Presentation.Views.LoginGUI;
 
@@ -16,13 +16,13 @@ public class LoginController implements ActionListener {
     private UserModel userModel;
     private MainView mainView;
 
-    private MainController mainController;
 
-    public LoginController(LoginGUI loginGUI, MainView mainView, MainController mainController,UserModel userModel){
+
+    public LoginController(LoginGUI loginGUI, MainView mainView,UserModel userModel){
         this.loginGUI = loginGUI;
         this.userModel = userModel;
         this.mainView = mainView;
-        this.mainController = mainController;
+
 
         mainView.setListeners(this);
     }
@@ -40,9 +40,9 @@ public class LoginController implements ActionListener {
             case LoginGUI.LOGIN_BTN:
                 switch (userModel.login(user, pass)) {
                     case EVERYTHING_OK -> mainView.switchView(MainView.MENU_VIEW);
-                    case EMPTY_FIELD -> mainController.showError("There is an empty field!");
-                    case BAD_PASSWORD -> mainController.showError("Password is incorrect!");
-                    case NO_USER -> mainController.showError("User does not exist");
+                    case EMPTY_FIELD -> mainView.showError("There is an empty field!");
+                    case BAD_PASSWORD -> mainView.showError("Password is incorrect!");
+                    case NO_USER -> mainView.showError("User does not exist");
                 }
 
         }

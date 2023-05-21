@@ -1,43 +1,24 @@
+package Presentation.Controllers;
 
-package Presentation;
-
-
+import Presentation.MainView;
 import Presentation.Views.StartGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainController implements ActionListener {
+public class StartController implements ActionListener {
+    private StartGUI startGUI;
+
     private MainView mainView;
 
-    public MainController(MainView mainView) {
+
+    public StartController(StartGUI startGUI,MainView mainView){
+        this.startGUI = startGUI;
         this.mainView = mainView;
 
         mainView.setListeners(this);
     }
-    public void switchView(String view) {
-        mainView.switchView(view);
-    }
 
-
-    public void showError(String error) {
-
-        mainView.showError(error);
-    }
-
-
-    public String showInput(String text){
-
-        return mainView.showInputPopUp(text);
-    }
-
-
-    public int showConfirm(String text, String[] questions) {
-
-        return mainView.showConfirmPopUp(text, questions);
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
 
@@ -49,5 +30,6 @@ public class MainController implements ActionListener {
                 break;
         }
     }
+
 
 }

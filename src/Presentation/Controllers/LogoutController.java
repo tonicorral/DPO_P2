@@ -1,6 +1,6 @@
 package Presentation.Controllers;
 
-import Presentation.MainController;
+
 import Presentation.MainView;
 import Presentation.Views.LogoutGUI;
 
@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 public class LogoutController implements ActionListener {
     private LogoutGUI logoutGUI;
 
-    private MainController mainController;
+
     private MainView mainView;
 
-    public LogoutController(LogoutGUI logoutGUI, MainController mainController, MainView mainView) {
+    public LogoutController(LogoutGUI logoutGUI, MainView mainView) {
         this.logoutGUI = logoutGUI;
         this.mainView = mainView;
-        this.mainController = mainController;
+
         mainView.setListeners(this);
     }
 

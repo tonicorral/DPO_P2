@@ -1,7 +1,7 @@
 package Presentation.Controllers;
 
 import Business.*;
-import Presentation.MainController;
+
 import Presentation.MainView;
 import Presentation.Views.GameStageGUI;
 import Presentation.Views.SetupStageGUI;
@@ -26,7 +26,7 @@ public class GameStageController {
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
 
     private MainView mainView;
-    private MainController mainController;
+
 
     private IAModel iaModel;
 
@@ -37,10 +37,10 @@ public class GameStageController {
 
     private ArrayList<Player> players;
 
-    public GameStageController(GameStageGUI gameStageGUI, MainView mainView, MainController mainController, GameModel gameModel) {
+    public GameStageController(GameStageGUI gameStageGUI, MainView mainView , GameModel gameModel) {
         this.gameStageGUI = gameStageGUI;
         this.mainView = mainView;
-        this.mainController = mainController;
+
         this.gameModel = gameModel;
         //mainView.setActionMouseListeners(this, this);
     }
@@ -62,13 +62,6 @@ public class GameStageController {
             //case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
             case GameStageGUI.ABANDONAR:
                 mainView.switchView(MainView.MENU_VIEW);
-                break;
-
-            case GameStageGUI.TANCAR:
-                mainView.switchView(MainView.LOGOUT_VIEW);
-                break;
-            case GameStageGUI.ELIMINAR:
-                mainView.switchView(MainView.DELETE_VIEW);
                 break;
 
 

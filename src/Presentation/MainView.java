@@ -26,7 +26,6 @@ public class MainView extends JFrame {
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
     public static final String SIGNUP_VIEW = "SIGNUP_VIEW";
     public static final String START_VIEW = "START_VIEW";
-    public static final String BOARD_VIEW = "BOARD_VIEW";
     public static final String MENU_VIEW = "MENU_VIEW";
     public static final String LOGOUT_VIEW = "LOGOUT_VIEW";
     public static final String DELETE_VIEW = "DELETE_VIEW";

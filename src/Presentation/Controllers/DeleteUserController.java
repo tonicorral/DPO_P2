@@ -1,7 +1,6 @@
 package Presentation.Controllers;
 
 import Business.UserModel;
-import Presentation.MainController;
 import Presentation.MainView;
 import Presentation.Views.DeleteUserGUI;
 
@@ -13,16 +12,14 @@ import static Business.UserModel.*;
 public class DeleteUserController implements ActionListener {
     private DeleteUserGUI deleteUserGUI;
 
-    private MainController mainController;
     private MainView mainView;
 
     private UserModel userModel;
 
-    public DeleteUserController(DeleteUserGUI deleteUserGUI, MainController mainController, MainView mainView, UserModel userModel) {
+    public DeleteUserController(DeleteUserGUI deleteUserGUI, MainView mainView, UserModel userModel) {
         this.deleteUserGUI = deleteUserGUI;
         this.mainView = mainView;
         this.userModel = userModel;
-        this.mainController = mainController;
         mainView.setListeners(this);
     }
 
@@ -33,8 +30,8 @@ public class DeleteUserController implements ActionListener {
             case DeleteUserGUI.BUTTON_DELETE:
 
                 switch (userModel.deleteUser(email)) {
-                    case NO_USER -> mainController.showError("User does not exist");
-                    case EMPTY_FIELD -> mainController.showError("There is an empty field!");
+                    case NO_USER -> mainView.showError("User does not exist");
+                    case EMPTY_FIELD -> mainView.showError("There is an empty field!");
                     case EVERYTHING_OK -> mainView.switchView(MainView.START_VIEW);
 
                 }

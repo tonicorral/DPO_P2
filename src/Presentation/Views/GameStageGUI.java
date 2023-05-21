@@ -21,8 +21,7 @@ public class GameStageGUI extends JPanel{
     private JButton[][] cellsUser;
     private DefaultTableModel model;
     private JComboBox<Integer> comboBoxUser, comboBox1, comboBox2, comboBox3, comboBox4;
-    public static final String ELIMINAR = "ELIMINAR";
-    public static final String TANCAR = "TANCAR";
+
     public static final String ABANDONAR = "ABANDONAR";
 
     private Color buttonColor;
@@ -31,11 +30,13 @@ public class GameStageGUI extends JPanel{
 
         this.setLayout(new BorderLayout());
         buttonColor = new Color(124,136,248);
-        generalPanel = new JPanel();
+        //generalPanel = new JPanel();
+        //generalPanel.setBackground(new Color(217,249,253));
         //generalPanel.setLayout(new BorderLayout());
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
+        gamePanel.setBackground(new Color(217,249,253));
 
         joc = new JLabel("GAME");
         joc.setFont(new Font("Inter", Font.BOLD, 40));
@@ -60,7 +61,7 @@ public class GameStageGUI extends JPanel{
         centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
-
+ /*
         eliminar = new JButton("Eliminar Compte");
         eliminar.setActionCommand("ELIMINAR");
         eliminar.setFont(new Font("Inter",Font.BOLD,14));
@@ -73,16 +74,19 @@ public class GameStageGUI extends JPanel{
         tancar.setBackground(buttonColor);
         tancar.setForeground(Color.white);
 
+
         flowButton.add(eliminar);
         flowButton.add(tancar);
 
         buttonPanel.add(flowButton, BorderLayout.NORTH);
-
+ */
         abandonar = new JButton("Abandonar Partida");
         abandonar.setActionCommand("ABANDONAR");
         abandonar.setFont(new Font("Inter",Font.BOLD,14));
         abandonar.setBackground(buttonColor);
         abandonar.setForeground(Color.white);
+
+
 
         buttonPanel.add(abandonar, BorderLayout.CENTER);
 
@@ -93,7 +97,7 @@ public class GameStageGUI extends JPanel{
 
         turno = new JLabel("TU TURNO");
         turno.setFont(new Font("Inter",Font.BOLD,14));
-        turnoPanel.add(turno, BorderLayout.SOUTH);
+        turnoPanel.add(turno, BorderLayout.CENTER);
 
         gamePanel.add(turnoPanel, BorderLayout.WEST);
         clock.setBorder(BorderFactory.createEmptyBorder(20,500,10,20));
@@ -384,8 +388,7 @@ public class GameStageGUI extends JPanel{
     }
 
     public void setGameListener(ActionListener listener, MouseListener mouseListener){
-        eliminar.addActionListener(listener);
-        tancar.addActionListener(listener);
+
         abandonar.addActionListener(listener);
 
     }

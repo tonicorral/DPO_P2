@@ -2,7 +2,7 @@ package Presentation.Controllers;
 
 import Business.*;
 //import Business.JugadorHumano;
-import Presentation.MainController;
+
 import Presentation.MainView;
 import Presentation.Views.SetupStageGUI;
 
@@ -28,7 +28,7 @@ public class SetUpController implements ActionListener, MouseListener {
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
 
     private MainView mainView;
-    private MainController mainController;
+
     private GameModel gameModel;
 
     private GameStageController gameStageController;
@@ -44,10 +44,10 @@ public class SetUpController implements ActionListener, MouseListener {
     private boolean rotation = false;
 
 
-    public SetUpController(SetupStageGUI setUpGUI, MainView mainView, MainController mainController,IAModel iaModel,GameModel gameModel, GameStageController gameStageController) {
+    public SetUpController(SetupStageGUI setUpGUI, MainView mainView,IAModel iaModel,GameModel gameModel, GameStageController gameStageController) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
-        this.mainController = mainController;
+
         this.iaModel = iaModel;
         this.gameModel = gameModel;
         this.gameStageController = gameStageController;
@@ -78,7 +78,7 @@ public class SetUpController implements ActionListener, MouseListener {
             //case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
             case SetupStageGUI.BEGIN_BUTTON:
                 if(!checkAllBoatsPut()){
-                    mainController.showError("Put all boats in the table before starting the game!");
+                    mainView.showError("Put all boats in the table before starting the game!");
                 }else{
                     savePlayer(boats);
                     gameModel.getNumberPlayers(getNumberPlayers());
@@ -198,32 +198,32 @@ public class SetUpController implements ActionListener, MouseListener {
         int number = Integer.parseInt(positionBoatTable.substring(5));
         if (rotation && positionLetter+size-1 > 15){
 
-            mainController.showError("Place the boat in the table please!");
+            mainView.showError("Place the boat in the table please!");
         }
         else if (!rotation && number+size-1 > 15){
 
-            mainController.showError("Place the boat in the table please!");
+            mainView.showError("Place the boat in the table please!");
         } else if (isClickedPorta && boat.equals("PortaAvions")) {
-            mainController.showError("Porta avions already used!");
+            mainView.showError("Porta avions already used!");
 
         }
         else if (isClickedDestructor && boat.equals("Destructor")) {
-            mainController.showError("Destructor already used!");
+            mainView.showError("Destructor already used!");
 
         }
         else if (isClickedSubmari && boat.equals("Submari")) {
-            mainController.showError("Submari already used!");
+            mainView.showError("Submari already used!");
 
         }
         else if (isClickedSubmari2 && boat.equals("Submari2")) {
-            mainController.showError("Submari2 already used!");
+            mainView.showError("Submari2 already used!");
 
         }
         else if (isClickedLlanxa && boat.equals("Llanxa")) {
-            mainController.showError("Llanxa already used!");
+            mainView.showError("Llanxa already used!");
 
         }else if (!badPositionBoat(number,positionLetter,size,rotation)) {
-            mainController.showError("Cell already occupied!");
+            mainView.showError("Cell already occupied!");
 
         }else{
             if (rotation){
