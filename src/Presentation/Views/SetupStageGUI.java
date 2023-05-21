@@ -367,49 +367,49 @@ public class SetupStageGUI extends JPanel{
     public boolean  checkCellVertical(int number,int positionLetter, int i){
         boolean ok1 = false,ok2 = false,ok3 = false,ok4 = false,ok5 = false,ok6 = false,ok7 = false,ok8=false;
 
-        if(number > 15){
+        if(number >= 15){
             ok1 = true;
         } else{
             ok1 = cells[number][positionLetter + i - 1].getBackground().equals(Color.white);
         }
 
-        if(number-2 < 0){
+        if(number-2 <= 0){
             ok2 = true;
         } else{
             ok2 = cells[number - 2][positionLetter + i - 1].getBackground().equals(Color.white);
         }
 
-        if(positionLetter+i-2 < 0){
+        if(positionLetter+i-2 <= 0){
             ok3 = true;
         } else{
             ok3 = cells[number - 1][positionLetter + i - 2].getBackground().equals(Color.white);
         }
 
-        if(positionLetter+i > 15){
+        if(positionLetter+i >= 15){
             ok4 = true;
         } else{
             ok4 = cells[number - 1][positionLetter + i].getBackground().equals(Color.white);
         }
 
-        if(positionLetter+i > 15 && number > 15) {
+        if(positionLetter+i >= 15 || number >= 15) {
             ok5 = true;
         }   else{
                 ok5 = cells[number][positionLetter + i].getBackground().equals(Color.white);
         }
 
-        if(positionLetter+i > 15 && number-2 < 0) {
+        if(positionLetter+i >= 15 || number-2 <= 0) {
             ok6 = true;
         }   else{
             ok6 = cells[number-2][positionLetter + i].getBackground().equals(Color.white);
         }
 
-        if(positionLetter+i-2 < 0 && number-2 < 0) {
+        if(positionLetter+i-2 <= 0 || number-2 <= 0) {
             ok7 = true;
         }   else{
             ok7 = cells[number-2][positionLetter + i-2].getBackground().equals(Color.white);
         }
 
-        if(positionLetter+i-2 < 0 && number > 15) {
+        if(positionLetter+i-2 <= 0 || number >= 15) {
             ok8 = true;
         }   else{
             ok8 = cells[number][positionLetter + i-2].getBackground().equals(Color.white);
@@ -436,37 +436,38 @@ public class SetupStageGUI extends JPanel{
             ok2 = cells[number+i - 2][positionLetter - 1].getBackground().equals(Color.white);
         }
 
-        if(positionLetter-2 < 0){
+        if(positionLetter-2 <= 0){
             ok3 = true;
         } else{
             ok3 = cells[number+i - 1][positionLetter - 2].getBackground().equals(Color.white);
         }
 
-        if(positionLetter > 15){
+        if(positionLetter >= 15){
             ok4 = true;
         } else{
             ok4 = cells[number+i - 1][positionLetter].getBackground().equals(Color.white);
         }
 
-        if(positionLetter+i >= 15 && number+i >= 15) {
+        if(positionLetter+i >= 15 || number+i >= 15) {
             ok5 = true;
         }   else{
+            System.out.println(number+i);
             ok5 = cells[number+i][positionLetter].getBackground().equals(Color.white);
         }
 
-        if(positionLetter > 15 && number-2+i <= 0) {
+        if(positionLetter >= 15 || number-2+i <= 0) {
             ok6 = true;
         }   else{
             ok6 = cells[number+i-2][positionLetter].getBackground().equals(Color.white);
         }
 
-        if(positionLetter-2 < 0 && number-2+i <= 0) {
+        if(positionLetter-2 <= 0 || number-2+i <= 0) {
             ok7 = true;
         }   else{
             ok7 = cells[number+i-2][positionLetter-2].getBackground().equals(Color.white);
         }
 
-        if(positionLetter-2 < 0 && number+i >= 15) {
+        if(positionLetter-2 <= 0 || number+i >=15) {
             ok8 = true;
         }   else{
             ok8 = cells[number+i][positionLetter-2].getBackground().equals(Color.white);
