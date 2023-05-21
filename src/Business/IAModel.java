@@ -30,7 +30,7 @@ public class IAModel {
         Boat llanxa = new Boat("Llanxa",2,"L",positionLlanxaX,positionLlanxaY,rotationLlanxa);
         boats.add(llanxa);
 
-        return new JugadorIA(boats,new int[0],new int[0],new Tablero(boats));
+        return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
     }
 
     private int randomPosition(){
@@ -180,6 +180,57 @@ public class IAModel {
             }
         }
         return checkBoat;
+    }
+
+   public Player realizarMovimiento(Player oponente) {
+        Tablero tableroOponente = oponente.getTablero();
+        int fila, columna;
+        boolean ataqueExitoso = false;
+        boolean intentoHundir = false;
+
+        do{
+            fila = randomPosition();
+            columna = randomPosition();
+        } while(!positionAttacked(fila,columna,oponente));
+
+        oponente.getPositionAttackedX().add(fila);
+        oponente.getPositionAttackedY().add(columna);
+
+
+       System.out.println("movimiento" + oponente.getPositionAttackedX().get(0));
+
+
+        return oponente;
+    }
+
+
+    public Game detectAttack(Game game,int fila,int columna){
+        int numPlayers = game.getNumberPlayers();
+
+        for (int i = 0;i<numPlayers;i++){
+            if(game.getJugadorIA().get(i).getTablero().getTablero()[fila-1][columna-1] == 1){
+                game.getJugadorIA().get(i).getTablero().getTablero()[fila-1][columna-1] = -1;
+            }
+        }
+
+        return game;
+    }
+
+
+
+
+    private boolean positionAttacked(int fila,int columna,Player oponente){
+        boolean notAttacked = true;
+        for(int i = 0;i<oponente.getPositionAttackedX().size();i++){
+            if(oponente.getPositionAttackedX().get(i) == fila){
+                if(oponente.getPositionAttackedY().get(i) == columna){
+                    notAttacked = false;
+                    break;
+                }
+            }
+        }
+
+        return notAttacked;
     }
 
 

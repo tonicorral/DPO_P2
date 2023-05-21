@@ -13,14 +13,14 @@ public abstract class Player {
     private ArrayList<Integer> barcoPosicionX;
     private ArrayList<Integer> barcoPosicionY;
 
-    private int[] positionAttackedX;
-    private int[] positionAttackedY;
+    private ArrayList<Integer> positionAttackedX;
+    private ArrayList<Integer> positionAttackedY;
 
     //private boolean turno;
 
     private int turnToPlay;
 
-    public Player(ArrayList<Boat> boats, int[] positionAttackedX, int[] positionAttackedY, Tablero tablero) {
+    public Player(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero) {
         this.boats = boats;
         this.barcoPosicionX = new ArrayList<>();;
         this.barcoPosicionY = new ArrayList<>();;
@@ -82,19 +82,19 @@ public abstract class Player {
         this.boats = boats;
     }
 
-    public int[] getPositionAttackedX() {
+    public ArrayList<Integer> getPositionAttackedX() {
         return positionAttackedX;
     }
 
-    public void setPositionAttackedX(int[] positionAttackedX) {
+    public void setPositionAttackedX(ArrayList<Integer> positionAttackedX) {
         this.positionAttackedX = positionAttackedX;
     }
 
-    public int[] getPositionAttackedY() {
+    public ArrayList<Integer> getPositionAttackedY() {
         return positionAttackedY;
     }
 
-    public void setPositionAttackedY(int[] positionAttackedY) {
+    public void setPositionAttackedY(ArrayList<Integer> positionAttackedY) {
         this.positionAttackedY = positionAttackedY;
     }
 

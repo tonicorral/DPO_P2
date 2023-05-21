@@ -31,6 +31,8 @@ public class GameModel {
             iaPlayers.add(iaModel.createBoats());
         }
 
+
+
         return iaPlayers;
     }
 
@@ -41,6 +43,17 @@ public class GameModel {
     public Game getGame(){
         return game;
     }
+
+    public Game firstMovement(Game game,int i){
+        Player oponente;
+        oponente = iaModel.realizarMovimiento(getIA().get(0));
+        int n = oponente.getPositionAttackedX().size();
+        game = iaModel.detectAttack(game,oponente.getPositionAttackedX().get(n-1),oponente.getPositionAttackedY().get(n-1));
+
+        return game;
+    }
+
+
 
 
 

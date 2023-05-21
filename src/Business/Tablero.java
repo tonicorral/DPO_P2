@@ -22,7 +22,20 @@ public class Tablero {
             for (int j = 0; j < 15; j++) {
                 tablero[i][j] = AGUA;
                 for(int m = 0;m<5;m++){
-                    tablero[boats.get(m).getPositionX()-1][boats.get(m).getPositionY()-1] = BARCO;
+                    int size = boats.get(m).getSize();
+                    boolean orientation = boats.get(m).getOrientation();
+                    int posX = boats.get(m).getPositionX();
+                    int posY = boats.get(m).getPositionY();
+                    if(orientation){
+                        for(int k = 0;k<size;k++){
+                            tablero[posX-1][posY+k-1] = BARCO;
+                        }
+                    } else{
+                        for(int k = 0;k<size;k++){
+                            tablero[posX+k-1][posY-1] = BARCO;
+                        }
+                    }
+
                 }
             }
         }

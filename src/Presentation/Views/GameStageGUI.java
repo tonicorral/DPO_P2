@@ -1,9 +1,6 @@
 package Presentation.Views;
 
-import Business.Boat;
 import Business.Game;
-import Business.Tablero;
-import Presentation.Controllers.GameStageController;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +22,8 @@ public class GameStageGUI extends JPanel{
     public static final String ABANDONAR = "ABANDONAR";
 
     private Color buttonColor;
+
+    private JPanel[][] cell1,cell2,cell3,cell4;
 
     public GameStageGUI(){
 
@@ -123,68 +122,99 @@ public class GameStageGUI extends JPanel{
         tablePanel2 = new JPanel(new GridLayout(16,16));
         //tablePanel1.add(emptyPanel);
         tablePanel2.add(emptyPanel2);
+
+
         for (int i = 1; i <= 15; i++) {
             JPanel cell = new JPanel();
-            //cell.setPreferredSize(new Dimension(10,10));
             cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             JLabel label = new JLabel(Integer.toString(i), JLabel.CENTER);
-            label.setFont(new Font("Inter", Font.BOLD, 10));
+            label.setFont(new Font("Inter", Font.BOLD, 12));
             label.setForeground(Color.red);
             cell.add(label);
             tablePanel1.add(cell);
         }
 
+        cell1 = new JPanel[15][15];
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cell1[i][j] = new JPanel();
+                cell1[i][j].setName(String.format("cell%d%d", i, j));
+
+                // Add button to panel or container
+                // tablePanelUser.add(cellsUser[i][j]);
+            }
+        }
+
 
         for (char c = 'A'; c <= 'O'; c++) {
-            JPanel cell1 = new JPanel();
-            //cell1.setPreferredSize(new Dimension(10,10));
-            cell1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JPanel cell5 = new JPanel();
+            cell5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             JLabel label = new JLabel(Character.toString(c), JLabel.CENTER);
-            label.setFont(new Font("Inter", Font.BOLD, 10));
+            label.setFont(new Font("Inter", Font.BOLD, 12));
             label.setForeground(Color.green);
-            cell1.add(label);
-            tablePanel1.add(cell1);
-            for (int i = 2; i <= 16; i++) {
-                JPanel cell = new JPanel();
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                tablePanel1.add(cell);
-            }
+            cell5.add(label);
+            tablePanel1.add(cell5);
 
+
+
+            for (int i = 1; i <= 15; i++) {
+                String actionCommand = String.format("cell%c%d", c, i);
+                cell1[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                cell1[i - 1][c - 'A'].setBackground(Color.white);
+
+                tablePanel1.add(cell1[i - 1][c - 'A']);
+            }
         }
         //   tablePanel1.add(Box.createHorizontalStrut(20));
         tablePanel1.setPreferredSize(new Dimension(50, 50));
         grid1.add(tablePanel1);
         //  grid1.add(Box.createVerticalStrut(20));
+
         for (int i = 1; i <= 15; i++) {
             JPanel cell = new JPanel();
             cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             JLabel label = new JLabel(Integer.toString(i), JLabel.CENTER);
-            label.setFont(new Font("Inter", Font.BOLD, 10));
+            label.setFont(new Font("Inter", Font.BOLD, 12));
             label.setForeground(Color.red);
             cell.add(label);
             tablePanel2.add(cell);
+        }
 
+        cell2 = new JPanel[15][15];
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cell2[i][j] = new JPanel();
+                cell2[i][j].setName(String.format("cell%d%d", i, j));
+
+                // Add button to panel or container
+                // tablePanelUser.add(cellsUser[i][j]);
+            }
         }
 
 
         for (char c = 'A'; c <= 'O'; c++) {
-            JPanel cell1 = new JPanel();
-            cell1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JPanel cell5 = new JPanel();
+            cell5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             JLabel label = new JLabel(Character.toString(c), JLabel.CENTER);
-            label.setFont(new Font("Inter", Font.BOLD, 10));
+            label.setFont(new Font("Inter", Font.BOLD, 12));
             label.setForeground(Color.green);
-            cell1.add(label);
-            tablePanel2.add(cell1);
-            for (int i = 2; i <= 16; i++) {
-                JPanel cell = new JPanel();
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                tablePanel2.add(cell);
+            cell5.add(label);
+            tablePanel2.add(cell5);
+
+
+
+            for (int i = 1; i <= 15; i++) {
+                String actionCommand = String.format("cell%c%d", c, i);
+                cell2[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                cell2[i - 1][c - 'A'].setBackground(Color.white);
+
+                tablePanel2.add(cell2[i - 1][c - 'A']);
             }
-
-
         }
-        //tablePanel2.add(Box.createHorizontalStrut(20));
-        // tablePanel2.setPreferredSize(new Dimension(100, 100));
+        //   tablePanel1.add(Box.createHorizontalStrut(20));
+        tablePanel2.setPreferredSize(new Dimension(50, 50));
         grid1.add(tablePanel2);
         grid1.setPreferredSize(new Dimension(300,0));
         add(grid1, BorderLayout.WEST);
@@ -218,23 +248,40 @@ public class GameStageGUI extends JPanel{
             tablePanel3.add(cell);
         }
 
+        cell3 = new JPanel[15][15];
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cell3[i][j] = new JPanel();
+                cell3[i][j].setName(String.format("cell%d%d", i, j));
+
+                // Add button to panel or container
+                // tablePanelUser.add(cellsUser[i][j]);
+            }
+        }
 
 
         for (char c = 'A'; c <= 'O'; c++) {
-            JPanel cell1 = new JPanel();
-            cell1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JPanel cell5 = new JPanel();
+            cell5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             JLabel label = new JLabel(Character.toString(c), JLabel.CENTER);
             label.setFont(new Font("Inter", Font.BOLD, 12));
             label.setForeground(Color.green);
-            cell1.add(label);
-            tablePanel3.add(cell1);
-            for (int i = 2; i <= 16; i++) {
-                JPanel cell = new JPanel();
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                tablePanel3.add(cell);
-            }
+            cell5.add(label);
+            tablePanel3.add(cell5);
 
+
+
+            for (int i = 1; i <= 15; i++) {
+                String actionCommand = String.format("cell%c%d", c, i);
+                cell3[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                cell3[i - 1][c - 'A'].setBackground(Color.white);
+
+                tablePanel3.add(cell3[i - 1][c - 'A']);
+            }
         }
+        //   tablePanel1.add(Box.createHorizontalStrut(20));
+        tablePanel3.setPreferredSize(new Dimension(50, 50));
         grid2.add(tablePanel3);
 
         for (int i = 1; i <= 15; i++) {
@@ -247,24 +294,40 @@ public class GameStageGUI extends JPanel{
             tablePanel4.add(cell);
         }
 
+        cell4 = new JPanel[15][15];
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cell4[i][j] = new JPanel();
+                cell4[i][j].setName(String.format("cell%d%d", i, j));
+
+                // Add button to panel or container
+                // tablePanelUser.add(cellsUser[i][j]);
+            }
+        }
 
 
         for (char c = 'A'; c <= 'O'; c++) {
-            JPanel cell1 = new JPanel();
-            cell1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JPanel cell5 = new JPanel();
+            cell5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             JLabel label = new JLabel(Character.toString(c), JLabel.CENTER);
             label.setFont(new Font("Inter", Font.BOLD, 12));
             label.setForeground(Color.green);
-            cell1.add(label);
-            tablePanel4.add(cell1);
+            cell5.add(label);
+            tablePanel4.add(cell5);
 
-            for (int i = 2; i <= 16; i++) {
-                JPanel cell = new JPanel();
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                tablePanel4.add(cell);
+
+
+            for (int i = 1; i <= 15; i++) {
+                String actionCommand = String.format("cell%c%d", c, i);
+                cell4[i - 1][c - 'A'].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                cell4[i - 1][c - 'A'].setBackground(Color.white);
+
+                tablePanel4.add(cell4[i - 1][c - 'A']);
             }
-
         }
+        //   tablePanel1.add(Box.createHorizontalStrut(20));
+        tablePanel4.setPreferredSize(new Dimension(50, 50));
         grid2.add(tablePanel4);
         grid2.setPreferredSize(new Dimension(300,0));
         add(grid2, BorderLayout.EAST);
@@ -471,5 +534,70 @@ public class GameStageGUI extends JPanel{
 
         }
     }
+
+    public void paintIA(Game game, int i, int j, int numPlayers){
+
+        for (int m = 0;m<numPlayers;m++){
+            int touch = game.getJugadorIA().get(m).getTablero().getTablero()[i][j];
+            if (m == 0){
+                paintIA1(touch,i,j);
+            } else if(m == 1){
+
+                paintIA2(touch,i,j);
+            }else if(m == 2){
+
+                paintIA3(touch,i,j);
+            }
+            else if(m == 3){
+
+                paintIA4(touch,i,j);
+            }
+        }
+
+
+    }
+
+    private void paintIA1(int touch, int i, int j){
+        if(touch == 1){
+            cell1[i][j].setBackground(Color.red);
+        }else if(touch == -1){
+            cell1[i][j].setBackground(Color.yellow);
+        }
+        else{
+            cell1[i][j].setBackground(Color.blue);
+        }
+    }
+    private void paintIA2(int touch, int i, int j){
+        if(touch == 1){
+            cell2[i][j].setBackground(Color.red);
+        }else if(touch == -1){
+        cell1[i][j].setBackground(Color.yellow);
+        }
+        else{
+            cell2[i][j].setBackground(Color.blue);
+        }
+    }
+    private void paintIA3(int touch, int i, int j){
+        if(touch == 1){
+            cell3[i][j].setBackground(Color.red);
+        }
+        else if(touch == -1){
+            cell1[i][j].setBackground(Color.yellow);
+        }else{
+            cell3[i][j].setBackground(Color.blue);
+        }
+    }
+    private void paintIA4(int touch, int i, int j){
+        if(touch == 1){
+            cell4[i][j].setBackground(Color.red);
+        }
+        else if(touch == -1){
+            cell1[i][j].setBackground(Color.yellow);
+        }else{
+            cell4[i][j].setBackground(Color.blue);
+        }
+    }
+
+
 
 }

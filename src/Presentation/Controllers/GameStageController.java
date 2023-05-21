@@ -71,6 +71,16 @@ public class GameStageController {
     public void initTable() {
         game = gameModel.getGame();
         gameStageGUI.setBoats(game);
+        for (int i = 0;i<30;i++){
+            game = gameModel.firstMovement(game,i);
+        }
+
+        int numPlayers = game.getNumberPlayers();
+        for(int i = 0;i<15;i++){
+            for(int j = 0;j<15;j++){
+                gameStageGUI.paintIA(game,i,j,numPlayers);
+            }
+        }
 
     }
 
