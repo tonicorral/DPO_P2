@@ -383,6 +383,7 @@ public class GameStageGUI extends JPanel{
         centerPanel.add(infoTable);
         add(centerPanel, BorderLayout.CENTER);
 
+        this.setBackground(new Color(217,249,253));
 
         setVisible(true);
     }

@@ -8,6 +8,8 @@ import Presentation.Controllers.*;
 import Presentation.MainView;
 import Presentation.Views.*;
 
+import javax.swing.*;
+
 
 public class Main {
 
@@ -21,7 +23,9 @@ public class Main {
         MenuGUI menuGUI = new MenuGUI();
         SetupStageGUI setupStageGUI = new SetupStageGUI();
         GameStageGUI gameStageGUI = new GameStageGUI();
-        StatisticsGUI statisticsGUI = new StatisticsGUI();
+
+
+
         IAModel iaModel = new IAModel();
         TableroModel tableroModel = new TableroModel();
         StartGUI startGUI = new StartGUI();
@@ -29,6 +33,7 @@ public class Main {
         //setupStageGUI.setVisible(true);
         //gameStageGUI.setVisible(true);
 
+        StatisticsGUI statisticsGUI = new StatisticsGUI();
 
 
 

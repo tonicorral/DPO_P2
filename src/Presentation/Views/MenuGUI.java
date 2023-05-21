@@ -8,7 +8,7 @@ public class MenuGUI extends JPanel {
 
     private JLabel title;
     private JButton newGame,oldGame,stats,logout,delete;
-    private JPanel titlePanel,newGamePanel,oldGamePanel,statsPanel,logoutPanel,deletePanel;
+
     private Color buttonColor;
     private JPanel generalPanel,borderPanel,twoB;
     public static final String NEW_GAME_BTN = "NEW_GAME_BTN";
