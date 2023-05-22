@@ -44,11 +44,18 @@ public class GameModel {
         return game;
     }
 
-    public Game firstMovement(Game game,int i){
-        Player oponente;
-        oponente = iaModel.realizarMovimiento(getIA().get(0));
-        int n = oponente.getPositionAttackedX().size();
-        game = iaModel.detectAttack(game,oponente.getPositionAttackedX().get(n-1),oponente.getPositionAttackedY().get(n-1));
+    public Game IAAttacks(Game game,int i){
+
+        game = iaModel.makeDifferentAttack(game,i);
+
+        return game;
+    }
+
+    public Game updateTablero(Game game){
+
+        game = iaModel.updateTablero(game);
+
+
 
         return game;
     }

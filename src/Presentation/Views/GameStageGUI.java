@@ -542,7 +542,6 @@ public class GameStageGUI extends JPanel{
             if (m == 0){
                 paintIA1(touch,i,j);
             } else if(m == 1){
-
                 paintIA2(touch,i,j);
             }else if(m == 2){
 
@@ -561,7 +560,15 @@ public class GameStageGUI extends JPanel{
         if(touch == 1){
             cell1[i][j].setBackground(Color.red);
         }else if(touch == -1){
+            cell1[i][j].setBackground(Color.white);
+        }else if(touch==2){
             cell1[i][j].setBackground(Color.yellow);
+        }else if(touch==3){
+            cell1[i][j].setBackground(Color.cyan);
+        }else if(touch==4){
+            cell1[i][j].setBackground(Color.green);
+        }else if(touch==5){
+            cell1[i][j].setBackground(Color.pink);
         }
         else{
             cell1[i][j].setBackground(Color.blue);
@@ -571,7 +578,15 @@ public class GameStageGUI extends JPanel{
         if(touch == 1){
             cell2[i][j].setBackground(Color.red);
         }else if(touch == -1){
-        cell1[i][j].setBackground(Color.yellow);
+            cell2[i][j].setBackground(Color.white);
+        }else if(touch==2){
+            cell2[i][j].setBackground(Color.yellow);
+        }else if(touch==3){
+            cell2[i][j].setBackground(Color.cyan);
+        }else if(touch==4){
+            cell2[i][j].setBackground(Color.green);
+        }else if(touch==5){
+            cell2[i][j].setBackground(Color.pink);
         }
         else{
             cell2[i][j].setBackground(Color.blue);
@@ -580,20 +595,36 @@ public class GameStageGUI extends JPanel{
     private void paintIA3(int touch, int i, int j){
         if(touch == 1){
             cell3[i][j].setBackground(Color.red);
+        }else if(touch == -1){
+            cell3[i][j].setBackground(Color.white);
+        }else if(touch==2){
+            cell3[i][j].setBackground(Color.yellow);
+        }else if(touch==3){
+            cell3[i][j].setBackground(Color.cyan);
+        }else if(touch==4){
+            cell3[i][j].setBackground(Color.green);
+        }else if(touch==5){
+            cell3[i][j].setBackground(Color.pink);
         }
-        else if(touch == -1){
-            cell1[i][j].setBackground(Color.yellow);
-        }else{
+        else{
             cell3[i][j].setBackground(Color.blue);
         }
     }
     private void paintIA4(int touch, int i, int j){
         if(touch == 1){
             cell4[i][j].setBackground(Color.red);
+        }else if(touch == -1){
+            cell4[i][j].setBackground(Color.white);
+        }else if(touch==2){
+            cell4[i][j].setBackground(Color.yellow);
+        }else if(touch==3){
+            cell4[i][j].setBackground(Color.cyan);
+        }else if(touch==4){
+            cell4[i][j].setBackground(Color.green);
+        }else if(touch==5){
+            cell4[i][j].setBackground(Color.pink);
         }
-        else if(touch == -1){
-            cell1[i][j].setBackground(Color.yellow);
-        }else{
+        else{
             cell4[i][j].setBackground(Color.blue);
         }
     }

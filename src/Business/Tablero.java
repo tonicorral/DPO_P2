@@ -7,6 +7,11 @@ public class Tablero {
 
     public static final int BARCO = 1;
     public static final int AGUA = 0;
+
+    public static final int IA1 = 2;
+    public static final int IA2 = 3;
+    public static final int IA3 = 4;
+    public static final int IA4 = 5;
     public static final int TOCADO = -1;
     public static final int HUNDIDO = -2;
     private ArrayList<Boat> boats;

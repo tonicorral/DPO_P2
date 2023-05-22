@@ -182,25 +182,103 @@ public class IAModel {
         return checkBoat;
     }
 
-   public Player realizarMovimiento(Player oponente) {
+
+    public Game makeDifferentAttack(Game game,int i){
+        int fila,columna;
+        Player attacker = game.getJugadorIA().get(i); //Atacante
+        do{
+            fila = randomPosition();
+            columna = randomPosition();
+        } while(!positionAttacked(fila,columna,attacker,game,i));
+
+        game.getJugadorIA().get(i).getPositionAttackedX().add(fila);
+        game.getJugadorIA().get(i).getPositionAttackedY().add(columna);
+
+        return game;
+    }
+
+    private boolean positionAttacked(int fila,int columna,Player oponente,Game game,int attacker){
+        boolean notAttacked = true;
+        int numPlayers = game.getNumberPlayers();
+        for(int i = 0;i<oponente.getPositionAttackedX().size();i++){
+            for(int j = 0;j<numPlayers;j++){
+                if(attacker != j){
+                    if(game.getJugadorIA().get(j).getPositionAttackedX().get(i) == fila){
+                        if(game.getJugadorIA().get(j).getPositionAttackedY().get(i) == columna){
+                            notAttacked = false;
+                            break;
+                        }
+                    }
+                }
+
+            }
+        }
+        return notAttacked;
+    }
+
+    public Game updateTablero(Game game){
+
+        int numPlayers = game.getNumberPlayers();
+
+        for(int i = 0;i<numPlayers;i++){
+            Player attacker = game.getJugadorIA().get(i);
+            int n = attacker.getPositionAttackedX().size() - 1;
+            int positionAttackedX = attacker.getPositionAttackedX().get(n);
+            int positionAttackedY = attacker.getPositionAttackedY().get(n);
+            for(int j=0;j<numPlayers;j++){
+                if(j!=i){
+                    game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
+                }
+            }
+
+        }
+
+
+
+
+
+
+
+        return game;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+   public Game realizarMovimiento(Game game) {
+        Player oponente = game.getJugadorIA().get(0);
         Tablero tableroOponente = oponente.getTablero();
         int fila, columna;
         boolean ataqueExitoso = false;
         boolean intentoHundir = false;
 
-        do{
+
+        if(oponente.getPositionAttackedX().size() <= 1){
             fila = randomPosition();
             columna = randomPosition();
-        } while(!positionAttacked(fila,columna,oponente));
+        } else{
+            do{
+                fila = randomPosition();
+                columna = randomPosition();
+            } while(!positionAttacked(fila,columna,oponente) || !touchBoat(fila,columna,game,oponente));
+        }
+       oponente.getPositionAttackedX().add(fila);
+       oponente.getPositionAttackedY().add(columna);
 
-        oponente.getPositionAttackedX().add(fila);
-        oponente.getPositionAttackedY().add(columna);
+        game = detectAttack(game,oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1),oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size()-1));
 
-
-       System.out.println("movimiento" + oponente.getPositionAttackedX().get(0));
-
-
-        return oponente;
+        return game;
     }
 
 
@@ -209,7 +287,7 @@ public class IAModel {
 
         for (int i = 0;i<numPlayers;i++){
             if(game.getJugadorIA().get(i).getTablero().getTablero()[fila-1][columna-1] == 1){
-                game.getJugadorIA().get(i).getTablero().getTablero()[fila-1][columna-1] = -1;
+                game.getJugadorIA().get(i).getTablero().setPosicion(fila-1,columna-1,-1);
             }
         }
 
@@ -233,8 +311,150 @@ public class IAModel {
         return notAttacked;
     }
 
+    private boolean touchBoat(int fila,int columna,Game game,Player oponente){
+        boolean done = false;
+        int numPlayers = game.getNumberPlayers();
+        int lastMovementX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1);
+        int lastMovementY = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1);
+        int last2MovementX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-2);
+        int last2MovementY = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-2);
+
+        for(int i = 0;i<numPlayers;i++){
+            System.out.println("gogogo");
+            System.out.println(game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1]);
+            System.out.println(game.getJugadorIA().get(i).getTablero().getTablero()[last2MovementX-1][last2MovementY-1]);
+            if(game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1] == -1 && game.getJugadorIA().get(i).getTablero().getTablero()[last2MovementY-1][last2MovementX-1] == -1){
+                System.out.println("ooooooooooo");
+                if(lastMovementX == last2MovementX+1 && lastMovementY == last2MovementY){
+                    if(lastMovementX + 1 == fila){
+                        done = true;
+                        break;
+                    } else{
+                        done = false;
+                    }
+                } else if (lastMovementX == last2MovementX-1 && lastMovementY == last2MovementY) {
+                    if(lastMovementX - 1 == fila){
+                        done = true;
+                        break;
+                    } else{
+                        done = false;
+                    }
+                } else if (lastMovementX == last2MovementX && lastMovementY == last2MovementY-1) {
+                    if(lastMovementY - 1 == columna){
+                        done = true;
+                        break;
+                    } else{
+                        done = false;
+                    }
+                } else{
+                    if(lastMovementY + 1 == columna){
+                        done = true;
+                        break;
+                    } else{
+                        done = false;
+                    }
+                }
+            } else if (game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1] == -1) {
+                System.out.println("eeeeeeeeeee");
+                int[][] posicionesAdyacentes = {
+                        {lastMovementX - 2, lastMovementY-1}, // Arriba
+                        {lastMovementX, lastMovementY-1}, // Abajo
+                        {lastMovementX-1, lastMovementY - 2}, // Izquierda
+                        {lastMovementX-1, lastMovementY}  // Derecha
+                };
+                for (int[] posicion : posicionesAdyacentes) {
+                    int newFila = posicion[0];
+                    int newColumna = posicion[1];
+
+                    if(fila == newFila && columna == newColumna){
+                        System.out.println(fila);
+                        //le da a un adyacente
+                        done = true;
+                        break;
+                    }
+
+                }
+            }
+            else{
+                done = true;
+            }
+        }
+
+        return done;
+    }*/
+
+   /* private boolean hundirBarco(Game game){
+        boolean hundido = false;
 
 
+        return hundido;
+    }*/
+
+    /*
+    public Game makeMovement(Game game) {
+        Player oponente = game.getJugadorIA().get(0);
+        Tablero tableroOponente = oponente.getTablero();
+        int fila = 0, columna = 0;
+        boolean ataqueExitoso = false;
+        boolean intentoHundir = false;
+
+        // Atacar casillas aleatoriamente hasta conseguir un impacto
+        while (!ataqueExitoso) {
+            if (!intentoHundir) {
+                fila = randomPosition();
+                columna = randomPosition();
+            } else {
+                // Obtener la última posición de ataque exitosa
+                int ultimaFila = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size() - 1);
+                int ultimaColumna = oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size() - 1);
+
+                // Generar las posibles casillas adyacentes al último ataque exitoso
+                int[][] posicionesAdyacentes = {
+                        {ultimaFila - 1, ultimaColumna}, // Arriba
+                        {ultimaFila + 1, ultimaColumna}, // Abajo
+                        {ultimaFila, ultimaColumna - 1}, // Izquierda
+                        {ultimaFila, ultimaColumna + 1}  // Derecha
+                };
+                // Recorrer las posiciones adyacentes y atacar la primera casilla válida
+                for (int[] posicion : posicionesAdyacentes) {
+                    fila = posicion[0];
+                    columna = posicion[1];
+
+                    // Verificar si la posición está dentro del rango del tablero
+                    if (fila >= 0 && fila < 15 && columna >= 0 && columna < 15) {
+                        if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.AGUA || tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
+                            if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
+                                tableroOponente.getTablero()[fila-1][columna-1] = Tablero.TOCADO;
+                                ataqueExitoso = true;
+                                intentoHundir = true; // Indicar que se ha logrado un impacto y se intentará hundir el barco
+                                break;
+                            } else {
+                                tableroOponente.getTablero()[fila-1][columna-1] = Tablero.AGUA;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // Si no se encontró una casilla adyacente válida, realizar un ataque aleatorio
+                if (!ataqueExitoso) {
+                    fila = randomPosition();
+                    columna = randomPosition();
+                }
+            }
+
+            if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.AGUA || tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
+                if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
+                    tableroOponente.getTablero()[fila-1][columna-1] = Tablero.TOCADO;
+                    ataqueExitoso = true;
+                    intentoHundir = true; // Indicar que se ha logrado un impacto y se intentará hundir el barco
+                } else {
+                    tableroOponente.getTablero()[fila-1][columna-1] = Tablero.AGUA;
+                }
+            }
+        }
+        return game;
+    }*/
 
 
 
