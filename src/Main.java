@@ -1,13 +1,8 @@
-import Business.GameModel;
-import Business.IAModel;
-import Business.TableroModel;
-import Business.UserModel;
+import Business.*;
 import Persistance.*;
 import Presentation.Controllers.*;
 import Presentation.MainView;
 import Presentation.Views.*;
-
-import javax.swing.*;
 
 
 public class Main {

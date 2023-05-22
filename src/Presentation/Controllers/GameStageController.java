@@ -2,16 +2,12 @@ package Presentation.Controllers;
 
 import Business.*;
 
-import Persistance.SaveGame;
+import Business.SaveGame;
 import Presentation.MainView;
 import Presentation.Views.GameStageGUI;
-import Presentation.Views.SetupStageGUI;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class GameStageController implements ActionListener{
@@ -88,7 +84,11 @@ public class GameStageController implements ActionListener{
 
         }
 
-
+        for(int i = 0;i<15;i++){
+            for(int j = 0;j<15;j++){
+                gameStageGUI.paintUser(game,i,j,numPlayers);
+            }
+        }
 
         //Pintamos
         for(int m = 0;m<numPlayers;m++){
@@ -101,6 +101,7 @@ public class GameStageController implements ActionListener{
 
 
     }
+
 
 
    /* public void displayGUI() {

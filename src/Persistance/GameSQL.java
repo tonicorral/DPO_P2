@@ -35,6 +35,7 @@ public class GameSQL implements GameDAO{
         return false;
     }
 
+    //Mostrar partidas guardadas
     public List<String> savedNameGames(String userName) throws SQLException {
         String query = "SELECT FicheroPartidas AS fichero FROM guardarpartida WHERE Usuario = '" + userName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
@@ -76,7 +77,7 @@ public class GameSQL implements GameDAO{
     }
 
     public List<Integer> attacksInGame(String gameName) throws SQLException {
-        String query = "SELECT Atack/Partida AS Attack FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
+        String query = "SELECT AtackPartida AS Attack FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
         List<Integer> numbers = new ArrayList<>();

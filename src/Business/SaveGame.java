@@ -1,6 +1,7 @@
-package Persistance;
+package Business;
 
 import Business.Game;
+import Persistance.GameDAO;
 import Presentation.MainView;
 import Presentation.Views.LoginGUI;
 import com.google.gson.Gson;
