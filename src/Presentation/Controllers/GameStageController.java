@@ -84,7 +84,11 @@ public class GameStageController implements ActionListener{
 
         }
 
-
+        for(int i = 0;i<15;i++){
+            for(int j = 0;j<15;j++){
+                gameStageGUI.paintUser(game,i,j,numPlayers);
+            }
+        }
 
         //Pintamos
         for(int m = 0;m<numPlayers;m++){
@@ -97,6 +101,7 @@ public class GameStageController implements ActionListener{
 
 
     }
+
 
 
    /* public void displayGUI() {

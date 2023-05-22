@@ -639,6 +639,28 @@ public class GameStageGUI extends JPanel{
         }
     }
 
+    public void paintUser(Game game,int i,int j,int numPlayers){
+        for (int m = 0;m<numPlayers;m++){
+            int touch = game.getPlayer().getTablero().getTablero()[i][j];
+            if(touch == 1){
+                cellsUser[i][j].setBackground(Color.red);
+            }else if(touch == -1){
+                cellsUser[i][j].setBackground(Color.white);
+            }else if(touch==2){
+                cellsUser[i][j].setBackground(Color.yellow);
+            }else if(touch==3){
+                cellsUser[i][j].setBackground(Color.cyan);
+            }else if(touch==4){
+                cellsUser[i][j].setBackground(Color.green);
+            }else if(touch==5){
+                cellsUser[i][j].setBackground(Color.pink);
+            }
+            else{
+                cellsUser[i][j].setBackground(Color.blue);
+            }
+        }
+
+    }
 
 
 }

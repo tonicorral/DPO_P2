@@ -183,19 +183,25 @@ public class IAModel {
     }
 
 
-    public Game makeDifferentAttack(Game game,int i){
-        int fila,columna;
-        Player attacker = game.getJugadorIA().get(i); //Atacante
-        do{
+    public Game makeDifferentAttack(Game game, int i) {
+        int fila, columna;
+        Player attacker = game.getJugadorIA().get(i);
+
+        if (attacker.getPositionAttackedX().size() <= 1) {
             fila = randomPosition();
             columna = randomPosition();
-        } while(!positionAttacked(fila,columna,attacker,game,i));
-
-        game.getJugadorIA().get(i).getPositionAttackedX().add(fila);
-        game.getJugadorIA().get(i).getPositionAttackedY().add(columna);
+        } else {
+            do {
+                fila = randomPosition();
+                columna = randomPosition();
+            } while (!positionAttacked(fila, columna, attacker, game, i) /*|| !positionHit(fila, columna, attacker, game, i)*/);
+        }
+        attacker.getPositionAttackedX().add(fila);
+        attacker.getPositionAttackedY().add(columna);
 
         return game;
     }
+
 
     private boolean positionAttacked(int fila,int columna,Player oponente,Game game,int attacker){
         boolean notAttacked = true;
@@ -216,6 +222,55 @@ public class IAModel {
         return notAttacked;
     }
 
+    /*
+    private boolean positionHit(int fila, int columna, Player oponente, Game game, int attacker){
+        boolean done = false;
+        int numPlayers = game.getNumberPlayers();
+        int lastMovementX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1);
+        int lastMovementY = oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size()-1);
+        for(int i = 0;i<numPlayers;i++){
+            if (game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1] == -1) {
+
+                int[][] posicionesAdyacentes = {
+                        {lastMovementX - 2, lastMovementY-1}, // Arriba
+                        {lastMovementX, lastMovementY-1}, // Abajo
+                        {lastMovementX-1, lastMovementY - 2}, // Izquierda
+                        {lastMovementX-1, lastMovementY}  // Derecha
+                };
+                for (int[] posicion : posicionesAdyacentes) {
+                    int newFila = posicion[0];
+                    int newColumna = posicion[1];
+
+                    if(fila == newFila && columna == newColumna){
+                        System.out.println(fila);
+                        //le da a un adyacente
+                        done = true;
+                        break;
+                    }
+
+                }
+            }
+        }
+
+
+
+
+        for(int j = 0;j<numPlayers;j++){
+            System.out.println(j);
+            if(attacker != j){
+                if(game.getJugadorIA().get(j).getTablero().getTablero()[lastAttackX][lastAttackY] == 1){
+                    if(lastAttackX+1 == fila && lastAttackY == columna || lastAttackX -1 == fila && lastAttackY == columna || lastAttackX == fila && lastAttackY+1 == columna || lastAttackX == fila && lastAttackY -1 == columna){
+                        hit = true;
+                        break;
+                    }
+                }else{
+                    hit = false;
+                }
+            }
+        }
+        return done;
+    }*/
+
     public Game updateTablero(Game game){
 
         int numPlayers = game.getNumberPlayers();
@@ -225,12 +280,12 @@ public class IAModel {
             int n = attacker.getPositionAttackedX().size() - 1;
             int positionAttackedX = attacker.getPositionAttackedX().get(n);
             int positionAttackedY = attacker.getPositionAttackedY().get(n);
+            game.getPlayer().getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
             for(int j=0;j<numPlayers;j++){
                 if(j!=i){
                     game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
                 }
             }
-
         }
 
 
@@ -461,3 +516,10 @@ public class IAModel {
 
 
 }
+
+
+
+
+
+
+
