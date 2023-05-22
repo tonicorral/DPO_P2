@@ -1,6 +1,7 @@
 package Persistance;
 
 import Business.Game;
+import Presentation.MainView;
 import Presentation.Views.LoginGUI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,14 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-public class SaveGame implements ActionListener {
+public class SaveGame { //Esta clase pertenece a persistencia?
     private GameDAO gameDAO;
-    private LoginGUI loginGUI;
     private String user;
 
-    public SaveGame(GameDAO gameDAO, LoginGUI loginGUI, String user) {
+    public SaveGame(GameDAO gameDAO, String user) {
         this.gameDAO = gameDAO;
-        this.loginGUI = loginGUI;
         this.user = user;
     }
 
@@ -28,14 +27,6 @@ public class SaveGame implements ActionListener {
         Game partida = gson.fromJson(jsonString, Game.class);
         return partida;
     }
-
-
-
-    public LocalDate getCurrentDate() {
-        LocalDate currentDate = LocalDate.now();
-        return currentDate;
-    }
-
 
     public String guardarPartidaString (Game partida)  {
 
@@ -49,15 +40,13 @@ public class SaveGame implements ActionListener {
         }
     }
 
-    public void  anadirPartida (Game partida, int numAttacks) {
-        gameDAO.addGame(this.user, guardarPartidaString(partida), numAttacks, LocalDate.now());
+    public void  anadirPartida (Game partida, int numAttacks, String nombrePartida, Boolean victoria) {
+        gameDAO.addGame(this.user, nombrePartida, guardarPartidaString(partida), numAttacks, LocalDate.now(), victoria);
+        System.out.println("hola");
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        this.user = loginGUI.getUser();
-        System.out.println(this.user);
-        Game game = null;
-        anadirPartida(game, 0);
+    public void setUser(String user) {
+        this.user = user;
     }
+
 }

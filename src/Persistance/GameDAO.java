@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GameDAO {
 
-    public void addGame(String userName, String fileGame, int numAttacks, LocalDate date); // Comprobar si la clase LocalDate es la correcta para almacenar la fecha!
+    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, Boolean victoria); // Comprobar si la clase LocalDate es la correcta para almacenar la fecha!
 
     public boolean validGameName(String gameName);
     public String fileGame(String gameName);

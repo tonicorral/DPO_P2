@@ -2,6 +2,7 @@ package Presentation.Controllers;
 
 import Business.*;
 
+import Persistance.SaveGame;
 import Presentation.MainView;
 import Presentation.Views.GameStageGUI;
 import Presentation.Views.SetupStageGUI;
@@ -13,8 +14,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class GameStageController {
+public class GameStageController implements ActionListener{
     private GameStageGUI gameStageGUI;
+
+    private SaveGame saveGame;
 
     private boolean mouseClicked = false;
 
@@ -27,7 +30,6 @@ public class GameStageController {
 
     private MainView mainView;
 
-
     private IAModel iaModel;
 
     private GameModel gameModel;
@@ -37,11 +39,13 @@ public class GameStageController {
 
     private ArrayList<Player> players;
 
-    public GameStageController(GameStageGUI gameStageGUI, MainView mainView , GameModel gameModel) {
+    public GameStageController(GameStageGUI gameStageGUI, MainView mainView , GameModel gameModel, SaveGame saveGame) {
         this.gameStageGUI = gameStageGUI;
         this.mainView = mainView;
-
         this.gameModel = gameModel;
+        this.saveGame = saveGame;
+
+        mainView.setListeners(this);
         //mainView.setActionMouseListeners(this, this);
     }
 
@@ -64,7 +68,9 @@ public class GameStageController {
                 mainView.switchView(MainView.MENU_VIEW);
                 break;
 
-
+            case GameStageGUI.GUARDAR:
+                saveGame.anadirPartida(game, 0, "pepito", false); //TODO Crear función que registre número de ataques!!!!!!!!!!!!!!!
+                break;
         }
     }
 

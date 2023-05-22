@@ -11,8 +11,8 @@ public class GameStageGUI extends JPanel{
 
     private Point mouseSelect = null;
     private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
-    private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable;
-    private JButton eliminar, tancar, abandonar;
+    private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable, buttonsPanelAbandonar;
+    private JButton eliminar, tancar, abandonar, guardar;
     private JTable[] tables;
     private JTable userTable;
     private JButton[][] cellsUser;
@@ -21,6 +21,7 @@ public class GameStageGUI extends JPanel{
 
     public static final String ABANDONAR = "ABANDONAR";
 
+    public static final String GUARDAR = "GUARDAR";
     private Color buttonColor;
 
     private JPanel[][] cell1,cell2,cell3,cell4;
@@ -54,6 +55,9 @@ public class GameStageGUI extends JPanel{
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BorderLayout());
 
+        buttonsPanelAbandonar = new JPanel();
+        buttonsPanelAbandonar.setLayout(new FlowLayout());
+
         flowButton = new JPanel();
         flowButton.setLayout(new FlowLayout());
 
@@ -85,11 +89,17 @@ public class GameStageGUI extends JPanel{
         abandonar.setBackground(buttonColor);
         abandonar.setForeground(Color.white);
 
-
+        guardar = new JButton("Guardar Partida");
+        guardar.setActionCommand("GUARDAR");
+        guardar.setFont(new Font("Inter", Font.BOLD, 14));
+        guardar.setBackground(buttonColor);
+        guardar.setForeground(Color.white);
 
         buttonPanel.add(abandonar, BorderLayout.CENTER);
-
+        buttonPanel.add(guardar, BorderLayout.WEST);
         gamePanel.add(buttonPanel, BorderLayout.EAST);
+
+
 
         turnoPanel = new JPanel();
         turnoPanel.setLayout(new BorderLayout());
@@ -407,7 +417,6 @@ public class GameStageGUI extends JPanel{
                 tables[i].setBackground(Color.YELLOW);
                 infoTable.add(tables[i]);
 
-
             }
             if(i == 1){
                 tables[i] = createTable();
@@ -451,11 +460,12 @@ public class GameStageGUI extends JPanel{
         setVisible(true);
     }
 
-    public void setGameListener(ActionListener listener, MouseListener mouseListener){
-
+    public void setGameListener(ActionListener listener){
+        this.guardar.addActionListener(listener);
         abandonar.addActionListener(listener);
-
     }
+
+
 
     private JTable createTable() {
         String[] columnNames = {"Barco", "Estado"};
