@@ -226,7 +226,7 @@ public class GameStageGUI extends JPanel{
         //   tablePanel1.add(Box.createHorizontalStrut(20));
         tablePanel2.setPreferredSize(new Dimension(50, 50));
         grid1.add(tablePanel2);
-        grid1.setPreferredSize(new Dimension(300,0));
+        grid1.setPreferredSize(new Dimension(500,0));
         add(grid1, BorderLayout.WEST);
 
 
@@ -339,7 +339,7 @@ public class GameStageGUI extends JPanel{
         //   tablePanel1.add(Box.createHorizontalStrut(20));
         tablePanel4.setPreferredSize(new Dimension(50, 50));
         grid2.add(tablePanel4);
-        grid2.setPreferredSize(new Dimension(300,0));
+        grid2.setPreferredSize(new Dimension(500,0));
         add(grid2, BorderLayout.EAST);
 
 
