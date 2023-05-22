@@ -40,9 +40,8 @@ public class SaveGame { //Esta clase pertenece a persistencia?
         }
     }
 
-    public void  anadirPartida (Game partida, int numAttacks, String nombrePartida, Boolean victoria) {
+    public void  anadirPartida (Game partida, int numAttacks, String nombrePartida, int victoria) {
         gameDAO.addGame(this.user, nombrePartida, guardarPartidaString(partida), numAttacks, LocalDate.now(), victoria);
-        System.out.println("hola");
     }
 
     public void setUser(String user) {

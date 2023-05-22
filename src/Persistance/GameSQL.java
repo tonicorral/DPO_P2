@@ -9,8 +9,8 @@ import java.util.List;
 
 public class GameSQL implements GameDAO{
 
-    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, Boolean victoria) {
-        String query = "INSERT INTO guardarpartida (Usuario, NombrePartida, FicheroPartidas, Atack/Partida, Fecha, Victoria) VALUES ("+ userName + ", "+ nameGame +", " + fileGame + ", " + numAttacks + ", " + date + ", " + victoria +");";
+    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria) {
+        String query = "INSERT INTO guardarpartida (Usuario, NombrePartida, FicheroPartidas, AtackPartida, Fecha, Victoria) VALUES ('"+ userName + "', '"+ nameGame +"', '" + fileGame + "', '" + numAttacks + "', '" + date + "', '" + victoria +"');";
 
         SQLConnector.getInstance().insertQuery(query);
     }
