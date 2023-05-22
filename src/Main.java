@@ -39,16 +39,16 @@ public class Main {
 
         GameModel gameModel = new GameModel(iaModel,tableroModel);
         UserModel userModel = new UserModel(userDAO);
-        SaveGame saveGame = new SaveGame(gameDAO, loginGUI, "");
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
+        SaveGame saveGame = new SaveGame(gameDAO, "");
 
         StartController startController = new StartController(startGUI, mainView);
-        LoginController loginController = new LoginController(loginGUI,mainView,userModel);
+        LoginController loginController = new LoginController(loginGUI,mainView,userModel, saveGame);
         SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel);
         MenuController menuController = new MenuController(menuGUI, mainView);
         LogoutController logoutController = new LogoutController(logoutGUI, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainView, userModel);
-        GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel);
+        GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView,iaModel,gameModel, gameStageController);
         mainView.setVisible(true);
 

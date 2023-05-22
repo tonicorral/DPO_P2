@@ -9,8 +9,6 @@ import java.awt.event.ActionListener;
 
 public class LogoutController implements ActionListener {
     private LogoutGUI logoutGUI;
-
-
     private MainView mainView;
 
     public LogoutController(LogoutGUI logoutGUI, MainView mainView) {

@@ -97,14 +97,14 @@ public class MainView extends JFrame {
         deleteUserGUI.addDeleteButtonListener(listener);
 
         statisticsGUI.addStatListeners(listener);
+
        // setupStageGUI.setUpButtonController(listener);
-        //gameStageGUI.setGameListener(listener);
+        gameStageGUI.setGameListener(listener);
     }
 
     public void setActionMouseListeners(ActionListener listener, MouseListener mouseListener){
 
         setupStageGUI.setUpButtonController(listener, mouseListener);
-        gameStageGUI.setGameListener(listener, mouseListener);
 
     }
 

@@ -2,6 +2,7 @@ package Presentation.Controllers;
 
 import Business.UserModel;
 
+import Persistance.SaveGame;
 import Presentation.MainView;
 import Presentation.Views.LoginGUI;
 
@@ -15,15 +16,14 @@ public class LoginController implements ActionListener {
     private LoginGUI loginGUI;
     private UserModel userModel;
     private MainView mainView;
+    private SaveGame saveGame;
 
 
-
-    public LoginController(LoginGUI loginGUI, MainView mainView,UserModel userModel){
+    public LoginController(LoginGUI loginGUI, MainView mainView,UserModel userModel, SaveGame saveGame){
         this.loginGUI = loginGUI;
         this.userModel = userModel;
         this.mainView = mainView;
-
-
+        this.saveGame = saveGame;
         mainView.setListeners(this);
     }
 
@@ -39,14 +39,16 @@ public class LoginController implements ActionListener {
 
             case LoginGUI.LOGIN_BTN:
                 switch (userModel.login(user, pass)) {
-                    case EVERYTHING_OK -> mainView.switchView(MainView.MENU_VIEW);
+                    case (EVERYTHING_OK) -> {
+                        saveGame.setUser(user);
+                        mainView.switchView(MainView.MENU_VIEW);
+                    }
                     case EMPTY_FIELD -> mainView.showError("There is an empty field!");
                     case BAD_PASSWORD -> mainView.showError("Password is incorrect!");
                     case NO_USER -> mainView.showError("User does not exist");
                 }
 
         }
-
 
 
     }
