@@ -186,16 +186,43 @@ public class IAModel {
     public Game makeDifferentAttack(Game game,int i){
         int fila,columna;
         Player attacker = game.getJugadorIA().get(i); //Atacante
-        do{
+        if(attacker.getPositionAttackedX().size() <= 1){
             fila = randomPosition();
             columna = randomPosition();
-        } while(!positionAttacked(fila,columna,attacker,game,i));
-
+        }
+        else{
+            do{
+                fila = randomPosition();
+                columna = randomPosition();
+            } while(!positionAttacked(fila,columna,attacker,game,i) || !positionHit(fila, columna, attacker, game, i));
+        }
         game.getJugadorIA().get(i).getPositionAttackedX().add(fila);
         game.getJugadorIA().get(i).getPositionAttackedY().add(columna);
 
         return game;
     }
+
+    private boolean positionHit(int fila, int columna, Player oponente, Game game, int attacker){
+        boolean hit = false;
+        int numPlayers = game.getNumberPlayers();
+        int lastAttackX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1)-1;
+        int lastAttackY = oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size()-1)-1;
+
+        for(int j = 0;j<numPlayers;j++){
+            if(attacker != j){
+                if(game.getJugadorIA().get(j).getTablero().getTablero()[lastAttackX][lastAttackY] == 1){
+                    if(lastAttackX+1 == fila && lastAttackY == columna || lastAttackX -1 == fila && lastAttackY == columna || lastAttackX == fila && lastAttackY+1 == columna || lastAttackX == fila && lastAttackY -1 == columna){
+                        hit = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return hit;
+    }
+
+
+
 
     private boolean positionAttacked(int fila,int columna,Player oponente,Game game,int attacker){
         boolean notAttacked = true;
