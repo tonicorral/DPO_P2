@@ -14,8 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        UserDAO userdao = new UserSQL();
-        GameDAO gamedao = new GameSQL();
+        UserDAO userDAO = new UserSQL();
+        GameDAO gameDAO = new GameSQL();
         SignUpGUI signUpGUI = new SignUpGUI();
         LoginGUI loginGUI = new LoginGUI();
         LogoutGUI logoutGUI = new LogoutGUI();
@@ -38,8 +38,8 @@ public class Main {
 
 
         GameModel gameModel = new GameModel(iaModel,tableroModel);
-        UserModel userModel = new UserModel(userdao);
-        SaveGame saveGame = new SaveGame(gamedao, loginGUI, "");
+        UserModel userModel = new UserModel(userDAO);
+        SaveGame saveGame = new SaveGame(gameDAO, loginGUI, "");
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
 
         StartController startController = new StartController(startGUI, mainView);
