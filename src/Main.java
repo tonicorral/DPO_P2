@@ -2,8 +2,7 @@ import Business.GameModel;
 import Business.IAModel;
 import Business.TableroModel;
 import Business.UserModel;
-import Persistance.UserDAO;
-import Persistance.UserSQL;
+import Persistance.*;
 import Presentation.Controllers.*;
 import Presentation.MainView;
 import Presentation.Views.*;
@@ -16,6 +15,7 @@ public class Main {
     public static void main(String[] args) {
 
         UserDAO userdao = new UserSQL();
+        GameDAO gamedao = new GameSQL();
         SignUpGUI signUpGUI = new SignUpGUI();
         LoginGUI loginGUI = new LoginGUI();
         LogoutGUI logoutGUI = new LogoutGUI();
@@ -39,7 +39,7 @@ public class Main {
 
         GameModel gameModel = new GameModel(iaModel,tableroModel);
         UserModel userModel = new UserModel(userdao);
-
+        SaveGame saveGame = new SaveGame(gamedao, loginGUI, "");
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
 
         StartController startController = new StartController(startGUI, mainView);

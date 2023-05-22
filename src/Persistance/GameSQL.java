@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class GameSQL {
+public class GameSQL implements GameDAO{
 
     public void addGame(String userName, String fileGame, int numAttacks, LocalDate date) {
-        String query = "INSERT INTO guardar partida (Usuario, FicheroPartidas, Atack/Partida, Fecha) VALUES ('" +
+        String query = "INSERT INTO guardarpartida (Usuario, FicheroPartidas, Atack/Partida, Fecha) VALUES ('" +
                 userName + "', '" + fileGame + "', '" + numAttacks + "','" + date + ");";
 
         SQLConnector.getInstance().insertQuery(query);
@@ -22,7 +22,7 @@ public class GameSQL {
      * @return Devuelve verdadero si ya hay un nombre que coincide en la base de datos. De lo contrario, falso.
      */
     public boolean validGameName(String gameName) {
-        String query = "SELECT COUNT(*) FROM guardar partida WHERE NombrePartida = '" + gameName + "';";
+        String query = "SELECT COUNT(*) FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
         try {
@@ -37,7 +37,7 @@ public class GameSQL {
     }
 
     public List<String> savedNameGames(String userName) throws SQLException {
-        String query = "SELECT FicheroPartidas AS fichero FROM guardar partida WHERE Usuario = '" + userName + "';";
+        String query = "SELECT FicheroPartidas AS fichero FROM guardarpartida WHERE Usuario = '" + userName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
         List<String> savedGames = new ArrayList<>();
@@ -48,21 +48,36 @@ public class GameSQL {
         return savedGames;
     }
 
-    public LocalDate dateGame(String gameName) {
-        String query = "SELECT Fecha AS fecha FROM guardar partida WHERE NombrePartida = '" + gameName + "';";
+    public Date dateGame(String gameName) {
+        String query = "SELECT Fecha AS fecha FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
+        Date date;
         try {
-            Date date = result.getDate("fecha");
+            date = result.getDate("fecha");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return null;
+        return date;
+    }
+
+    public String fileGame(String gameName) {
+        String query = "SELECT FicheroPartidas AS fichero FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        String fileGame;
+        try {
+            fileGame = result.getString("fichero");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return fileGame;
     }
 
     public List<Integer> attacksInGame(String gameName) throws SQLException {
-        String query = "SELECT Atack/Partida AS Attack FROM guardar partida WHERE NombrePartida = '" + gameName + "';";
+        String query = "SELECT Atack/Partida AS Attack FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
         List<Integer> numbers = new ArrayList<>();
@@ -75,7 +90,7 @@ public class GameSQL {
     }
 
     public void deleteGame(String gameName) {
-        String query = "DELETE FROM guardar partida WHERE NombrePartida = '" + gameName + "';";
+        String query = "DELETE FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
     }
@@ -84,4 +99,6 @@ public class GameSQL {
         String query = "UPDATE guardar SET '" + gameName + "' WHERE NombrePartida = '" + gameName + "';";
         SQLConnector.getInstance().selectQuery(query);
     }
+
+
 }
