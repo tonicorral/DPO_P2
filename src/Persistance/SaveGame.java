@@ -49,12 +49,15 @@ public class SaveGame implements ActionListener {
         }
     }
 
-    public void  guardarPartida () {
-
+    public void  anadirPartida (Game partida, int numAttacks) {
+        gameDAO.addGame(this.user, guardarPartidaString(partida), numAttacks, LocalDate.now());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         this.user = loginGUI.getUser();
+        System.out.println(this.user);
+        Game game = null;
+        anadirPartida(game, 0);
     }
 }
