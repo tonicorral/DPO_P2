@@ -101,4 +101,53 @@ public class GameSQL implements GameDAO{
     }
 
 
+    public int calcularNumeroPartidas(String user) {
+        String query = "SELECT COUNT(*) AS row_count FROM guardarpartida WHERE Usuario = '" + user + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        try {
+            if (result.next()) {
+                return result.getInt("row_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0; // Valor predeterminado en caso de error o si no hay resultados
+    }
+
+    public int calcularNumeroVictorias(String user) {
+        String query = "SELECT COUNT(*) AS row_count FROM guardarpartida WHERE Usuario = '" + user + "' AND Victoria = 1;";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        try {
+            if (result.next()) {
+                return result.getInt("row_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0; // Valor predeterminado en caso de error o si no hay resultados
+    }
+
+    public ArrayList<Integer> extraerArrayAtaques(String user) {
+        String query = "SELECT AtackPartida FROM guardarpartida WHERE Usuario = '" + user + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        ArrayList<Integer> ataques = new ArrayList<>();
+        try {
+            while (result.next()) {
+                int ataque = result.getInt("AtackPartida");
+                ataques.add(ataque);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ataques;
+    }
+
+
+
 }

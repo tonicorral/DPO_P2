@@ -73,7 +73,8 @@ public class GameStageController implements ActionListener{
                 break;
 
             case GameStageGUI.GUARDAR:
-                saveGame.anadirPartida(game,0, "pepe", 0); //TODO Crear función que registre número de ataques!!!!!!!!!!!!!!!
+                saveGame.anadirPartida(game,10, "pepe", 0);
+                //TODO Crear función que registre número de ataques!!!!!!!!!!!!!!!
                 break;
         }
     }

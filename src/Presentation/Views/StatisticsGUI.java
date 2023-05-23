@@ -1,9 +1,12 @@
 package Presentation.Views;
 
+import Business.SaveGame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Random;
+
 
 public class StatisticsGUI extends JPanel {
 
@@ -12,10 +15,12 @@ public class StatisticsGUI extends JPanel {
     private JButton cancelButton, deleteButton, closeButton;
     private Color buttonColor;
     private JProgressBar winLossRatioBar;
-    private JPanel generalPanel, borderPanel, twoB, generalPanel2;
+    private JPanel generalPanel, borderPanel, threeB;
 
 
-    private int[] gameResults = {30, 40, 25, 35, 50, 60, 45, 55, 20, 38, 42, 48, 33, 27, 52, 37, 65, 22, 29, 44, 63, 31, 57, 47, 39, 53, 28, 41, 56, 59, 34, 23, 36, 66, 43, 26, 51, 32, 58, 21, 24, 49, 46, 67, 54, 68, 69};
+    private int[] gameResults = {30, 40, 25, 35, 50, 60, 45, 55, 20, 38, 42, 48, 33, 27, 52, 37, 65, 22, 29, 44, 63,
+                                31, 57, 47, 39, 53, 28, 41, 56, 59, 34, 23, 36, 66, 43, 26, 51, 32, 58, 21, 24, 49,
+                                46, 67, 54, 68, 69};
     private int barWidth =5; // Ancho de cada barra
     private int barSpacing; // Espacio entre barras
     private int barChartHeight = 100; // Altura del gráfico de barras
@@ -24,10 +29,17 @@ public class StatisticsGUI extends JPanel {
     public static final String CANCEL_BTN = "CANCEL_BTN";
     public static final String DELETE_BTN = "DELETE_BTN";
     public static final String LOGOUT_BTN = "LOGOUT_BTN";
-    private int wins = 70,totalGames = 1000, losses = 100; //Losses es partidas de bbdd;
 
 
-    public StatisticsGUI() {
+    private SaveGame saveGame;
+
+    public StatisticsGUI(SaveGame saveGame) {
+
+        this.saveGame = saveGame;
+
+
+        //System.out.println(wins);
+        //System.out.println(totalGames);
 
 
         buttonColor = new Color(124,136,248);
@@ -38,23 +50,6 @@ public class StatisticsGUI extends JPanel {
 
         JPanel leftPanel = new JPanel(new GridLayout(4, 1));
 
-        winsLabel = new JLabel("Wins: " + wins);
-        lossesLabel = new JLabel("Losses: " + losses);
-        winsLabel.setForeground(Color.GREEN);
-        lossesLabel.setForeground(Color.RED);
-        percentageLabel = new JLabel("Percentage of Wins: ");
-        leftPanel.add(winsLabel);
-        leftPanel.add(lossesLabel);
-        leftPanel.add(percentageLabel);
-
-        winLossRatioBar = new JProgressBar(0, 100);
-        winLossRatioBar.setForeground(Color.GREEN);
-        winLossRatioBar.setValue(calculateWinLossRatio(wins, losses));
-        winLossRatioBar.setStringPainted(true);
-        leftPanel.add(winLossRatioBar);
-        leftPanel.setBackground(new Color(217,249,253));
-
-        partidasTotales = new JLabel("Total games: " + totalGames);
 
         // Botón de cancelar
         cancelButton = new JButton("Enrere");
@@ -77,19 +72,18 @@ public class StatisticsGUI extends JPanel {
 
 
         borderPanel = new JPanel(new FlowLayout());
-        twoB = new JPanel(new GridLayout(1,3,10,10));
-        twoB.add(cancelButton);
-        twoB.add(deleteButton);
-        twoB.add(closeButton);
+        threeB = new JPanel(new GridLayout(1,3,10,10));
+        threeB.add(cancelButton);
+        threeB.add(deleteButton);
+        threeB.add(closeButton);
         borderPanel.setOpaque(false);
-        borderPanel.add("North",twoB);
+        borderPanel.add("North",threeB);
 
 
-        generalPanel = new JPanel(new GridLayout(2,2,10,10));
+        generalPanel = new JPanel(new GridLayout(1,2,10,10));
         generalPanel.add(title);
         generalPanel.add(borderPanel);
-        generalPanel.add(leftPanel);
-        generalPanel.add(partidasTotales, CENTER_ALIGNMENT);
+
         generalPanel.setOpaque(false);
         generalPanel.setBorder(BorderFactory.createEmptyBorder(50,300,50,300));
 
@@ -107,8 +101,10 @@ public class StatisticsGUI extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //Llamar a la bbdd para sacar wins y losses
-        int totalGames = wins + losses;
+        String user = saveGame.getUser();
+        int wins = saveGame.calcularVictorias(user);
+        int totalGames = saveGame.calcularPartidas(user);
+        int losses = totalGames - wins;
         double winPercentage = (double) wins / totalGames;
         double lossPercentage = (double) losses / totalGames;
 
@@ -118,6 +114,27 @@ public class StatisticsGUI extends JPanel {
         int diameter = Math.min(width, height) / 6;
         int centerX = width / 4;
         int centerY = height -250;
+
+        // Obtener el tamaño del texto de victorias y derrotas
+        FontMetrics fontMetrics = g.getFontMetrics();
+        int winsTextWidth = fontMetrics.stringWidth("Wins: " + wins);
+        int lossesTextWidth = fontMetrics.stringWidth("Losses: " + losses);
+        int textHeight = fontMetrics.getHeight();
+
+        // Calcular la posición de los textos encima del gráfico circular
+        int winsTextX = centerX - winsTextWidth / 2;
+        int winsTextY = centerY - diameter - textHeight - 10; // 10 pixels de separación
+        int lossesTextX = centerX - lossesTextWidth / 2;
+        int lossesTextY = centerY - diameter - textHeight * 2 - 20; // 20 pixels de separación
+
+        // Dibujar el texto de victorias en verde
+        g.setColor(Color.green);
+        g.drawString("Wins: " + wins, winsTextX, winsTextY);
+
+// Dibujar el texto de derrotas en rojo
+        g.setColor(Color.red);
+        g.drawString("Losses: " + losses, lossesTextX, lossesTextY);
+
 
         int winAngle = (int) (360 * winPercentage);
         int lossAngle = (int) (360 * lossPercentage);
@@ -189,9 +206,9 @@ public class StatisticsGUI extends JPanel {
             g.drawString(Integer.toString(i + 17), barX + barWidth / 2, chartY + barChartHeight + 15);
 
             // Obtener el tamaño del texto
-            FontMetrics fontMetrics = g.getFontMetrics();
+            //FontMetrics fontMetrics = g.getFontMetrics();
             int textWidth = fontMetrics.stringWidth(Integer.toString(gameResult));
-            int textHeight = fontMetrics.getHeight();
+            //int textHeight = fontMetrics.getHeight();
 
             // Calcular la posición del texto en la parte superior de la barra
             int textX = barX + (barWidth - textWidth) / 2; // Centrar el texto horizontalmente

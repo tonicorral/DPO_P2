@@ -28,23 +28,25 @@ public class Main {
         //setupStageGUI.setVisible(true);
         //gameStageGUI.setVisible(true);
 
-        StatisticsGUI statisticsGUI = new StatisticsGUI();
-
-
+        SaveGame saveGame = new SaveGame(gameDAO, "");
+        StatisticsGUI statisticsGUI = new StatisticsGUI(saveGame);
 
         GameModel gameModel = new GameModel(iaModel,tableroModel);
         UserModel userModel = new UserModel(userDAO);
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
-        SaveGame saveGame = new SaveGame(gameDAO, "");
+
 
         StartController startController = new StartController(startGUI, mainView);
         LoginController loginController = new LoginController(loginGUI,mainView,userModel, saveGame);
-        SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel);
+        SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel, saveGame);
         MenuController menuController = new MenuController(menuGUI, mainView);
         LogoutController logoutController = new LogoutController(logoutGUI, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainView, userModel);
         GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView,iaModel,gameModel, gameStageController);
+
+
+        StatisticsController statisticsController = new StatisticsController(statisticsGUI, mainView);
         mainView.setVisible(true);
 
 

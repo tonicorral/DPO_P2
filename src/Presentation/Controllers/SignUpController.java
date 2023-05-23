@@ -1,5 +1,6 @@
 package Presentation.Controllers;
 
+import Business.SaveGame;
 import Business.UserModel;
 
 import Presentation.MainView;
@@ -16,11 +17,13 @@ public class SignUpController implements ActionListener{
 
     private MainView mainView;
 
+    private SaveGame saveGame;
 
-    public SignUpController(SignUpGUI signUpGUI,MainView mainView, UserModel userModel){
+    public SignUpController(SignUpGUI signUpGUI,MainView mainView, UserModel userModel, SaveGame saveGame){
         this.signupView = signUpGUI;
         this.mainView = mainView;
         this.userModel = userModel;
+        this.saveGame = saveGame;
 
         mainView.setListeners(this);
     }
@@ -35,13 +38,33 @@ public class SignUpController implements ActionListener{
             case SignUpGUI.SIGNUP_BTN:
                 switch (userModel.signUp(user, pass, passConfirm, email)) {
 
-                case EVERYTHING_OK -> mainView.switchView(MainView.MENU_VIEW);
-                case EMPTY_FIELD -> mainView.showError("There is an empty field!");
-                case ERROR_SAVE -> mainView.showError("There has been an error on creating the account!");
-                case INCORRECT_MAIL -> mainView.showError("That is not a valid mail!");
-                case INCORRECT_PASS -> mainView.showError("That is not a valid password!");
-                case MISMATCHING_PASS -> mainView.showError("The passwords do not match! Try again!");
-                case DUPLICATED_LOGIN -> mainView.showError("This username/mail already exist");
+                    case EVERYTHING_OK:
+                        saveGame.setUser(user);
+                        mainView.switchView(MainView.MENU_VIEW);
+                        break;
+                case EMPTY_FIELD:
+                    mainView.showError("There is an empty field!");
+                    break;
+                case ERROR_SAVE:
+                    mainView.showError("There has been an error on creating the account!");
+                    break;
+
+                case INCORRECT_MAIL:
+                    mainView.showError("That is not a valid mail!");
+                    break;
+
+                case INCORRECT_PASS :
+                    mainView.showError("That is not a valid password!");
+                    break;
+
+                case MISMATCHING_PASS :
+                    mainView.showError("The passwords do not match! Try again!");
+                    break;
+
+                case DUPLICATED_LOGIN :
+                    mainView.showError("This username/mail already exist");
+                    break;
+
             }
 
                 break;

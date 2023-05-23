@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-public class SaveGame { //Esta clase pertenece a persistencia?
+public class SaveGame {
     private GameDAO gameDAO;
     private String user;
 
@@ -46,7 +46,23 @@ public class SaveGame { //Esta clase pertenece a persistencia?
     }
 
     public void setUser(String user) {
+
         this.user = user;
+    }
+
+    public String getUser(){
+        return this.user;
+    }
+    public int calcularVictorias(String user){
+        int victorias = gameDAO.calcularNumeroVictorias(user);
+
+        return victorias;
+    }
+
+    public int calcularPartidas(String user){
+        int partidas = gameDAO.calcularNumeroPartidas(user);
+
+        return partidas;
     }
 
 }
