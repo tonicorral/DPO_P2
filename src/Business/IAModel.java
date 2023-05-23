@@ -286,6 +286,13 @@ public class IAModel {
                     game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
                 }
             }
+            if(game.getPlayer().getPositionAttackedX().size() > 0){
+                int positionUserX = game.getPlayer().getPositionAttackedX().get(game.getPlayer().getPositionAttackedX().size()-1);
+                int positionUserY = game.getPlayer().getPositionAttackedY().get(game.getPlayer().getPositionAttackedY().size()-1);
+                game.getJugadorIA().get(i).getTablero().getTablero()[positionUserX-1][positionUserY-1] = 6;
+            }
+
+
         }
 
 

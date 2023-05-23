@@ -1,11 +1,15 @@
 package Presentation.Views;
 
 import Business.Game;
+import Business.TimeThread;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 public class GameStageGUI extends JPanel{
 
@@ -26,7 +30,12 @@ public class GameStageGUI extends JPanel{
 
     private JPanel[][] cell1,cell2,cell3,cell4;
 
+    private TimeThread timeThread;
+
     public GameStageGUI(){
+
+        timeThread = new TimeThread();
+
 
         this.setLayout(new BorderLayout());
         buttonColor = new Color(124,136,248);
@@ -42,15 +51,17 @@ public class GameStageGUI extends JPanel{
         joc.setFont(new Font("Inter", Font.BOLD, 40));
 
         //gamePanel.add(joc, BorderLayout.CENTER);
-
+        timeThread.start();
         clock = new JPanel();
-        clock.setLayout(new BoxLayout(clock, BoxLayout.Y_AXIS));
-        clk = new JLabel("HORA");
-        clk.setFont(new Font("Inter",Font.BOLD,14));
+        clock.setLayout(new BoxLayout(clock, BoxLayout.X_AXIS));
+        clk = new JLabel();
+        clk.setFont(new Font("Inter",Font.BOLD,40));
         clock.add(joc);
+        clock.add(Box.createHorizontalStrut(100));
         clock.add(clk);
 
 
+        updateLabel();
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BorderLayout());
@@ -463,6 +474,12 @@ public class GameStageGUI extends JPanel{
     public void setGameListener(ActionListener listener){
         this.guardar.addActionListener(listener);
         abandonar.addActionListener(listener);
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                cellsUser[i][j].addActionListener(listener);
+                // Add button to panel or container
+            }
+        }
     }
 
 
@@ -546,7 +563,7 @@ public class GameStageGUI extends JPanel{
     }
 
     public void paintIA(Game game, int i, int j, int numPlayers){
-
+        paintUser(game,i,j,numPlayers);
         for (int m = 0;m<numPlayers;m++){
             int touch = game.getJugadorIA().get(m).getTablero().getTablero()[i][j];
             if (m == 0){
@@ -579,6 +596,8 @@ public class GameStageGUI extends JPanel{
             cell1[i][j].setBackground(Color.green);
         }else if(touch==5){
             cell1[i][j].setBackground(Color.pink);
+        }else if(touch==6){
+            cell1[i][j].setBackground(Color.BLACK);
         }
         else{
             cell1[i][j].setBackground(Color.blue);
@@ -597,6 +616,8 @@ public class GameStageGUI extends JPanel{
             cell2[i][j].setBackground(Color.green);
         }else if(touch==5){
             cell2[i][j].setBackground(Color.pink);
+        }else if(touch==6){
+            cell2[i][j].setBackground(Color.BLACK);
         }
         else{
             cell2[i][j].setBackground(Color.blue);
@@ -615,6 +636,8 @@ public class GameStageGUI extends JPanel{
             cell3[i][j].setBackground(Color.green);
         }else if(touch==5){
             cell3[i][j].setBackground(Color.pink);
+        }else if(touch==6){
+            cell3[i][j].setBackground(Color.BLACK);
         }
         else{
             cell3[i][j].setBackground(Color.blue);
@@ -633,6 +656,8 @@ public class GameStageGUI extends JPanel{
             cell4[i][j].setBackground(Color.green);
         }else if(touch==5){
             cell4[i][j].setBackground(Color.pink);
+        }else if(touch==6){
+            cell4[i][j].setBackground(Color.BLACK);
         }
         else{
             cell4[i][j].setBackground(Color.blue);
@@ -654,12 +679,30 @@ public class GameStageGUI extends JPanel{
                 cellsUser[i][j].setBackground(Color.green);
             }else if(touch==5){
                 cellsUser[i][j].setBackground(Color.pink);
+            }else if(touch==6){
+                cellsUser[i][j].setBackground(Color.BLACK);
             }
             else{
                 cellsUser[i][j].setBackground(Color.blue);
             }
         }
 
+    }
+
+    private void updateLabel() {
+        Thread updateThread = new Thread(() -> {
+            while (true) {
+                LocalTime currentTime = LocalTime.now();
+                clk.setText(currentTime.toString().substring(0,8));
+                clk.setForeground(Color.red);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        updateThread.start();
     }
 
 

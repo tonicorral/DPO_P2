@@ -57,8 +57,16 @@ public class GameStageController implements ActionListener{
         mouseClicked = false;
 
         */
+        if (e.getActionCommand().startsWith("cell")) {
+            positionBoatTable = e.getActionCommand();
+            ArrayList<Integer> positionsUser = gameModel.attackUser(positionBoatTable);
+            game = gameModel.insertAttack(game,positionsUser);
+            updateTable();
+        }
 
         switch (e.getActionCommand()) {
+
+
             //case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
             case GameStageGUI.ABANDONAR:
                 mainView.switchView(MainView.MENU_VIEW);
@@ -77,20 +85,19 @@ public class GameStageController implements ActionListener{
         for (int i = 0;i<5;i++){
             for(int j=0;j<numPlayers;j++){
                 game = gameModel.IAAttacks(game,j);
-                System.out.println(game.getJugadorIA().get(j).getPositionAttackedX());
-                System.out.println(game.getJugadorIA().get(j).getPositionAttackedY());
             }
             game = gameModel.updateTablero(game);
-
         }
+        paintTables(numPlayers);
+    }
 
-        for(int i = 0;i<15;i++){
-            for(int j = 0;j<15;j++){
-                gameStageGUI.paintUser(game,i,j,numPlayers);
-            }
-        }
+    public void updateTable(){
+        game = gameModel.updateTablero(game);
+        int numPlayers = game.getNumberPlayers();
+        paintTables(numPlayers);
+    }
 
-        //Pintamos
+    private void paintTables(int numPlayers){
         for(int m = 0;m<numPlayers;m++){
             for(int i = 0;i<15;i++){
                 for(int j = 0;j<15;j++){
@@ -98,8 +105,6 @@ public class GameStageController implements ActionListener{
                 }
             }
         }
-
-
     }
 
 
