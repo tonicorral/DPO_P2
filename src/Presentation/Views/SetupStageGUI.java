@@ -3,8 +3,10 @@ package Presentation.Views;
 import Presentation.Controllers.SetUpController;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class SetupStageGUI extends JPanel{
 
@@ -36,7 +38,7 @@ public class SetupStageGUI extends JPanel{
 
     public static final String PORTAAVIONS = "PORTAAVIONS";
 
-    private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
+    private JTable boatsStatusTable;
 
     public SetupStageGUI(){
 
@@ -294,6 +296,11 @@ public class SetupStageGUI extends JPanel{
         grid2.add(tablePanel);
         grid2.add(Box.createHorizontalStrut(20));
         grid2.add(boatsPanel);
+        boatsStatusTable = new JTable();
+        boatsStatusTable = createUserTable();
+        grid2.add(Box.createHorizontalStrut(20));
+        grid2.add(boatsStatusTable);
+
 
         generalPanel.add(grid2);
         // generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
@@ -319,6 +326,12 @@ public class SetupStageGUI extends JPanel{
 
         rectPorta.setOpaque(false);
         //rectPorta.setActionCommand(PORTAAVIONS);
+
+
+
+
+
+
 
         setVisible(true);
     }
@@ -348,7 +361,54 @@ public class SetupStageGUI extends JPanel{
 
 
 
+    public void getStatusBoats(boolean isClickedPorta,boolean isClickedDestructor,boolean isClickedSubmari,boolean isClickedSubmari2,boolean isClickedLlanxa){
+        ArrayList<String> statusBoats = new ArrayList<>();
+        String placed = "Boat placed!";
+        for(int i = 0;i<5;i++){
+            statusBoats.add("Pending to place!");
+        }
 
+        if(isClickedPorta){
+            statusBoats.set(0,placed);
+        }
+        if(isClickedDestructor){
+            statusBoats.set(1,placed);
+        }
+        if(isClickedSubmari){
+            statusBoats.set(2,placed);
+        }
+        if(isClickedSubmari2){
+            statusBoats.set(3,placed);
+        }
+        if(isClickedLlanxa){
+            statusBoats.set(4,placed);
+        }
+
+        updateUserTable(statusBoats);
+    }
+
+    private JTable createUserTable() {
+
+        String[] columnNames = {"Boat", "Status"};
+        String[][] rowData = {
+                {"Portaviones", "Pending to place!"},
+                {"Destructor", "Pending to place!"},
+                {"Submari", "Pending to place!"},
+                {"Submari", "Pending to place!"},
+                {"Lancha2", "Pending to place!"}
+        };
+        DefaultTableModel model = new DefaultTableModel(rowData, columnNames);
+        JTable table = new JTable(model);
+        table.setPreferredSize(new Dimension(200, 100));
+        return table;
+    }
+
+    public void updateUserTable(ArrayList<String> status) {
+        DefaultTableModel model = (DefaultTableModel) boatsStatusTable.getModel();
+        for (int i = 0; i < status.size(); i++) {
+            model.setValueAt(status.get(i), i, 1);
+        }
+    }
 
 
 

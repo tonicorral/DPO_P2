@@ -7,12 +7,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
 public class GameStageGUI extends JPanel{
 
+    private Date currentTime;
+    private long startTime = System.currentTimeMillis();
     private Point mouseSelect = null;
     private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
     private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable, buttonsPanelAbandonar;
@@ -57,7 +60,7 @@ public class GameStageGUI extends JPanel{
         clk = new JLabel();
         clk.setFont(new Font("Inter",Font.BOLD,40));
         clock.add(joc);
-        clock.add(Box.createHorizontalStrut(100));
+        clock.add(Box.createHorizontalStrut(50));
         clock.add(clk);
 
 
@@ -692,8 +695,10 @@ public class GameStageGUI extends JPanel{
     private void updateLabel() {
         Thread updateThread = new Thread(() -> {
             while (true) {
-                LocalTime currentTime = LocalTime.now();
-                clk.setText(currentTime.toString().substring(0,8));
+                long elapsedTime = System.currentTimeMillis() - startTime  - 3600000;
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                currentTime = new Date(elapsedTime);
+                clk.setText(sdf.format(currentTime));
                 clk.setForeground(Color.red);
                 try {
                     Thread.sleep(1000);
