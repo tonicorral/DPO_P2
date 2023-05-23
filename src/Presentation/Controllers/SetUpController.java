@@ -69,6 +69,7 @@ public class SetUpController implements ActionListener, MouseListener {
 
         if (e.getActionCommand().startsWith("cell") && mouseClicked) {
             positionBoatTable = e.getActionCommand();
+           // setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
             showTable(positionBoat,positionBoatTable,rotation);
             rotation = false;
         }
@@ -102,6 +103,7 @@ public class SetUpController implements ActionListener, MouseListener {
                 break;
             case SetupStageGUI.ELIMINATE:
                 eliminateBoats();
+                setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
                 break;
 
         }
@@ -242,6 +244,7 @@ public class SetUpController implements ActionListener, MouseListener {
                 saveBoatPosition(boat, false,number,positionLetter,size,text);
             }
             isClickedBoat(boat);
+            setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
         }
     }
 //hola

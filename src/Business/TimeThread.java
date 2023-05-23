@@ -3,12 +3,16 @@ package Business;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 public class TimeThread extends Thread {
     private boolean running;
     private Date currentTime;
+    private long startTime;
 
     public TimeThread() {
         running = true;
+        this.startTime = 0;
     }
 
     public void stopThread() {
@@ -22,7 +26,6 @@ public class TimeThread extends Thread {
     @Override
     public void run() {
         while (running) {
-            currentTime = new Date();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
