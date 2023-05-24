@@ -5,25 +5,20 @@ import Business.SaveGame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 
 public class StatisticsGUI extends JPanel {
 
-    private JLabel winsLabel, lossesLabel, title, percentageLabel, partidasTotales;
+    private JLabel title;
 
     private JButton cancelButton, deleteButton, closeButton;
     private Color buttonColor;
-    private JProgressBar winLossRatioBar;
+    //private JProgressBar winLossRatioBar;
     private JPanel generalPanel, borderPanel, threeB;
-
-
-    private int[] gameResults = {30, 40, 25, 35, 50, 60, 45, 55, 20, 38, 42, 48, 33, 27, 52, 37, 65, 22, 29, 44, 63,
-                                31, 57, 47, 39, 53, 28, 41, 56, 59, 34, 23, 36, 66, 43, 26, 51, 32, 58, 21, 24, 49,
-                                46, 67, 54, 68, 69};
-    private int barWidth =5; // Ancho de cada barra
-    private int barSpacing; // Espacio entre barras
-    private int barChartHeight = 100; // Altura del gráfico de barras
 
 
     public static final String CANCEL_BTN = "CANCEL_BTN";
@@ -37,16 +32,15 @@ public class StatisticsGUI extends JPanel {
 
         this.saveGame = saveGame;
 
-
         //System.out.println(wins);
         //System.out.println(totalGames);
-
 
         buttonColor = new Color(124,136,248);
 
         title = new JLabel("PLAYER STATS");
         title.setFont(new Font("Iceland",Font.BOLD,96));
-        title.setForeground(Color.white);
+        title.setForeground(Color.blue);
+
 
         JPanel leftPanel = new JPanel(new GridLayout(4, 1));
 
@@ -164,33 +158,53 @@ public class StatisticsGUI extends JPanel {
 
         //Diagrama de BARRAS
 
-        int numBars = 52; // Número de barras a mostrar
+        ArrayList<Integer> gameResults = saveGame.extraerAtaques(user);
+
+
         int minValue = 17; // Valor mínimo en el eje x
-        int maxValue = 69; // Valor máximo en el eje x
 
-        barWidth = 10; // Ancho de cada barra
-        barSpacing = 5; // Espacio entre barras
+        int maxValue = saveGame.extraerAtaqueMasAlto(user);
 
-        // Verificar que las barras se ajusten correctamente en el ancho de la ventana
-        if ((barWidth + barSpacing) * numBars > width) {
-            barWidth = (width - barSpacing * (numBars - 1)) / numBars;
+        int numBars = maxValue - minValue + 1; // Número de barras a mostrar
+
+// Ancho de cada barra y espacio entre barras
+        int barWidth = 9;
+        int barSpacing = 5;
+
+// Crear un mapa para realizar el recuento de la frecuencia de los números
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int i = 0; i < gameResults.size(); i++) {
+            int gameResult = gameResults.get(i);
+            frequencyMap.put(gameResult, frequencyMap.getOrDefault(gameResult, 0) + 1);
         }
 
+// Dibujo gráfico
+        int chartX = width / 3 +120;
+        int chartY = height / 2;
+        int barChartHeight = 200; // Altura del gráfico de barras
 
-        //Dibujo gráfico
 
-        // posición y tamaño del gráfico de barras en la parte derecha
-        int chartWidth = (barWidth + barSpacing) * gameResults.length - barSpacing;
-        int chartX = width /2;
-        int chartY = height -250;
+// Dibujar el texto del número total de juegos
+        g.setColor(Color.black);
+        g.setFont(new Font("Arial", Font.BOLD, 12)); // Establecer la fuente y tamaño del texto
+        String totalGamesText = "Total Games: " + totalGames;
+        String info1 = "\nEje horizontal : Ataques por partida";
+        String info2 = "\nBarras verticales : Partidas con ese número de ataques ";
+        int textWidth = g.getFontMetrics().stringWidth(totalGamesText); // Obtener el ancho del texto
+        int textX = chartX - textWidth / 2; // Calcular la posición x del texto
+        int textY = chartY - 20; // Calcular la posición y del texto
+        g.drawString(totalGamesText, textX, textY);
+        g.drawString(info1, textX, textY-15);
+        g.drawString(info2, textX, textY-30);
 
-        // Dibujar las barras según los resultados de las partidas
-        for (int i = 0; i < gameResults.length; i++) {
-            int gameResult = gameResults[i];
+
+// Dibujar las barras según la frecuencia de los números
+        for (int i = minValue; i <= maxValue; i++) {
+            int gameResult = frequencyMap.getOrDefault(i, 0);
 
             // Calcula el tamaño y posición de la barra
-            int barHeight = (int) (((double) gameResult / 20) * barChartHeight);
-            int barX = chartX + (barWidth + barSpacing) * i;
+            int barHeight = (int) (((double) gameResult / gameResults.size()) * barChartHeight);
+            int barX = chartX + (barWidth + barSpacing) * (i - minValue);
             int barY = chartY + barChartHeight - barHeight;
 
             // Dibujar la barra
@@ -201,23 +215,20 @@ public class StatisticsGUI extends JPanel {
 
             // Dibujar el número debajo de la barra
             g.setColor(Color.black);
-            Font font = new Font("Arial", Font.PLAIN, 9); // Establece el tamaño de fuente deseado
+            Font font = new Font("Arial", Font.PLAIN, 9);
             g.setFont(font);
-            g.drawString(Integer.toString(i + 17), barX + barWidth / 2, chartY + barChartHeight + 15);
+            g.drawString(Integer.toString(i), barX + barWidth / 2, chartY + barChartHeight + 15);
 
-            // Obtener el tamaño del texto
-            //FontMetrics fontMetrics = g.getFontMetrics();
-            int textWidth = fontMetrics.stringWidth(Integer.toString(gameResult));
-            //int textHeight = fontMetrics.getHeight();
+            // Obtener la frecuencia del número en el mapa
+            int frequency = frequencyMap.getOrDefault(i, 0);
 
-            // Calcular la posición del texto en la parte superior de la barra
-            int textX = barX + (barWidth - textWidth) / 2; // Centrar el texto horizontalmente
-            int textY = barY - textHeight; // Posicionar el texto arriba de la barra
-
-            // Dibujar el número encima de la barra
+            // Dibujar la frecuencia encima de la barra
             g.setColor(Color.black);
-            g.drawString(Integer.toString(gameResult), textX, textY);
+            g.drawString(Integer.toString(frequency), barX + barWidth / 2, barY - 5);
+
+
         }
+
 
     }
 

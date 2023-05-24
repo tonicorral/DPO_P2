@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class SaveGame {
     private GameDAO gameDAO;
@@ -65,4 +66,15 @@ public class SaveGame {
         return partidas;
     }
 
+    public int extraerAtaqueMasAlto(String user){
+        int ataqueMasAlto = gameDAO.obtenerAtaqueMasAlto(user);
+
+        return ataqueMasAlto;
+    }
+
+    public ArrayList<Integer> extraerAtaques(String user){
+        ArrayList<Integer> gameResults = gameDAO.extraerArrayAtaques(user);
+
+        return gameResults;
+    }
 }

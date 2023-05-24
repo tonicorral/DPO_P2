@@ -14,6 +14,10 @@ public interface GameDAO {
 
     public int calcularNumeroVictorias(String user);
 
+    public ArrayList<Integer> extraerArrayAtaques(String user);
+
+    public int obtenerAtaqueMasAlto(String user);
+
     public boolean validGameName(String gameName);
     public String fileGame(String gameName);
 
@@ -23,6 +27,6 @@ public interface GameDAO {
 
     public List<Integer> attacksInGame(String userName) throws SQLException; //Para poder calcular la media de ataques por partida te devuelve un array de enteros con los ataques hechos en cada partida
 
-    public ArrayList<Integer> extraerArrayAtaques(String user);
+
 
 }

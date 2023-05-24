@@ -148,6 +148,22 @@ public class GameSQL implements GameDAO{
         return ataques;
     }
 
+    public int obtenerAtaqueMasAlto(String user) {
+        String query = "SELECT MAX(AtackPartida) AS maxAtaque FROM guardarpartida WHERE Usuario = '" + user + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        int ataqueMasAlto = 0;
+        try {
+            if (result.next()) {
+                ataqueMasAlto = result.getInt("maxAtaque");
+                return ataqueMasAlto;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 
 
 }
