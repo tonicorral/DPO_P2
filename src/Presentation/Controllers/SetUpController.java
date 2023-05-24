@@ -87,7 +87,7 @@ public class SetUpController implements ActionListener, MouseListener {
                     //iaModel.createBoats();
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
                     gameStageController.initTable();
-
+                    gameStageController.initTime(System.currentTimeMillis());
 
                 }
                     break;
@@ -273,23 +273,23 @@ public class SetUpController implements ActionListener, MouseListener {
 
        switch(boat){
             case "PortaAvions" -> {
-                Boat boat1 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat1 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(0,boat1);
             }
             case "Destructor" -> {
-                Boat boat2 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat2 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(1,boat2);
             }
             case "Submari" ->{
-                Boat boat3 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat3 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(2,boat3);
             }
             case "Submari2" -> {
-                Boat boat4 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat4 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(3,boat4);
             }
             case "Llanxa" -> {
-                Boat boat5 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat5 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(4,boat5);
             }
         }

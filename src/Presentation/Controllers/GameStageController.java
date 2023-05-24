@@ -83,13 +83,14 @@ public class GameStageController implements ActionListener{
         game = gameModel.getGame();
         gameStageGUI.setBoats(game);
         int numPlayers = game.getNumberPlayers();
-        for (int i = 0;i<5;i++){
+        for (int i = 0;i<10;i++){
             for(int j=0;j<numPlayers;j++){
                 game = gameModel.IAAttacks(game,j);
             }
             game = gameModel.updateTablero(game);
         }
         paintTables(numPlayers);
+        //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
     }
 
     public void updateTable(){
@@ -106,6 +107,10 @@ public class GameStageController implements ActionListener{
                 }
             }
         }
+    }
+
+    public void initTime(long time){
+        gameStageGUI.initTime(time);
     }
 
 

@@ -8,14 +8,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class GameStageGUI extends JPanel{
 
     private Date currentTime;
-    private long startTime = System.currentTimeMillis();
+    private long startTime = 0;
     private Point mouseSelect = null;
     private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
     private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable, buttonsPanelAbandonar;
@@ -25,7 +23,7 @@ public class GameStageGUI extends JPanel{
     private JButton[][] cellsUser;
     private DefaultTableModel model;
     private JComboBox<Integer> comboBoxUser, comboBox1, comboBox2, comboBox3, comboBox4;
-
+    private String text1="",text2="",text3="",text4="";
     public static final String ABANDONAR = "ABANDONAR";
 
     public static final String GUARDAR = "GUARDAR";
@@ -600,7 +598,50 @@ public class GameStageGUI extends JPanel{
         }else if(touch==5){
             cell1[i][j].setBackground(Color.pink);
         }else if(touch==6){
-            cell1[i][j].setBackground(Color.BLACK);
+            cell1[i][j].setBackground(Color.gray);
+        }else if(touch==-2){
+            cell1[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("T");
+            cell1[i][j].add(text);
+        }else if(touch==-3){
+            cell1[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("T");
+            cell1[i][j].add(text);
+        }
+        else if(touch==-4){
+            cell1[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("T");
+            cell1[i][j].add(text);
+        }
+        else if(touch==-5){
+            cell1[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("T");
+            cell1[i][j].add(text);
+        }
+        else if(touch==-6){
+            cell1[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("T");
+            cell1[i][j].add(text);
+        }else if(touch==-7){
+            cell1[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("H");
+            cell1[i][j].add(text);
+        }else if(touch==-8){
+            cell1[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("H");
+            cell1[i][j].add(text);
+        }else if(touch==-9){
+            cell1[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("H");
+            cell1[i][j].add(text);
+        }else if(touch==-10){
+            cell1[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("H");
+            cell1[i][j].add(text);
+        }else if(touch==-11){
+            cell1[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("H");
+            cell1[i][j].add(text);
         }
         else{
             cell1[i][j].setBackground(Color.blue);
@@ -620,7 +661,50 @@ public class GameStageGUI extends JPanel{
         }else if(touch==5){
             cell2[i][j].setBackground(Color.pink);
         }else if(touch==6){
-            cell2[i][j].setBackground(Color.BLACK);
+            cell2[i][j].setBackground(Color.gray);
+        }else if(touch==-2){
+            cell2[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("T");
+            cell2[i][j].add(text);
+        }else if(touch==-3){
+            cell2[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("T");
+            cell2[i][j].add(text);
+        }
+        else if(touch==-4){
+            cell2[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("T");
+            cell2[i][j].add(text);
+        }
+        else if(touch==-5){
+            cell2[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("T");
+            cell2[i][j].add(text);
+        }
+        else if(touch==-6){
+            cell2[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("T");
+            cell2[i][j].add(text);
+        }else if(touch==-7){
+            cell2[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("H");
+            cell2[i][j].add(text);
+        }else if(touch==-8){
+            cell2[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("H");
+            cell2[i][j].add(text);
+        }else if(touch==-9){
+            cell2[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("H");
+            cell2[i][j].add(text);
+        }else if(touch==-10){
+            cell2[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("H");
+            cell2[i][j].add(text);
+        }else if(touch==-11){
+            cell2[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("H");
+            cell2[i][j].add(text);
         }
         else{
             cell2[i][j].setBackground(Color.blue);
@@ -640,7 +724,50 @@ public class GameStageGUI extends JPanel{
         }else if(touch==5){
             cell3[i][j].setBackground(Color.pink);
         }else if(touch==6){
-            cell3[i][j].setBackground(Color.BLACK);
+            cell3[i][j].setBackground(Color.gray);
+        }else if(touch==-2){
+            cell3[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("T");
+            cell3[i][j].add(text);
+        }else if(touch==-3){
+            cell3[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("T");
+            cell3[i][j].add(text);
+        }
+        else if(touch==-4){
+            cell3[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("T");
+            cell3[i][j].add(text);
+        }
+        else if(touch==-5){
+            cell3[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("T");
+            cell3[i][j].add(text);
+        }
+        else if(touch==-6){
+            cell3[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("T");
+            cell3[i][j].add(text);
+        }else if(touch==-7){
+            cell3[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("H");
+            cell3[i][j].add(text);
+        }else if(touch==-8){
+            cell3[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("H");
+            cell3[i][j].add(text);
+        }else if(touch==-9){
+            cell3[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("H");
+            cell3[i][j].add(text);
+        }else if(touch==-10){
+            cell3[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("H");
+            cell3[i][j].add(text);
+        }else if(touch==-11){
+            cell3[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("H");
+            cell3[i][j].add(text);
         }
         else{
             cell3[i][j].setBackground(Color.blue);
@@ -660,7 +787,50 @@ public class GameStageGUI extends JPanel{
         }else if(touch==5){
             cell4[i][j].setBackground(Color.pink);
         }else if(touch==6){
-            cell4[i][j].setBackground(Color.BLACK);
+            cell4[i][j].setBackground(Color.gray);
+        }else if(touch==-2){
+            cell4[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("T");
+            cell4[i][j].add(text);
+        }else if(touch==-3){
+            cell4[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("T");
+            cell4[i][j].add(text);
+        }
+        else if(touch==-4){
+            cell4[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("T");
+            cell4[i][j].add(text);
+        }
+        else if(touch==-5){
+            cell4[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("T");
+            cell4[i][j].add(text);
+        }
+        else if(touch==-6){
+            cell4[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("T");
+            cell4[i][j].add(text);
+        }else if(touch==-7){
+            cell4[i][j].setBackground(Color.yellow);
+            JLabel text = new JLabel("H");
+            cell4[i][j].add(text);
+        }else if(touch==-8){
+            cell4[i][j].setBackground(Color.cyan);
+            JLabel text = new JLabel("H");
+            cell4[i][j].add(text);
+        }else if(touch==-9){
+            cell4[i][j].setBackground(Color.green);
+            JLabel text = new JLabel("H");
+            cell4[i][j].add(text);
+        }else if(touch==-10){
+            cell4[i][j].setBackground(Color.pink);
+            JLabel text = new JLabel("H");
+            cell4[i][j].add(text);
+        }else if(touch==-11){
+            cell4[i][j].setBackground(Color.gray);
+            JLabel text = new JLabel("H");
+            cell4[i][j].add(text);
         }
         else{
             cell4[i][j].setBackground(Color.blue);
@@ -683,7 +853,50 @@ public class GameStageGUI extends JPanel{
             }else if(touch==5){
                 cellsUser[i][j].setBackground(Color.pink);
             }else if(touch==6){
-                cellsUser[i][j].setBackground(Color.BLACK);
+                cellsUser[i][j].setBackground(Color.gray);
+            }else if(touch==-2){
+                cellsUser[i][j].setBackground(Color.yellow);
+                JLabel text = new JLabel("T");
+                cellsUser[i][j].add(text);
+            }else if(touch==-3){
+                cellsUser[i][j].setBackground(Color.cyan);
+                JLabel text = new JLabel("T");
+                cellsUser[i][j].add(text);
+            }
+            else if(touch==-4){
+                cellsUser[i][j].setBackground(Color.green);
+                JLabel text = new JLabel("T");
+                cellsUser[i][j].add(text);
+            }
+            else if(touch==-5){
+                cellsUser[i][j].setBackground(Color.pink);
+                JLabel text = new JLabel("T");
+                cellsUser[i][j].add(text);
+            }
+            else if(touch==-6){
+                cellsUser[i][j].setBackground(Color.gray);
+                JLabel text = new JLabel("T");
+                cellsUser[i][j].add(text);
+            }else if(touch==-7){
+                cellsUser[i][j].setBackground(Color.yellow);
+                JLabel text = new JLabel("H");
+                cellsUser[i][j].add(text);
+            }else if(touch==-8){
+                cellsUser[i][j].setBackground(Color.cyan);
+                JLabel text = new JLabel("H");
+                cellsUser[i][j].add(text);
+            }else if(touch==-9){
+                cellsUser[i][j].setBackground(Color.green);
+                JLabel text = new JLabel("H");
+                cellsUser[i][j].add(text);
+            }else if(touch==-10){
+                cellsUser[i][j].setBackground(Color.pink);
+                JLabel text = new JLabel("H");
+                cellsUser[i][j].add(text);
+            }else if(touch==-11){
+                cellsUser[i][j].setBackground(Color.gray);
+                JLabel text = new JLabel("H");
+                cellsUser[i][j].add(text);
             }
             else{
                 cellsUser[i][j].setBackground(Color.blue);
@@ -708,6 +921,10 @@ public class GameStageGUI extends JPanel{
             }
         });
         updateThread.start();
+    }
+
+    public void initTime(long time){
+        startTime = time;
     }
 
 

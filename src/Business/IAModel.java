@@ -15,19 +15,19 @@ public class IAModel {
         ArrayList<Boat> boats = new ArrayList<>();
 
         createPortaAvions();
-        Boat portaAvions = new Boat("PortaAvions",5,"P",positionPortaX,positionPortaY,rotationPorta);
+        Boat portaAvions = new Boat("PortaAvions",5,"P",positionPortaX,positionPortaY,rotationPorta,"Alive");
         boats.add(portaAvions);
         createDestructor();
-        Boat destructor = new Boat("Destructor",4,"D",positionDestructorX,positionDestructorY,rotationDestructor);
+        Boat destructor = new Boat("Destructor",4,"D",positionDestructorX,positionDestructorY,rotationDestructor,"Alive");
         boats.add(destructor);
         createSubmari();
-        Boat submari = new Boat("Submari",3,"S",positionSubmariX,positionSubmariY,rotationSubmari);
+        Boat submari = new Boat("Submari",3,"S",positionSubmariX,positionSubmariY,rotationSubmari,"Alive");
         boats.add(submari);
         createSubmari2();
-        Boat submari2 = new Boat("Submari2",3,"S",positionSubmari2X,positionSubmari2Y,rotationSubmari2);
+        Boat submari2 = new Boat("Submari2",3,"S",positionSubmari2X,positionSubmari2Y,rotationSubmari2,"Alive");
         boats.add(submari2);
         createLlanxa();
-        Boat llanxa = new Boat("Llanxa",2,"L",positionLlanxaX,positionLlanxaY,rotationLlanxa);
+        Boat llanxa = new Boat("Llanxa",2,"L",positionLlanxaX,positionLlanxaY,rotationLlanxa,"Alive");
         boats.add(llanxa);
 
         return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
@@ -280,28 +280,79 @@ public class IAModel {
             int n = attacker.getPositionAttackedX().size() - 1;
             int positionAttackedX = attacker.getPositionAttackedX().get(n);
             int positionAttackedY = attacker.getPositionAttackedY().get(n);
-            game.getPlayer().getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
+            if( game.getPlayer().getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] == 1){
+                game.getPlayer().getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = (i+2)*-1;
+            }else{
+                game.getPlayer().getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
+            }
+
             for(int j=0;j<numPlayers;j++){
+                int positionAttacked = game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1];
+                System.out.println(positionAttacked);
                 if(j!=i){
-                    game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
+                    if( positionAttacked == 1){
+                        System.out.println("correcto");
+                        game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = (i+2)*-1;
+                        checkBoats(game, i,j);
+                    }else if(positionAttacked == 0){
+                        game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
+                    }
                 }
             }
             if(game.getPlayer().getPositionAttackedX().size() > 0){
                 int positionUserX = game.getPlayer().getPositionAttackedX().get(game.getPlayer().getPositionAttackedX().size()-1);
                 int positionUserY = game.getPlayer().getPositionAttackedY().get(game.getPlayer().getPositionAttackedY().size()-1);
-                game.getJugadorIA().get(i).getTablero().getTablero()[positionUserX-1][positionUserY-1] = 6;
+                if(game.getJugadorIA().get(i).getTablero().getTablero()[positionUserX-1][positionUserY-1] == 1){
+                    game.getJugadorIA().get(i).getTablero().getTablero()[positionUserX-1][positionUserY-1] = -6;
+                }else{
+                    game.getJugadorIA().get(i).getTablero().getTablero()[positionUserX-1][positionUserY-1] = 6;
+                }
             }
-
-
         }
-
-
-
-
-
-
-
         return game;
+    }
+
+    private void checkBoats(Game game,int i,int k){
+        for(int m=0;m<5;m++){
+            int positionX = game.getJugadorIA().get(i).getBoats().get(m).getPositionX();
+            int positionY = game.getJugadorIA().get(i).getBoats().get(m).getPositionY();
+            int boatSize = game.getJugadorIA().get(i).getBoats().get(m).getSize();
+            boolean orientation = game.getJugadorIA().get(i).getBoats().get(m).getOrientation();
+            int counter = 0;
+            if(game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1][positionY-1] >= -6 && game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1][positionY-1] <= -2){
+                for(int j=0;j<m;j++){
+
+                    if(orientation){
+                        System.out.println("checkY" + game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1][positionY-1+j] );
+                        if(game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1][positionY-1+j] >= -6 && game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1][positionY-1+j] <= -2){
+                            counter ++;
+                            System.out.println("countery" + counter);
+                        }
+                    }else{
+                        System.out.println("checkX" + game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1+j][positionY-1] );
+                        if(game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1+j][positionY-1] >= -6 && game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1+j][positionY-1] <= -2){
+                            counter ++;
+                            System.out.println("counterx" + counter);
+                        }
+                    }
+
+                }
+                if(counter == boatSize){
+                    game.getJugadorIA().get(i).getBoats().get(m).setStatus("Hundido");
+                    for(int j=0;j<m;j++){
+                        if(orientation){
+                            game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1][positionY-1+j] = -k-7;
+                        }else{
+                            game.getJugadorIA().get(i).getTablero().getTablero()[positionX-1+j][positionY-1] = -k-7;
+
+                        }
+
+                    }
+                }else{
+                    game.getJugadorIA().get(i).getBoats().get(m).setStatus("Tocado");
+                }
+            }
+        }
     }
 
 
