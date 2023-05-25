@@ -85,7 +85,9 @@ public class SetUpController implements ActionListener, MouseListener {
                     gameModel.getNumberPlayers(getNumberPlayers());
                     gameModel.createGame(savePlayer(boats));
                     //iaModel.createBoats();
+                    gameStageController.startTimer();
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
+
                     gameStageController.initTable();
 
                 }

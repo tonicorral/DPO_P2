@@ -1,7 +1,5 @@
 package Business;
 
-import Presentation.Controllers.GameStageController;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,10 +11,10 @@ public class TimeThread extends Thread {
     private boolean running;
     private int m;
     private int s;
-    private GameStageController gameStageController;
+    private GameModel gameModel;
 
-    public TimeThread(GameStageController gameStageController){
-        this.gameStageController = gameStageController;
+    public TimeThread(GameModel gameModel){
+        this.gameModel = gameModel;
     }
 
     @Override
@@ -25,7 +23,7 @@ public class TimeThread extends Thread {
             try {
                 sleep(1000);
                 this.s++;
-                gameStageController.updateTimer();
+                gameModel.updateTimer();
                 if(s >= 60){
                     this.m++;
                     this.s = 0;

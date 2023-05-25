@@ -25,7 +25,10 @@ public class GameModel implements ThreadListener{
 
    private int seconds=0,minuts=0;
 
+   private String time;
    private Date currentTime;
+
+   private GameStageController gameStageController;
 
    private long startTime = System.currentTimeMillis();
 
@@ -35,8 +38,14 @@ public class GameModel implements ThreadListener{
 
         this.currentTime = new Date();
 
+
     }
 
+    public void startTimer(){
+        this.timeThread = new TimeThread(this);
+        timeThread.startTimer();
+        timeThread.start();
+    }
     public void getNumberPlayers(int numberPlayers1){
         numberPlayers = numberPlayers1;
     }
@@ -98,7 +107,24 @@ public class GameModel implements ThreadListener{
         return game;
     }
 
+    public void updateTimer(){
+        minuts = timeThread.getM();
+        seconds = timeThread.getS();
+        if(seconds <10 && minuts<10){
+            time = "0" + minuts + ":0" + seconds;
+        }else if(seconds < 10){
+            time = minuts + ":0" + seconds;
+        }else if(minuts < 10){
+            time = "0" + minuts + ":" + seconds;
+        }else {
+            time = minuts + ":" + seconds;
+        }
+        gameStageController.updateTimer(time);
+    }
 
+    public void registerController(GameStageController gameStageController){
+        this.gameStageController = gameStageController;
+    }
 
 
     /*

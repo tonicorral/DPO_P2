@@ -25,7 +25,6 @@ public class GameStageController implements ActionListener{
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
 
     private MainView mainView;
-    private ThreadTimer threadTimer;
 
     private IAModel iaModel;
 
@@ -47,9 +46,7 @@ public class GameStageController implements ActionListener{
         this.saveGame = saveGame;
 
         mainView.setListeners(this);
-        this.timeThread = new TimeThread(this);
-        timeThread.startTimer();
-        timeThread.start();
+
         //mainView.setActionMouseListeners(this, this);
     }
 
@@ -102,24 +99,12 @@ public class GameStageController implements ActionListener{
         //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
     }
 
-    public synchronized void updateTimer(){
+    public void updateTimer(String timer){
+        gameStageGUI.updateLabel(timer);
+    }
 
-        if(seconds < 60){
-            seconds ++;
-        }else{
-            seconds = 0;
-            minuts++;
-        }
-        System.out.println(seconds);
-        if(seconds <10 && minuts<10){
-            gameStageGUI.updateLabel("0" + minuts + ":0" + seconds);
-        }else if(seconds < 10){
-            gameStageGUI.updateLabel(minuts + ":0" + seconds);
-        }else if(minuts < 10){
-            gameStageGUI.updateLabel("0" + minuts + ":" + seconds);
-        }else {
-            gameStageGUI.updateLabel(minuts + ":" + seconds);
-        }
+    public void startTimer(){
+        gameModel.startTimer();
     }
 
 

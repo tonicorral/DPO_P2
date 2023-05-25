@@ -55,8 +55,9 @@ public class GameStageGUI extends JPanel{
 
         clock = new JPanel();
         clock.setLayout(new BoxLayout(clock, BoxLayout.X_AXIS));
-        clk = new JLabel();
+        clk = new JLabel("00:00");
         clk.setFont(new Font("Inter",Font.BOLD,40));
+        clk.setForeground(Color.red);
         clock.add(joc);
         clock.add(Box.createHorizontalStrut(50));
         clock.add(clk);

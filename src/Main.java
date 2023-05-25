@@ -44,7 +44,7 @@ public class Main {
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainView, userModel);
         GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView,iaModel,gameModel, gameStageController);
-
+        gameModel.registerController(gameStageController);
 
         StatisticsController statisticsController = new StatisticsController(statisticsGUI, mainView);
         mainView.setVisible(true);
