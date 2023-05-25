@@ -30,7 +30,8 @@ public class IAModel {
         Boat llanxa = new Boat("Llanxa",2,"L",positionLlanxaX,positionLlanxaY,rotationLlanxa,"Alive");
         boats.add(llanxa);
 
-        return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
+        return null;
+        //return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
     }
 
     private int randomPosition(){
@@ -181,6 +182,7 @@ public class IAModel {
         }
         return checkBoat;
     }
+
 
 
     public Game makeDifferentAttack(Game game, int i) {

@@ -28,6 +28,7 @@ public class TimeThread extends Thread {
         while (running) {
             try {
                 Thread.sleep(1000);
+                listener.notify()
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

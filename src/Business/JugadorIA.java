@@ -3,10 +3,18 @@ package Business;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class JugadorIA extends Player {
-    public JugadorIA(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero) {
-        super(boats, positionAttackedX, positionAttackedY,tablero);
+public class JugadorIA extends Player implements Runnable{
+    private ThreadListener listener;
+
+    public JugadorIA(ThreadListener listener) {
+        this.listener = listener;
+
+
+        //create boats
     }
+
+
+
 
 
 
@@ -15,6 +23,11 @@ public class JugadorIA extends Player {
     }
 
 
+    @Override
+    public void run() {
+        while(true){
+            sleep()
 
-
+        }
+    }
 }

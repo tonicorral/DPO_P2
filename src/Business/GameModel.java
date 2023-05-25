@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class GameModel {
+public class GameModel implements ThreadListener{
 
     private SetUpController setUpController;
 
@@ -29,7 +29,7 @@ public class GameModel {
         ArrayList<JugadorIA> iaPlayers = new ArrayList<>();
 
         for(int i = 0; i<numberPlayers;i++){
-            iaPlayers.add(iaModel.createBoats());
+            iaPlayers.add(new JugadorIA(this));
         }
 
 
@@ -83,4 +83,13 @@ public class GameModel {
         return game;
     }
 
+    @Override
+    public boolean correctPosition(int fila, int columna, int attacker) {
+        return false;
+    }
+
+    @Override
+    public int notifyAttack(int fila, int columna, int attacker) {
+        return 0;
+    }
 }
