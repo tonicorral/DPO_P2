@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 
-public class TimeThread extends Thread {
+public class TimeThread extends Thread implements ThreadTimer {
 
 
     private boolean running;

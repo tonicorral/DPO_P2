@@ -3,7 +3,7 @@ package Business;
 import Business.Game;
 import Persistance.GameDAO;
 import Presentation.MainView;
-import Presentation.Views.LoginGUI;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
