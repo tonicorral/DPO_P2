@@ -14,8 +14,8 @@ public class SetupStageGUI extends JPanel{
 
     private Point mouseDownCompCoords = null;
 
-    private JLabel titleLabel,players,numberTable,titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;
-    private JPanel titlePanel,playersPanel,generalPanel,tablePanel,emptyPanel,boatsPanel,grid2,porta,destructor,submari,llanxa,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;
+    private JLabel titleLabel,players,titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;
+    private JPanel titlePanel,playersPanel,generalPanel,tablePanel,emptyPanel,boatsPanel,grid2,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;
 
     private JPanel twoB,threeB;
     private JComboBox<Integer> comboBox;

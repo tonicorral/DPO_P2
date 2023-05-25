@@ -86,12 +86,9 @@ public class SignUpGUI extends JPanel{
         })   ;**/
     }
 
-    public void registerSignUpController(ActionListener listener) {
+    public void setSignUpListeners(ActionListener listener) {
 
         this.signUp.addActionListener(listener);
-    }
-
-    public void registerController(ActionListener listener) {
         this.goBack.addActionListener(listener);
     }
 
