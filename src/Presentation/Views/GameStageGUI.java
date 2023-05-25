@@ -61,9 +61,6 @@ public class GameStageGUI extends JPanel{
         clock.add(Box.createHorizontalStrut(50));
         clock.add(clk);
 
-
-        updateLabel();
-
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BorderLayout());
 
@@ -905,27 +902,17 @@ public class GameStageGUI extends JPanel{
 
     }
 
-    private void updateLabel() {
-        Thread updateThread = new Thread(() -> {
-            while (true) {
-                long elapsedTime = System.currentTimeMillis() - startTime  - 3600000;
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                currentTime = new Date(elapsedTime);
-                clk.setText(sdf.format(currentTime));
-                clk.setForeground(Color.red);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        updateThread.start();
-    }
+    /*
+    public void updateLabel() {
+            long elapsedTime = System.currentTimeMillis() - startTime  - 3600000;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            currentTime = new Date(elapsedTime);
+            System.out.println(currentTime);
+            clk.setText(sdf.format(currentTime));
+            clk.setForeground(Color.red);
+    }*/
 
-    public void initTime(long time){
-        startTime = time;
-    }
+
 
 
 }

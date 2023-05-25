@@ -2,9 +2,9 @@ package Business;
 
 import Presentation.Controllers.SetUpController;
 
-import javax.swing.*;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GameModel implements ThreadListener{
 
@@ -12,14 +12,25 @@ public class GameModel implements ThreadListener{
 
     private IAModel iaModel;
 
+    private int hora=0,minuto=0,segundo=0;
+    private boolean iniciaHilo = true;
+    private boolean corriendo = false;
     private Game game;
     private TableroModel tableroModel;
 
    private int numberPlayers = 0;
 
+   private TimeThread timeThread;
+
+   private Date currentTime;
+
+   private long startTime = System.currentTimeMillis();
+
     public GameModel(IAModel iaModel,TableroModel tableroModel) {
         this.iaModel = iaModel;
         this.tableroModel =tableroModel;
+
+        this.currentTime = new Date();
     }
 
     public void getNumberPlayers(int numberPlayers1){
@@ -29,7 +40,7 @@ public class GameModel implements ThreadListener{
         ArrayList<JugadorIA> iaPlayers = new ArrayList<>();
 
         for(int i = 0; i<numberPlayers;i++){
-            iaPlayers.add(new JugadorIA(this));
+            iaPlayers.add(iaModel.createBoats());
         }
 
 
@@ -83,6 +94,14 @@ public class GameModel implements ThreadListener{
         return game;
     }
 
+
+    /*
+    public void timer(){
+        timeThread = new TimeThread();
+        new Thread(timeThread).start();
+    }*/
+
+
     @Override
     public boolean correctPosition(int fila, int columna, int attacker) {
         return false;
@@ -92,4 +111,6 @@ public class GameModel implements ThreadListener{
     public int notifyAttack(int fila, int columna, int attacker) {
         return 0;
     }
+
+
 }

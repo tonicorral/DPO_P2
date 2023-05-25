@@ -30,8 +30,8 @@ public class IAModel {
         Boat llanxa = new Boat("Llanxa",2,"L",positionLlanxaX,positionLlanxaY,rotationLlanxa,"Alive");
         boats.add(llanxa);
 
-        return null;
-        //return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
+
+        return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
     }
 
     private int randomPosition(){

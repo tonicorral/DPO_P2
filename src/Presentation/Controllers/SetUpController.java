@@ -87,7 +87,6 @@ public class SetUpController implements ActionListener, MouseListener {
                     //iaModel.createBoats();
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
                     gameStageController.initTable();
-                    gameStageController.initTime(System.currentTimeMillis());
 
                 }
                     break;

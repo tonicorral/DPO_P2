@@ -25,10 +25,13 @@ public class GameStageController implements ActionListener{
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
 
     private MainView mainView;
+    private ThreadTimer threadTimer;
 
     private IAModel iaModel;
 
     private GameModel gameModel;
+
+    private String currentTime;
 
     private Game game;
     private  ArrayList<Boat> boats;
@@ -89,9 +92,20 @@ public class GameStageController implements ActionListener{
             }
             game = gameModel.updateTablero(game);
         }
+        //insertTimer();
         paintTables(numPlayers);
         //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
     }
+
+
+    /*
+    public void insertTimer(){
+        while(true){
+            gameModel.timer();
+            gameStageGUI.updateLabel();
+        }
+
+    }*/
 
     public void updateTable(){
         game = gameModel.updateTablero(game);
@@ -109,9 +123,6 @@ public class GameStageController implements ActionListener{
         }
     }
 
-    public void initTime(long time){
-        gameStageGUI.initTime(time);
-    }
 
 
 
