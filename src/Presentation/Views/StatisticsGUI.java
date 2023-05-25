@@ -64,7 +64,6 @@ public class StatisticsGUI extends JPanel {
         closeButton.setBackground(buttonColor);
         closeButton.setForeground(Color.white);
 
-
         borderPanel = new JPanel(new FlowLayout());
         threeB = new JPanel(new GridLayout(1,3,10,10));
         threeB.add(cancelButton);

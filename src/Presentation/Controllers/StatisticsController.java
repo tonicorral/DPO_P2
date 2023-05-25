@@ -38,6 +38,10 @@ public class StatisticsController implements ActionListener{
                 mainView.switchView(MainView.DELETE_VIEW);
                 break;
 
+            //case StatisticsGUI.DELETE_BTN: Cuando se pulsa un usuario, actualizar la vista de stadistics
+                //mainView.switchView(MainView.DELETE_VIEW);
+                //break;
+
 
         }
 

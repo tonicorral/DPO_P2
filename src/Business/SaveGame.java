@@ -37,7 +37,7 @@ public class SaveGame {
             JsonObject adventureObj = gson.toJsonTree(partida).getAsJsonObject();
             String jsonString = gson.toJson(adventureObj);
             return jsonString;
-        } catch (Exception e) {
+        } catch (Exception e) { //CAMBIAR , EXCEPTION NUNCA
             throw new RuntimeException(e);
         }
     }
