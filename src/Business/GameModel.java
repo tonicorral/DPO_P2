@@ -1,5 +1,6 @@
 package Business;
 
+import Presentation.Controllers.GameStageController;
 import Presentation.Controllers.SetUpController;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +23,8 @@ public class GameModel implements ThreadListener{
 
    private TimeThread timeThread;
 
+   private int seconds=0,minuts=0;
+
    private Date currentTime;
 
    private long startTime = System.currentTimeMillis();
@@ -31,6 +34,7 @@ public class GameModel implements ThreadListener{
         this.tableroModel =tableroModel;
 
         this.currentTime = new Date();
+
     }
 
     public void getNumberPlayers(int numberPlayers1){
@@ -93,6 +97,8 @@ public class GameModel implements ThreadListener{
 
         return game;
     }
+
+
 
 
     /*

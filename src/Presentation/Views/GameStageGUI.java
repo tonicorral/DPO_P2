@@ -35,7 +35,7 @@ public class GameStageGUI extends JPanel{
 
     public GameStageGUI(){
 
-        timeThread = new TimeThread();
+
 
 
         this.setLayout(new BorderLayout());
@@ -52,7 +52,7 @@ public class GameStageGUI extends JPanel{
         joc.setFont(new Font("Inter", Font.BOLD, 40));
 
         //gamePanel.add(joc, BorderLayout.CENTER);
-        timeThread.start();
+
         clock = new JPanel();
         clock.setLayout(new BoxLayout(clock, BoxLayout.X_AXIS));
         clk = new JLabel();
@@ -902,15 +902,11 @@ public class GameStageGUI extends JPanel{
 
     }
 
-    /*
-    public void updateLabel() {
-            long elapsedTime = System.currentTimeMillis() - startTime  - 3600000;
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            currentTime = new Date(elapsedTime);
-            System.out.println(currentTime);
-            clk.setText(sdf.format(currentTime));
+
+    public void updateLabel(String timer) {
+            clk.setText(timer);
             clk.setForeground(Color.red);
-    }*/
+    }
 
 
 

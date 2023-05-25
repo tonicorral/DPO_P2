@@ -37,6 +37,8 @@ public class GameStageController implements ActionListener{
     private  ArrayList<Boat> boats;
 
     private ArrayList<Player> players;
+    private TimeThread timeThread;
+    private int seconds=0,minuts=0;
 
     public GameStageController(GameStageGUI gameStageGUI, MainView mainView , GameModel gameModel, SaveGame saveGame) {
         this.gameStageGUI = gameStageGUI;
@@ -45,6 +47,9 @@ public class GameStageController implements ActionListener{
         this.saveGame = saveGame;
 
         mainView.setListeners(this);
+        this.timeThread = new TimeThread(this);
+        timeThread.startTimer();
+        timeThread.start();
         //mainView.setActionMouseListeners(this, this);
     }
 
@@ -97,15 +102,26 @@ public class GameStageController implements ActionListener{
         //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
     }
 
+    public synchronized void updateTimer(){
 
-    /*
-    public void insertTimer(){
-        while(true){
-            gameModel.timer();
-            gameStageGUI.updateLabel();
+        if(seconds < 60){
+            seconds ++;
+        }else{
+            seconds = 0;
+            minuts++;
         }
+        System.out.println(seconds);
+        if(seconds <10 && minuts<10){
+            gameStageGUI.updateLabel("0" + minuts + ":0" + seconds);
+        }else if(seconds < 10){
+            gameStageGUI.updateLabel(minuts + ":0" + seconds);
+        }else if(minuts < 10){
+            gameStageGUI.updateLabel("0" + minuts + ":" + seconds);
+        }else {
+            gameStageGUI.updateLabel(minuts + ":" + seconds);
+        }
+    }
 
-    }*/
 
     public void updateTable(){
         game = gameModel.updateTablero(game);
