@@ -16,15 +16,11 @@ public class SQLConnector {
     // The static attribute to implement the singleton design pattern.
     private static SQLConnector instance = null;
 
-
-
     // Attributes to connect to the database.
     private final String username;
     private final String password;
     private final String url;
     private Connection conn;
-
-
 
     // Parametrized constructor
     private SQLConnector(String user, String pass, String ip, int port, String database) {
@@ -81,40 +77,6 @@ public class SQLConnector {
         }
     }
 
-
-    /**
-     * Method that executes an update query to the connected database.
-     *
-     * @param query String representation of the query to execute.
-     */
-    public void updateQuery(String query){
-        try {
-            Statement s = conn.createStatement();
-            s.executeUpdate(query);
-        } catch (SQLException e) {
-            System.err.println(query);
-            System.err.println("Problema when updating --> " + e.getSQLState() + " (" + e.getMessage() + ")");
-        }
-    }
-
-
-    /**
-     * Method that executes a deletion query to the connected database.
-     *
-     * @param query String representation of the query to execute.
-     */
-    public void deleteQuery(String query){
-        try {
-            Statement s = conn.createStatement();
-            s.executeUpdate(query);
-        } catch (SQLException e) {
-            System.err.println(query);
-            System.err.println("Problem when deleting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
-        }
-
-    }
-
-
     /**
      * Method that executes a selection query to the connected database.
      *
@@ -145,5 +107,6 @@ public class SQLConnector {
             System.err.println("Problem when closing the connection --> " + e.getSQLState() + " (" + e.getMessage() + ")");
         }
     }
+
 
 }
