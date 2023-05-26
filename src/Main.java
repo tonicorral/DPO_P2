@@ -4,6 +4,9 @@ import Presentation.Controllers.*;
 import Presentation.MainView;
 import Presentation.Views.*;
 
+/**
+ * Realizaremos todas las comandas para poder ejecutar el programa
+ */
 
 public class Main {
 

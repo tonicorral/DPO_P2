@@ -11,6 +11,10 @@ import java.util.Map;
 import java.util.Random;
 
 
+/**
+ * Vista de las estadisticas del juego
+ */
+
 public class StatisticsGUI extends JPanel {
 
     private JLabel title;
@@ -28,6 +32,10 @@ public class StatisticsGUI extends JPanel {
 
     private SaveGame saveGame;
 
+    /**
+     * Constructor de la función donde se configura el panel
+     * @param saveGame de tipo SaveGame contiene la partida guardada
+     */
     public StatisticsGUI(SaveGame saveGame) {
 
         this.saveGame = saveGame;
@@ -91,6 +99,11 @@ public class StatisticsGUI extends JPanel {
 
 
     }
+
+    /**
+     * Se encarga de pintar las distintas graficas
+     * @param g the <code>Graphics</code> object to protect
+     */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -232,12 +245,22 @@ public class StatisticsGUI extends JPanel {
     }
 
 
-
+    /**
+     * Control de los botones en la vista de las estadisticas
+     * @param listener parametro de tipo AcitonListener para saber donde estamos
+     */
     public void addStatListeners(ActionListener listener) {
         cancelButton.addActionListener(listener);
         closeButton.addActionListener(listener);
         deleteButton.addActionListener(listener);
     }
+
+    /**
+     * Calcula el ratio de victorias y derrotas
+     * @param wins integer de las victorias
+     * @param losses integer de las derrotas
+     * @return devuelve el ratio
+     */
 
     private int calculateWinLossRatio(int wins, int losses) {
         int totalGames = wins + losses;

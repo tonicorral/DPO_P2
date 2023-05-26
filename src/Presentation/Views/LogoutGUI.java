@@ -3,8 +3,11 @@ package Presentation.Views;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-       
 
+
+/**
+ * Vista de cerrar sesión
+ */
 public class LogoutGUI extends JPanel {
     private JButton logoutButton; //Botón para hacer el logout
 
@@ -14,12 +17,19 @@ public class LogoutGUI extends JPanel {
 
     public static final String BUTTON_CANCEL = "BUTTON_CANCEL";
 
+
+    /**
+     * Constructor del panel de cerrar sesion
+     * @throws HeadlessException excepción de tiempo de ejecución en Java que se produce cuando se llama a un código que depende de un teclado, una pantalla o un mouse en un entorno que no es compatible con un teclado, una pantalla o un mouse
+     */
     public LogoutGUI() throws HeadlessException {
         //Si no hay ningún medio de visualización, hago el configurePanel
         configurePanel();
     }
 
-
+    /**
+     * Configura el panel de la vista
+     */
     private void configurePanel() {
         JPanel main = new JPanel(new BorderLayout());
         JPanel center = new JPanel(new FlowLayout());
@@ -54,7 +64,10 @@ public class LogoutGUI extends JPanel {
         setVisible(true);
     }
 
-
+    /**
+     * Controla el boton para salir del panel
+     * @param listener parametro actionLister para detectar donde estamos
+     */
     public void addLogoutButtonListener(ActionListener listener) {
 
         logoutButton.addActionListener(listener);

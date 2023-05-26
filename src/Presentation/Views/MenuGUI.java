@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Vista del menu principal de juego
+ */
 public class MenuGUI extends JPanel {
 
     private JLabel title;
@@ -19,6 +23,9 @@ public class MenuGUI extends JPanel {
     public static final String LOGOUT_MENU_BTN = "LOGOUT_MENU_BTN";
     public static final String DELETE_MENU_BTN = "DELETE_MENU_BTN";
 
+    /**
+     * Constructor del panel del menu
+     */
     public MenuGUI(){
 
         buttonColor = new Color(124,136,248);
@@ -85,6 +92,11 @@ public class MenuGUI extends JPanel {
         setVisible(true);
     }
 
+
+    /**
+     * Controla los botones de la vista
+     * @param listener parametro action listener para indicar donde estamos
+     */
     public void menuButtonController(ActionListener listener) {
         //Añadir todos los listeners
         logout.addActionListener(listener);

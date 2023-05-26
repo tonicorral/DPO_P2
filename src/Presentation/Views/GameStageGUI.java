@@ -10,6 +10,10 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/**
+ * Vista de la partida
+ */
 public class GameStageGUI extends JPanel{
 
     private Date currentTime;
@@ -33,10 +37,11 @@ public class GameStageGUI extends JPanel{
 
     private TimeThread timeThread;
 
+
+    /**
+     * Contructor del panel de la vista del juego
+     */
     public GameStageGUI(){
-
-
-
 
         this.setLayout(new BorderLayout());
         buttonColor = new Color(124,136,248);
@@ -470,6 +475,11 @@ public class GameStageGUI extends JPanel{
         setVisible(true);
     }
 
+
+    /**
+     * Controla el boton de guardar la partida
+     * @param listener parametro actionListener para saber donde estamos
+     */
     public void setGameListener(ActionListener listener){
         this.guardar.addActionListener(listener);
         abandonar.addActionListener(listener);
@@ -482,7 +492,10 @@ public class GameStageGUI extends JPanel{
     }
 
 
-
+    /**
+     * crea las diferentes tablas de las IAs
+     * @return la tabla de los barcos y su estado
+     */
     private JTable createTable() {
         String[] columnNames = {"Barco", "Estado"};
         String[][] rowData = {
@@ -498,6 +511,11 @@ public class GameStageGUI extends JPanel{
         table.setPreferredSize(new Dimension(120, 90));
         return table;
     }
+
+    /**
+     * Crea la tabla del usuario
+     * @return la tabla de los barcos y su estado
+     */
     private JTable createUserTable() {
         String[] columnNames = {"BarcoUser", "Estado"};
         String[][] rowData = {
@@ -513,6 +531,10 @@ public class GameStageGUI extends JPanel{
         return table;
     }
 
+    /**
+     * Setter de los barcos
+     * @param game el juego de la partida
+     */
     public void setBoats(Game game){
         for(int m = 0; m < 5; m++){
             if(game.getPlayer().getBoats().get(0).getOrientation()){
@@ -561,6 +583,14 @@ public class GameStageGUI extends JPanel{
         }
     }
 
+    /**
+     * Determina las acciones de la IA
+     * @param game el juego de la partida
+     * @param i eje de las x
+     * @param j eje de las y
+     * @param numPlayers el numero de la partida
+     */
+
     public void paintIA(Game game, int i, int j, int numPlayers){
         paintUser(game,i,j,numPlayers);
         for (int m = 0;m<numPlayers;m++){
@@ -581,6 +611,13 @@ public class GameStageGUI extends JPanel{
 
 
     }
+
+    /**
+     * Pinta los ataques del resto en el tablero de la IA 1
+     * @param touch entero que determina si esta tocado o hundido
+     * @param i eje de las x
+     * @param j eje de las y
+     */
 
     private void paintIA1(int touch, int i, int j){
         if(touch == 1){
@@ -645,6 +682,13 @@ public class GameStageGUI extends JPanel{
             cell1[i][j].setBackground(Color.blue);
         }
     }
+
+    /**
+     * Pinta los ataques del resto en el tablero de la IA 2
+     * @param touch entero que determina si esta tocado o hundido
+     * @param i eje de las x
+     * @param j eje de las y
+     */
     private void paintIA2(int touch, int i, int j){
         if(touch == 1){
             cell2[i][j].setBackground(Color.red);
@@ -708,6 +752,13 @@ public class GameStageGUI extends JPanel{
             cell2[i][j].setBackground(Color.blue);
         }
     }
+
+    /**
+     * Pinta los ataques del resto en el tablero de la IA 3
+     * @param touch entero que determina si esta tocado o hundido
+     * @param i eje de las x
+     * @param j eje de las y
+     */
     private void paintIA3(int touch, int i, int j){
         if(touch == 1){
             cell3[i][j].setBackground(Color.red);
@@ -771,6 +822,13 @@ public class GameStageGUI extends JPanel{
             cell3[i][j].setBackground(Color.blue);
         }
     }
+
+    /**
+     * Pinta los ataques del resto en el tablero de la IA 4
+     * @param touch entero que determina si esta tocado o hundido
+     * @param i eje de las x
+     * @param j eje de las y
+     */
     private void paintIA4(int touch, int i, int j){
         if(touch == 1){
             cell4[i][j].setBackground(Color.red);
@@ -834,6 +892,13 @@ public class GameStageGUI extends JPanel{
             cell4[i][j].setBackground(Color.blue);
         }
     }
+
+    /**
+     * Pinta los ataques del resto en el tablero del usuario
+     * @param touch entero que determina si esta tocado o hundido
+     * @param i eje de las x
+     * @param j eje de las y
+     */
 
     public void paintUser(Game game,int i,int j,int numPlayers){
         for (int m = 0;m<numPlayers;m++){
@@ -904,6 +969,10 @@ public class GameStageGUI extends JPanel{
     }
 
 
+    /**
+     * actualiza el reloj de la vista
+     * @param timer String del clk
+     */
     public void updateLabel(String timer) {
             clk.setText(timer);
             clk.setForeground(Color.red);

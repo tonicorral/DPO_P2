@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Vista del registro de usuarios
+ */
 public class SignUpGUI extends JPanel{
     private JTextField userText;
     private JPasswordField passwordText;
@@ -14,6 +18,9 @@ public class SignUpGUI extends JPanel{
     public static final String SIGNUP_BTN = "SIGNUP_BTN";
     public static final String SIGNUP_BACK_BTN = "SIGNUP_BACK_BTN";
 
+    /**
+     * Contructor de la funcion donde se configura el panel
+     */
     public SignUpGUI() {
 
         JPanel panel = new JPanel(new BorderLayout());
@@ -77,15 +84,12 @@ public class SignUpGUI extends JPanel{
         this.add(panel, "Center");
 
         setVisible(true);
-
-         /** this.goBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainView.showLogin();
-            }
-        })   ;**/
     }
 
+    /**
+     * Controla los botones del registro y del goBack
+     * @param listener parametro de tipo actionListener para controlar donde estoy en todoo momento
+     */
     public void setSignUpListeners(ActionListener listener) {
 
         this.signUp.addActionListener(listener);
@@ -93,22 +97,43 @@ public class SignUpGUI extends JPanel{
     }
 
 
+    /**
+     * getter del user
+     * @return String del user
+     */
     public String getUser() {
         return this.userText.getText();
     }
 
+    /**
+     * getter del mail
+     * @return String del mail
+     */
     public String getEmail() {
         return this.emailText.getText();
     }
 
+
+    /**
+     * getter de la contraseña
+     * @return String de la contraseña
+     */
     public String getPassword() {
         return this.passwordText.getText();
     }
 
+
+    /**
+     * getter de la comprobación de contraseña
+     * @return String de la comprobación
+     */
     public String getPasswordConfirm() {
         return this.passwordConfirmText.getText();
     }
 
+    /**
+     * Eliminar la información escrita previamente
+     */
     public void clear() {
         this.userText.setText("");
         this.emailText.setText("");

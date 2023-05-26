@@ -7,7 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Vista de iniciar sesion
+ */
 public class LoginGUI extends JPanel {
     private  JButton b1,textR;
     private JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel,borderPanel;
@@ -18,6 +20,9 @@ public class LoginGUI extends JPanel {
     public static final String LOGIN_BTN = "LOGIN_BTN";
     public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
 
+    /**
+     * Contructor del panel del login
+     */
     public LoginGUI(){
 
         //Creation
@@ -91,27 +96,39 @@ public class LoginGUI extends JPanel {
         //Center the GridLayout
         add(generalPanel, BorderLayout.CENTER);
 
-
-
-
-
         setVisible(true);
     }
 
+
+    /**
+     * getter del usuario
+     * @return String del usuario
+     */
     public String getUser(){
         return userField.getText();
     }
 
+    /**
+     * getter de la contraseña
+     * @return String de la contraseña
+     */
     public String getPassword(){
         return passwordField.getText();
     }
 
+
+    /**
+     * Controla los botones de registro del login
+     * @param listener parametro del actionListener para saber donde estamos
+     */
     public void LoginController(ActionListener listener) {
         this.b1.addActionListener(listener);
         this.textR.addActionListener(listener);
     }
 
-
+    /**
+     * Borra los distintos campos de la vista
+     */
     public void clear () {
         this.userField.setText("");
         this.passwordField.setText("");

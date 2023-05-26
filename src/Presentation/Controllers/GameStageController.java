@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Controlar la funcionalidad de la partida
+ */
 public class GameStageController implements ActionListener{
     private GameStageGUI gameStageGUI;
 
@@ -39,6 +42,13 @@ public class GameStageController implements ActionListener{
     private TimeThread timeThread;
     private int seconds=0,minuts=0;
 
+    /**
+     * Constructor del juego
+     * @param gameStageGUI contiene la información del juego
+     * @param mainView contine la informacion de la clase de las vistas principales
+     * @param gameModel contiene la información de modelo de juego
+     * @param saveGame contiene la información del guardado de partida
+     */
     public GameStageController(GameStageGUI gameStageGUI, MainView mainView , GameModel gameModel, SaveGame saveGame) {
         this.gameStageGUI = gameStageGUI;
         this.mainView = mainView;
@@ -50,6 +60,10 @@ public class GameStageController implements ActionListener{
         //mainView.setActionMouseListeners(this, this);
     }
 
+    /**
+     * Muestra mensajes dependiendo de la accion y el evento del juego
+     * @param e variable para controlar la acción
+     */
     public void actionPerformed(ActionEvent e) {
 
         //System.out.println(e.getActionCommand().equals(GameStageGUI.ROTATE));
@@ -83,26 +97,45 @@ public class GameStageController implements ActionListener{
         }
     }
 
+
+    /**
+     * Inicializa el tablero
+     */
     public void initTable() {
         game = gameModel.getGame();
         gameStageGUI.setBoats(game);
         //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
     }
 
+    /**
+     * Actualiza el tiempo de juego
+     * @param timer String del timer
+     */
     public void updateTimer(String timer){
         gameStageGUI.updateLabel(timer);
     }
 
+    /**
+     * Empieza el contador del juego
+     */
     public void startTimer(){
         gameModel.startTimer();
     }
 
-
+    /**
+     * Actualiza el tablero de la partida
+     * @param game parametro que contiene el juego
+     */
     public void updateTable(Game game){
         int numPlayers = game.getNumberPlayers();
         paintTables(game,numPlayers);
     }
 
+    /**
+     * Pinta las casillas de los ataques
+     * @param game parametro que contiene el juego
+     * @param numPlayers numero de IAs
+     */
     private void paintTables(Game game,int numPlayers){
         for(int m = 0;m<numPlayers;m++){
             for(int i = 0;i<15;i++){

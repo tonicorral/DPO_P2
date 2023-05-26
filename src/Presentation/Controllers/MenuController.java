@@ -7,10 +7,20 @@ import Presentation.Views.MenuGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Controla la funcionalidad de la vista del menu
+ */
+
 public class MenuController implements ActionListener {
     private MenuGUI menuGUI;
     private MainView mainView;
 
+
+    /**
+     * Contructor del menu
+     * @param menuGUI contiene la info del menu
+     * @param mainView contine la informacion de la clase de las vistas principales
+     */
     public MenuController(MenuGUI menuGUI, MainView mainView) {
         this.menuGUI = menuGUI;
         this.mainView = mainView;
@@ -18,6 +28,10 @@ public class MenuController implements ActionListener {
         mainView.setListeners(this);
     }
 
+    /**
+     * Muestra mensajes dependiendo de la accion y el evento del menu
+     * @param e variable para controlar la acción
+     */
     public void actionPerformed(ActionEvent e) {
 
         switch (e.getActionCommand()) {

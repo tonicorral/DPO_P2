@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 
 import static Business.UserModel.*;
 
+/**
+ * Controla la funcionalidad del registro de un usuario
+ */
 public class SignUpController implements ActionListener{
     private SignUpGUI signupView;
     private UserModel userModel;
@@ -19,6 +22,14 @@ public class SignUpController implements ActionListener{
 
     private SaveGame saveGame;
 
+
+    /**
+     * Contructor del signup
+     * @param signUpGUI contiene informacion de la vista del signup
+     * @param mainView contine la informacion de la clase de las vistas principales
+     * @param userModel contiene la informacion de los usuarios
+     * @param saveGame contiene la informacion del guardado de partida
+     */
     public SignUpController(SignUpGUI signUpGUI,MainView mainView, UserModel userModel, SaveGame saveGame){
         this.signupView = signUpGUI;
         this.mainView = mainView;
@@ -28,6 +39,10 @@ public class SignUpController implements ActionListener{
         mainView.setListeners(this);
     }
 
+    /**
+     * Muestra mensajes dependiendo de la accion y el evento del signup
+     * @param e variable para controlar la acción
+     */
     public void actionPerformed(ActionEvent e){
         String user = signupView.getUser();
         String pass = signupView.getPassword();
@@ -66,7 +81,6 @@ public class SignUpController implements ActionListener{
                     break;
 
             }
-
                 break;
             case SignUpGUI.SIGNUP_BACK_BTN:
                 mainView.switchView(MainView.LOGIN_VIEW);

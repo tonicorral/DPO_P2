@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Vista para borrar el usuario
+ */
 public class DeleteUserGUI extends JPanel {
     private JTextField userText;
     private JButton deleteButton;
@@ -13,11 +17,18 @@ public class DeleteUserGUI extends JPanel {
     public static final String DELETE_CANCEL_BTN = "DELETE_CANCEL_BTN";
 
 
+    /**
+     * Constructor del panel de borrar usuario
+     * @throws HeadlessException excepción de tiempo de ejecución en Java que se produce cuando se llama a un código que depende de un teclado, una pantalla o un mouse en un entorno que no es compatible con un teclado, una pantalla o un mouse
+     */
     public DeleteUserGUI() throws HeadlessException {
         configurePanel();
     }
 
 
+    /**
+     * Configura el panel de la vista
+     */
     private void configurePanel() {
         JPanel main = new JPanel(new BorderLayout());
         JPanel center = new JPanel(new FlowLayout());
@@ -68,19 +79,34 @@ public class DeleteUserGUI extends JPanel {
     }
 
 
+    /**
+     * Controla el boton de borrar usuario
+     * @param listener parametro actionListener para saber donde estamos
+     */
     public void addDeleteButtonListener(ActionListener listener) {
 
         deleteButton.addActionListener(listener);
     }
 
+    /**
+     * Controla el boton de cancelar la accion de borrar usuario
+     * @param listener parametro actionListener para saber donde estamos
+     */
     public void addCancelButtonListener(ActionListener listener) {
         cancelButton.addActionListener(listener);
     }
 
+    /**
+     * getter del mail
+     * @return mail
+     */
     public String getInsertEmail() {
         return userText.getText();
     }
 
+    /**
+     * Reset de los campos de la vista
+     */
     public void resetFields() {
         userText.setText("");
     }

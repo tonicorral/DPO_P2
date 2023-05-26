@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Interfaz del GameDAO
+ */
 public interface GameDAO {
 
      void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria); // Comprobar si la clase LocalDate es la correcta para almacenar la fecha!

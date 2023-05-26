@@ -22,7 +22,15 @@ public class SQLConnector {
     private final String url;
     private Connection conn;
 
-    // Parametrized constructor
+
+    /**
+     * Contructor del conector SQL
+     * @param user nombre de usuario
+     * @param pass contraseña
+     * @param ip varialbe de la ip
+     * @param port variable del puerto
+     * @param database variable de la base de datos
+     */
     private SQLConnector(String user, String pass, String ip, int port, String database) {
         this.username = user;
         this.password = pass;
@@ -32,6 +40,12 @@ public class SQLConnector {
     }
 
 
+    /**
+     * Getter de la conexion remota con la base de datos
+     * @param url db url
+     * @param user nombre usuario
+     * @param password variable de la contraseña
+     */
     public void getConexion(String url, String user, String password) {
         try {
             conn = DriverManager.getConnection(url, user, password);
@@ -67,6 +81,10 @@ public class SQLConnector {
         }
     }
 
+    /**
+     *  insertar la cola
+     * @param query String de cola
+     */
     public void insertQuery(String query){
         try {
             Statement s = conn.createStatement();

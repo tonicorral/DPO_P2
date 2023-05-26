@@ -105,7 +105,7 @@ public class Configuration{
 
     }
 
-
+  /*
     public ArrayList<Boat> loadBoats() {
         ArrayList<Boat> list = new ArrayList<>();
         Boat[] list1 = new Boat[3];
@@ -115,5 +115,5 @@ public class Configuration{
             list.add(list1[i]);
         }
         return list;
-    }
+    }*/
 }

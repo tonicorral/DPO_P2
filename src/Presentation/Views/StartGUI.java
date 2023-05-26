@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Vista del inicio del juego
+ */
 public class StartGUI extends JPanel {
     private JButton signUp;
     private JButton logIn;
@@ -12,6 +16,10 @@ public class StartGUI extends JPanel {
 
     private JPanel generalPanel;
 
+
+    /**
+     * Constructor de la funcion de inicilización del juego
+     */
     public StartGUI(){
 
         generalPanel = new JPanel(new GridBagLayout());
@@ -64,7 +72,7 @@ public class StartGUI extends JPanel {
     }
 
     /**
-     * Control de los botons del log in i el sign up
+     * Control de los botones del log in y el sign up
      * @param listener paramete per saber on estem
      */
     public void setStartListenters(ActionListener listener) {
