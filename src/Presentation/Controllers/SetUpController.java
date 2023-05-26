@@ -298,7 +298,7 @@ public class SetUpController implements ActionListener, MouseListener {
     }
 
     private Player savePlayer(ArrayList<Boat> boats){
-        player = new JugadorHumano(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
+        player = new Player(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
         return player;
     }
 

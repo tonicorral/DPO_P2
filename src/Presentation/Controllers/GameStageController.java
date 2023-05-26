@@ -66,7 +66,6 @@ public class GameStageController implements ActionListener{
             positionBoatTable = e.getActionCommand();
             ArrayList<Integer> positionsUser = gameModel.attackUser(positionBoatTable);
             game = gameModel.insertAttack(game,positionsUser);
-            updateTable();
         }
 
         switch (e.getActionCommand()) {
@@ -87,15 +86,6 @@ public class GameStageController implements ActionListener{
     public void initTable() {
         game = gameModel.getGame();
         gameStageGUI.setBoats(game);
-        int numPlayers = game.getNumberPlayers();
-        for (int i = 0;i<10;i++){
-            for(int j=0;j<numPlayers;j++){
-                game = gameModel.IAAttacks(game,j);
-            }
-            game = gameModel.updateTablero(game);
-        }
-        //insertTimer();
-        paintTables(numPlayers);
         //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
     }
 
@@ -108,13 +98,12 @@ public class GameStageController implements ActionListener{
     }
 
 
-    public void updateTable(){
-        game = gameModel.updateTablero(game);
+    public void updateTable(Game game){
         int numPlayers = game.getNumberPlayers();
-        paintTables(numPlayers);
+        paintTables(game,numPlayers);
     }
 
-    private void paintTables(int numPlayers){
+    private void paintTables(Game game,int numPlayers){
         for(int m = 0;m<numPlayers;m++){
             for(int i = 0;i<15;i++){
                 for(int j = 0;j<15;j++){

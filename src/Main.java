@@ -30,8 +30,8 @@ public class Main {
 
         SaveGame saveGame = new SaveGame(gameDAO, "");
         StatisticsGUI statisticsGUI = new StatisticsGUI(saveGame);
-
-        GameModel gameModel = new GameModel(iaModel,tableroModel);
+        PlayerModel playerModel = new PlayerModel();
+        GameModel gameModel = new GameModel(iaModel,playerModel);
         UserModel userModel = new UserModel(userDAO);
         MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
 
@@ -45,7 +45,7 @@ public class Main {
         GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView,iaModel,gameModel, gameStageController);
         gameModel.registerController(gameStageController);
-
+        iaModel.registerGameModel(gameModel);
         StatisticsController statisticsController = new StatisticsController(statisticsGUI, mainView);
         mainView.setVisible(true);
 
