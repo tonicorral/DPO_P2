@@ -21,6 +21,10 @@ public interface GameDAO {
 
      int obtenerAtaqueMasAlto(String user);
 
+     ArrayList<String> extraerArrayUsers(String user);
+
+     boolean checkUser(String user);
+
      boolean validGameName(String gameName);
      String fileGame(String gameName);
 

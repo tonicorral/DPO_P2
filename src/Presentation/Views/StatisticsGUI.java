@@ -21,7 +21,7 @@ public class StatisticsGUI extends JPanel {
 
     private JButton cancelButton, deleteButton, closeButton;
     private Color buttonColor;
-    //private JProgressBar winLossRatioBar;
+
     private JPanel generalPanel, borderPanel, threeB;
 
 
@@ -40,18 +40,13 @@ public class StatisticsGUI extends JPanel {
 
         this.saveGame = saveGame;
 
-        //System.out.println(wins);
-        //System.out.println(totalGames);
+        String username = saveGame.getUser();
 
         buttonColor = new Color(124,136,248);
 
-        title = new JLabel("PLAYER STATS");
+        title = new JLabel("Stats: " + username);
         title.setFont(new Font("Iceland",Font.BOLD,96));
         title.setForeground(Color.blue);
-
-
-        JPanel leftPanel = new JPanel(new GridLayout(4, 1));
-
 
         // Botón de cancelar
         cancelButton = new JButton("Enrere");
@@ -80,7 +75,6 @@ public class StatisticsGUI extends JPanel {
         borderPanel.setOpaque(false);
         borderPanel.add("North",threeB);
 
-
         generalPanel = new JPanel(new GridLayout(1,2,10,10));
         generalPanel.add(title);
         generalPanel.add(borderPanel);
@@ -88,15 +82,11 @@ public class StatisticsGUI extends JPanel {
         generalPanel.setOpaque(false);
         generalPanel.setBorder(BorderFactory.createEmptyBorder(50,300,50,300));
 
-
-
-
-
+        // Panel izquierdo con scroll para los nombres de usuarios y botones
 
         this.setBackground(new Color(217,249,253));
 
         this.add(generalPanel);
-
 
     }
 
@@ -255,15 +245,6 @@ public class StatisticsGUI extends JPanel {
         deleteButton.addActionListener(listener);
     }
 
-    /**
-     * Calcula el ratio de victorias y derrotas
-     * @param wins integer de las victorias
-     * @param losses integer de las derrotas
-     * @return devuelve el ratio
-     */
 
-    private int calculateWinLossRatio(int wins, int losses) {
-        int totalGames = wins + losses;
-        return (int) Math.round(wins * 100.0 / totalGames);
-    }
+
 }

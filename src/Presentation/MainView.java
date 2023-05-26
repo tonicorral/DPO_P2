@@ -24,6 +24,8 @@ public class MainView extends JFrame {
     private GameStageGUI gameStageGUI;
     private StatisticsGUI statisticsGUI;
 
+    private StatisticsMenuGUI statisticsMenuGUI;
+
     private CardLayout cardLayout;
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
     public static final String SIGNUP_VIEW = "SIGNUP_VIEW";
@@ -35,6 +37,7 @@ public class MainView extends JFrame {
 
     public static final String GAME_STAGE_VIEW = "GAME_STAGE_VIEW";
 
+    public static final String STATISTICS_MENU_VIEW = "STATISTICS_MENU_VIEW";
     public static final String STATISTICS_VIEW = "STATISTICS_VIEW";
 
     /**
@@ -47,10 +50,12 @@ public class MainView extends JFrame {
      * @param deleteUserGUI vista para borrar usuario
      * @param setupStageGUI vista encargada de la inizalización de los barcos
      * @param gameStageGUI  vista de la partida
+     * @param statisticsMenuGUI vista del menu de estatisticas
      * @param statisticsGUI vista de las estatisticas
      */
     public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI,
-                    DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI, GameStageGUI gameStageGUI, StatisticsGUI statisticsGUI) {
+                    DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI, GameStageGUI gameStageGUI,
+                    StatisticsMenuGUI statisticsMenuGUI, StatisticsGUI statisticsGUI) {
         this.loginGUI = loginGUI;
         this.signUpGUI = signUpGUI;
         this.menuGUI = menuGUI;
@@ -60,6 +65,7 @@ public class MainView extends JFrame {
         this.setupStageGUI = setupStageGUI;
         this.gameStageGUI = gameStageGUI;
         this.statisticsGUI = statisticsGUI;
+        this.statisticsMenuGUI = statisticsMenuGUI;
 
         configurationFrame();
         configLayout();
@@ -84,7 +90,7 @@ public class MainView extends JFrame {
         cardLayout = new CardLayout();
         setLayout(cardLayout);
         this.add(MainView.START_VIEW, startGUI);
-        this.add(MainView.LOGIN_VIEW, loginGUI);    //le asginamos una vista con una frase y cuando le pasamos la frase pasa la vista asociada
+        this.add(MainView.LOGIN_VIEW, loginGUI);
         this.add(MainView.SIGNUP_VIEW, signUpGUI);
         this.add(MainView.MENU_VIEW, menuGUI);
         this.add(MainView.LOGOUT_VIEW, logoutGUI);
@@ -94,6 +100,7 @@ public class MainView extends JFrame {
         this.add(MainView.SETUP_VIEW, setupStageGUI);
         this.add(MainView.GAME_STAGE_VIEW, gameStageGUI);
         this.add(MainView.STATISTICS_VIEW, statisticsGUI);
+        this.add(MainView.STATISTICS_MENU_VIEW, statisticsMenuGUI);
     }
 
     /**
@@ -105,6 +112,7 @@ public class MainView extends JFrame {
         cardLayout.show(getContentPane(),view);
         loginGUI.clear();
         signUpGUI.clear();
+        statisticsMenuGUI.clear();
 
     }
 
@@ -130,6 +138,7 @@ public class MainView extends JFrame {
         deleteUserGUI.addDeleteButtonListener(listener);
 
         statisticsGUI.addStatListeners(listener);
+        statisticsMenuGUI.addStatsMenuListeners(listener);
 
        // setupStageGUI.setUpButtonController(listener);
         gameStageGUI.setGameListener(listener);

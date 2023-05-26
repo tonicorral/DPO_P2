@@ -24,6 +24,7 @@ public class Main {
 
 
 
+
         IAModel iaModel = new IAModel();
         TableroModel tableroModel = new TableroModel();
         StartGUI startGUI = new StartGUI();
@@ -32,11 +33,12 @@ public class Main {
         //gameStageGUI.setVisible(true);
 
         SaveGame saveGame = new SaveGame(gameDAO, "");
+        StatisticsMenuGUI statisticsMenuGUI= new StatisticsMenuGUI(saveGame);
         StatisticsGUI statisticsGUI = new StatisticsGUI(saveGame);
         PlayerModel playerModel = new PlayerModel();
         GameModel gameModel = new GameModel(iaModel,playerModel);
         UserModel userModel = new UserModel(userDAO);
-        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
+        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsMenuGUI, statisticsGUI);
 
 
         StartController startController = new StartController(startGUI, mainView);
@@ -50,6 +52,7 @@ public class Main {
         gameModel.registerController(gameStageController);
         iaModel.registerGameModel(gameModel);
         StatisticsController statisticsController = new StatisticsController(statisticsGUI, mainView);
+        StatsMenuController statsMenuController= new StatsMenuController(statisticsMenuGUI, mainView, saveGame);
         mainView.setVisible(true);
 
 

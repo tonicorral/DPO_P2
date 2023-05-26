@@ -198,6 +198,23 @@ public class GameSQL implements GameDAO{
         return ataques;
     }
 
+    public ArrayList<String> extraerArrayUsers(String user) {
+        String query = "SELECT DISTINCT Usuario FROM guardarpartida;";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        ArrayList<String> usuarios = new ArrayList<>();
+        try {
+            while (result.next()) {
+                String usuario = result.getString("Usuario");
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    }
+
 
     /**
      * Partida con el numero de ataques más elevado
@@ -219,6 +236,22 @@ public class GameSQL implements GameDAO{
         }
 
         return 0;
+    }
+
+    public boolean checkUser(String user) {
+        String query = "SELECT COUNT(*) AS count FROM guardarpartida WHERE Usuario = '" + user + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        try {
+            if (result.next()) {
+                int count = result.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 

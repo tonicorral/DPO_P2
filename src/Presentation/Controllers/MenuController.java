@@ -3,6 +3,7 @@ package Presentation.Controllers;
 
 import Presentation.MainView;
 import Presentation.Views.MenuGUI;
+import Presentation.Views.StatisticsMenuGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,7 +49,8 @@ public class MenuController implements ActionListener {
                 break;
 
             case MenuGUI.STATS_BTN:
-                mainView.switchView(MainView.STATISTICS_VIEW);
+
+                mainView.switchView(MainView.STATISTICS_MENU_VIEW);
                 break;
 
 

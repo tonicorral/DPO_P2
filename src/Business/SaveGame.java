@@ -16,7 +16,10 @@ import java.util.ArrayList;
 public class SaveGame {
     private GameDAO gameDAO;
     private String user;
+    public static final int EVERYTHING_OK = 0;
+    public static final int EMPTY_FIELD = 1;
 
+    public static final int INCORRECT_USER = 2;
     public SaveGame(GameDAO gameDAO, String user) {
         this.gameDAO = gameDAO;
         this.user = user;
@@ -76,5 +79,23 @@ public class SaveGame {
         ArrayList<Integer> gameResults = gameDAO.extraerArrayAtaques(user);
 
         return gameResults;
+    }
+
+    public ArrayList<String> getUsers(String user){
+        ArrayList<String> usersList = gameDAO.extraerArrayUsers(user);
+
+        return usersList;
+    }
+
+    public int searchUser(String user) {
+
+        if (user.equals("")) {
+            return EMPTY_FIELD;
+        }
+        if (!gameDAO.checkUser(user)) {
+            return INCORRECT_USER;
+        }
+
+        return EVERYTHING_OK;
     }
 }
