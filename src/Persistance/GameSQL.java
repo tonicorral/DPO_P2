@@ -9,8 +9,8 @@ import java.util.List;
 
 public class GameSQL implements GameDAO{
 
-    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, Boolean victoria) {
-        String query = "INSERT INTO guardarpartida (Usuario, NombrePartida, FicheroPartidas, Atack/Partida, Fecha, Victoria) VALUES ("+ userName + ", "+ nameGame +", " + fileGame + ", " + numAttacks + ", " + date + ", " + victoria +");";
+    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria) {
+        String query = "INSERT INTO guardarpartida (Usuario, NombrePartida, FicheroPartidas, AtackPartida, Fecha, Victoria) VALUES ('"+ userName + "', '"+ nameGame +"', '" + fileGame + "', '" + numAttacks + "', '" + date + "', '" + victoria +"');";
 
         SQLConnector.getInstance().insertQuery(query);
     }
@@ -35,6 +35,7 @@ public class GameSQL implements GameDAO{
         return false;
     }
 
+    //Mostrar partidas guardadas
     public List<String> savedNameGames(String userName) throws SQLException {
         String query = "SELECT FicheroPartidas AS fichero FROM guardarpartida WHERE Usuario = '" + userName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
@@ -76,7 +77,7 @@ public class GameSQL implements GameDAO{
     }
 
     public List<Integer> attacksInGame(String gameName) throws SQLException {
-        String query = "SELECT Atack/Partida AS Attack FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
+        String query = "SELECT AtackPartida AS Attack FROM guardarpartida WHERE NombrePartida = '" + gameName + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
         List<Integer> numbers = new ArrayList<>();
@@ -97,6 +98,71 @@ public class GameSQL implements GameDAO{
     public void saveGame(String gameFile, String gameName) {
         String query = "UPDATE guardar SET '" + gameName + "' WHERE NombrePartida = '" + gameName + "';";
         SQLConnector.getInstance().selectQuery(query);
+    }
+
+
+    public int calcularNumeroPartidas(String user) {
+        String query = "SELECT COUNT(*) AS row_count FROM guardarpartida WHERE Usuario = '" + user + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        try {
+            if (result.next()) {
+                return result.getInt("row_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0; // Valor predeterminado en caso de error o si no hay resultados
+    }
+
+    public int calcularNumeroVictorias(String user) {
+        String query = "SELECT COUNT(*) AS row_count FROM guardarpartida WHERE Usuario = '" + user + "' AND Victoria = 1;";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        try {
+            if (result.next()) {
+                return result.getInt("row_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0; // Valor predeterminado en caso de error o si no hay resultados
+    }
+
+    public ArrayList<Integer> extraerArrayAtaques(String user) {
+        String query = "SELECT AtackPartida FROM guardarpartida WHERE Usuario = '" + user + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        ArrayList<Integer> ataques = new ArrayList<>();
+        try {
+            while (result.next()) {
+                int ataque = result.getInt("AtackPartida");
+                ataques.add(ataque);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ataques;
+    }
+
+    public int obtenerAtaqueMasAlto(String user) {
+        String query = "SELECT MAX(AtackPartida) AS maxAtaque FROM guardarpartida WHERE Usuario = '" + user + "';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        int ataqueMasAlto = 0;
+        try {
+            if (result.next()) {
+                ataqueMasAlto = result.getInt("maxAtaque");
+                return ataqueMasAlto;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
 

@@ -69,6 +69,7 @@ public class SetUpController implements ActionListener, MouseListener {
 
         if (e.getActionCommand().startsWith("cell") && mouseClicked) {
             positionBoatTable = e.getActionCommand();
+           // setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
             showTable(positionBoat,positionBoatTable,rotation);
             rotation = false;
         }
@@ -84,8 +85,10 @@ public class SetUpController implements ActionListener, MouseListener {
                     gameModel.getNumberPlayers(getNumberPlayers());
                     gameModel.createGame(savePlayer(boats));
                     //iaModel.createBoats();
-                    gameStageController.initTable();
+                    gameStageController.startTimer();
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
+
+                    gameStageController.initTable();
 
                 }
                     break;
@@ -101,6 +104,7 @@ public class SetUpController implements ActionListener, MouseListener {
                 break;
             case SetupStageGUI.ELIMINATE:
                 eliminateBoats();
+                setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
                 break;
 
         }
@@ -241,6 +245,7 @@ public class SetUpController implements ActionListener, MouseListener {
                 saveBoatPosition(boat, false,number,positionLetter,size,text);
             }
             isClickedBoat(boat);
+            setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
         }
     }
 //hola
@@ -269,23 +274,23 @@ public class SetUpController implements ActionListener, MouseListener {
 
        switch(boat){
             case "PortaAvions" -> {
-                Boat boat1 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat1 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(0,boat1);
             }
             case "Destructor" -> {
-                Boat boat2 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat2 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(1,boat2);
             }
             case "Submari" ->{
-                Boat boat3 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat3 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(2,boat3);
             }
             case "Submari2" -> {
-                Boat boat4 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat4 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(3,boat4);
             }
             case "Llanxa" -> {
-                Boat boat5 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat5 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(4,boat5);
             }
         }
@@ -293,7 +298,7 @@ public class SetUpController implements ActionListener, MouseListener {
     }
 
     private Player savePlayer(ArrayList<Boat> boats){
-        player = new JugadorHumano(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
+        player = new Player(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
         return player;
     }
 

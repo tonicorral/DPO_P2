@@ -9,19 +9,11 @@ import java.awt.event.ActionListener;
 
 
 public class LoginGUI extends JPanel {
-
-    private boolean goodLogin = true;
     private  JButton b1,textR;
     private JPanel generalPanel,titlePanel,userPanel,passwordPanel,buttonPanel,borderPanel;
-    private JLabel userLabel, passwordLabel,titleLabel,badPassword;
+    private JLabel userLabel, passwordLabel,titleLabel;
     private JTextField  userField;
     private JPasswordField passwordField;
-
-    private ActionListener loginListener;
-
-    private MainView mainView;
-
-    private LoginController loginController;
 
     public static final String LOGIN_BTN = "LOGIN_BTN";
     public static final String LOGIN_BACK_BTN = "LOGIN_BACK_BTN";
@@ -116,11 +108,9 @@ public class LoginGUI extends JPanel {
 
     public void LoginController(ActionListener listener) {
         this.b1.addActionListener(listener);
-    }
-
-    public void registerController(ActionListener listener) {
         this.textR.addActionListener(listener);
     }
+
 
     public void clear () {
         this.userField.setText("");

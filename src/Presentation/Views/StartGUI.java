@@ -67,7 +67,7 @@ public class StartGUI extends JPanel {
      * Control de los botons del log in i el sign up
      * @param listener paramete per saber on estem
      */
-    public void registerController(ActionListener listener) {
+    public void setStartListenters(ActionListener listener) {
         logIn.addActionListener(listener);
         signUp.addActionListener(listener);
 

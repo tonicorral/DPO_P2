@@ -3,32 +3,42 @@ package Business;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class IAModel {
+public class IAModel extends Thread implements ThreadListener{
 
+    private GameModel gameModel;
     private int positionPortaX,positionDestructorX,positionSubmariX,positionSubmari2X,positionLlanxaX;
 
     private int positionPortaY,positionDestructorY,positionSubmariY,positionSubmari2Y,positionLlanxaY;
 
     private boolean rotationPorta = false,rotationDestructor = false,rotationSubmari = false,rotationSubmari2 = false,rotationLlanxa = false;
 
+    private Game game;
+
+    private int numberPlayers;
+
+    private int millis = 2000;
+
+    private int counter = 1;
+
     public JugadorIA createBoats(){
         ArrayList<Boat> boats = new ArrayList<>();
 
         createPortaAvions();
-        Boat portaAvions = new Boat("PortaAvions",5,"P",positionPortaX,positionPortaY,rotationPorta);
+        Boat portaAvions = new Boat("PortaAvions",5,"P",positionPortaX,positionPortaY,rotationPorta,"Alive");
         boats.add(portaAvions);
         createDestructor();
-        Boat destructor = new Boat("Destructor",4,"D",positionDestructorX,positionDestructorY,rotationDestructor);
+        Boat destructor = new Boat("Destructor",4,"D",positionDestructorX,positionDestructorY,rotationDestructor,"Alive");
         boats.add(destructor);
         createSubmari();
-        Boat submari = new Boat("Submari",3,"S",positionSubmariX,positionSubmariY,rotationSubmari);
+        Boat submari = new Boat("Submari",3,"S",positionSubmariX,positionSubmariY,rotationSubmari,"Alive");
         boats.add(submari);
         createSubmari2();
-        Boat submari2 = new Boat("Submari2",3,"S",positionSubmari2X,positionSubmari2Y,rotationSubmari2);
+        Boat submari2 = new Boat("Submari2",3,"S",positionSubmari2X,positionSubmari2Y,rotationSubmari2,"Alive");
         boats.add(submari2);
         createLlanxa();
-        Boat llanxa = new Boat("Llanxa",2,"L",positionLlanxaX,positionLlanxaY,rotationLlanxa);
+        Boat llanxa = new Boat("Llanxa",2,"L",positionLlanxaX,positionLlanxaY,rotationLlanxa,"Alive");
         boats.add(llanxa);
+
 
         return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
     }
@@ -183,94 +193,132 @@ public class IAModel {
     }
 
 
-    public Game makeDifferentAttack(Game game,int i){
-        int fila,columna;
-        Player attacker = game.getJugadorIA().get(i); //Atacante
-        if(attacker.getPositionAttackedX().size() <= 1){
-            fila = randomPosition();
-            columna = randomPosition();
-        }
-        else{
-            do{
-                fila = randomPosition();
-                columna = randomPosition();
-            } while(!positionAttacked(fila,columna,attacker,game,i) || !positionHit(fila, columna, attacker, game, i));
-        }
-        game.getJugadorIA().get(i).getPositionAttackedX().add(fila);
-        game.getJugadorIA().get(i).getPositionAttackedY().add(columna);
-
-        return game;
+    public void getGame(Game game){
+        this.game = game;
     }
 
+    private void getNumbersPlayers(){
+        this.numberPlayers = game.getNumberPlayers();
+    }
+
+    private synchronized void makeDifferentAttack(int i) {
+        int fila, columna;
+        Player attacker = game.getJugadorIA().get(i);
+
+        if (attacker.getPositionAttackedX().size() < 1) {
+            fila = randomPosition();
+            columna = randomPosition();
+        } else {
+            do {
+                fila = randomPosition();
+                columna = randomPosition();
+            } while (!positionAttacked(fila, columna,game) /*|| !positionHit(fila, columna, attacker, game, i)*/);
+        }
+        attacker.getPositionAttackedX().add(fila);
+        attacker.getPositionAttackedY().add(columna);
+
+        gameModel.IAAttacks(game);
+    }
+
+
+    private boolean positionAttacked(int fila,int columna,Game game){
+        boolean notAttacked = true;
+        numberPlayers = game.getNumberPlayers();
+
+        for(int i = 0;i<numberPlayers;i++){
+            if(game.getJugadorIA().get(i).getPositionAttackedX().size() > 0){
+                for(int j=0;j<game.getJugadorIA().get(i).getPositionAttackedX().size();j++){
+                    if(game.getJugadorIA().get(i).getPositionAttackedX().get(j) == fila){
+                        if(game.getJugadorIA().get(i).getPositionAttackedX().get(j) == columna){
+                            notAttacked = false;
+                        }
+                    }
+                }
+            }
+        }
+        return notAttacked;
+    }
+
+    /*
     private boolean positionHit(int fila, int columna, Player oponente, Game game, int attacker){
-        boolean hit = false;
+        boolean done = false;
         int numPlayers = game.getNumberPlayers();
-        int lastAttackX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1)-1;
-        int lastAttackY = oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size()-1)-1;
+        int lastMovementX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1);
+        int lastMovementY = oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size()-1);
+        for(int i = 0;i<numPlayers;i++){
+            if (game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1] == -1) {
+
+                int[][] posicionesAdyacentes = {
+                        {lastMovementX - 2, lastMovementY-1}, // Arriba
+                        {lastMovementX, lastMovementY-1}, // Abajo
+                        {lastMovementX-1, lastMovementY - 2}, // Izquierda
+                        {lastMovementX-1, lastMovementY}  // Derecha
+                };
+                for (int[] posicion : posicionesAdyacentes) {
+                    int newFila = posicion[0];
+                    int newColumna = posicion[1];
+
+                    if(fila == newFila && columna == newColumna){
+                        System.out.println(fila);
+                        //le da a un adyacente
+                        done = true;
+                        break;
+                    }
+
+                }
+            }
+        }
+
+
+
 
         for(int j = 0;j<numPlayers;j++){
+            System.out.println(j);
             if(attacker != j){
                 if(game.getJugadorIA().get(j).getTablero().getTablero()[lastAttackX][lastAttackY] == 1){
                     if(lastAttackX+1 == fila && lastAttackY == columna || lastAttackX -1 == fila && lastAttackY == columna || lastAttackX == fila && lastAttackY+1 == columna || lastAttackX == fila && lastAttackY -1 == columna){
                         hit = true;
                         break;
                     }
+                }else{
+                    hit = false;
                 }
             }
         }
-        return hit;
-    }
+        return done;
+    }*/
 
 
+    public void registerGameModel(GameModel gameModel){this.gameModel = gameModel;}
 
+    @Override
+    public void run() {
+        while(true){
+            try {
+                sleep(millis);
+                if(counter < numberPlayers-1){
+                   counter++;
+                }else{
 
-    private boolean positionAttacked(int fila,int columna,Player oponente,Game game,int attacker){
-        boolean notAttacked = true;
-        int numPlayers = game.getNumberPlayers();
-        for(int i = 0;i<oponente.getPositionAttackedX().size();i++){
-            for(int j = 0;j<numPlayers;j++){
-                if(attacker != j){
-                    if(game.getJugadorIA().get(j).getPositionAttackedX().get(i) == fila){
-                        if(game.getJugadorIA().get(j).getPositionAttackedY().get(i) == columna){
-                            notAttacked = false;
-                            break;
-                        }
-                    }
+                    counter = 0;
                 }
-
+                makeDifferentAttack(counter);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-        return notAttacked;
-    }
-
-    public Game updateTablero(Game game){
-
-        int numPlayers = game.getNumberPlayers();
-
-        for(int i = 0;i<numPlayers;i++){
-            Player attacker = game.getJugadorIA().get(i);
-            int n = attacker.getPositionAttackedX().size() - 1;
-            int positionAttackedX = attacker.getPositionAttackedX().get(n);
-            int positionAttackedY = attacker.getPositionAttackedY().get(n);
-            for(int j=0;j<numPlayers;j++){
-                if(j!=i){
-                    game.getJugadorIA().get(j).getTablero().getTablero()[positionAttackedX-1][positionAttackedY-1] = i+2;
-                }
-            }
-
-        }
-
-
-
-
-
-
-
-        return game;
     }
 
 
+    @Override
+    public boolean correctPosition(int fila, int columna, int attacker) {
+        return false;
+    }
 
+    @Override
+    public int notifyAttack(int fila, int columna, int attacker) {
+        return 0;
+    }
 
 
 
@@ -488,3 +536,10 @@ public class IAModel {
 
 
 }
+
+
+
+
+
+
+

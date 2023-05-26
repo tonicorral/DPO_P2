@@ -19,9 +19,8 @@ public class MainView extends JFrame {
     private SetupStageGUI setupStageGUI;
 
     private GameStageGUI gameStageGUI;
-
     private StatisticsGUI statisticsGUI;
-    private JPanel mainViewPanel;
+
     private CardLayout cardLayout;
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
     public static final String SIGNUP_VIEW = "SIGNUP_VIEW";
@@ -81,13 +80,13 @@ public class MainView extends JFrame {
     }
 
     public void setListeners(ActionListener listener){
-        startGUI.registerController(listener);
+        startGUI.setStartListenters(listener);
 
         loginGUI.LoginController(listener);
-        loginGUI.registerController(listener);
 
-        signUpGUI.registerSignUpController(listener);
-        signUpGUI.registerController(listener);
+
+        signUpGUI.setSignUpListeners(listener);
+
 
         menuGUI.menuButtonController(listener);
 

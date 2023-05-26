@@ -2,7 +2,7 @@ package Presentation.Controllers;
 
 import Business.UserModel;
 
-import Persistance.SaveGame;
+import Business.SaveGame;
 import Presentation.MainView;
 import Presentation.Views.LoginGUI;
 

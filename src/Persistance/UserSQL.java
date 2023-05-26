@@ -9,7 +9,6 @@ public class UserSQL implements UserDAO {
         String query = "INSERT INTO registro (Usuario, Contraseña, Mail, Partidas, Victorias) VALUES ('" +
                 username + "', '" + password + "', '" + mail + "', 0, 0);";
 
-
         SQLConnector.getInstance().insertQuery(query);
     }
 
