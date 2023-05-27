@@ -8,6 +8,7 @@ import Presentation.Views.GameStageGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -105,6 +106,7 @@ public class GameStageController implements ActionListener{
     public void initTable() {
         game = gameModel.getGame();
         gameStageGUI.forTables(game.getNumberPlayers(),game);
+        gameStageGUI.forTableUser(game);
         gameStageGUI.setBoats(game);
 
         //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
@@ -137,6 +139,8 @@ public class GameStageController implements ActionListener{
         gameStageGUI.updateUserTable(game);
         gameModel.updateHundidos(game);
         paintTables(game,numPlayers);
+        winGame();
+        loseGame();
     }
 
     /**
@@ -154,6 +158,29 @@ public class GameStageController implements ActionListener{
         }
     }
 
+    private void winGame(){
+        int counter = 0;
+        for(int i = 0;i< game.getNumberPlayers();i++){
+            if(!game.getJugadorIA().get(i).isAlive()){
+                counter ++;
+            }
+        }
+        if (counter == game.getNumberPlayers()){
+            gameModel.stopTimer();
+            mainView.showError("YOU WON THE GAME!");
+            mainView.switchView(MainView.MENU_VIEW);
+        }
+
+    }
+
+    private void loseGame(){
+        if(!game.getPlayer().isAlive()){
+            System.out.println("muertoooo" + game.getPlayer().isAlive());
+            gameModel.stopTimer();
+            mainView.showError("GAME OVER!");
+            mainView.switchView(MainView.MENU_VIEW);
+        }
+    }
 
 
 

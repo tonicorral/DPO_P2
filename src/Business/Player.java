@@ -20,13 +20,16 @@ public class Player {
 
     private int turnToPlay;
 
-    public Player(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero) {
+    private boolean alive;
+
+    public Player(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero,boolean alive) {
         this.boats = boats;
         this.barcoPosicionX = new ArrayList<>();;
         this.barcoPosicionY = new ArrayList<>();;
         this.positionAttackedX = positionAttackedX;
         this.positionAttackedY = positionAttackedY;
         this.tablero = tablero;
+        this.alive = alive;
     }
     public void addBarcoPosicion(int posicionX, int posicionY) {
         barcoPosicionX.add(posicionX);
@@ -105,5 +108,13 @@ public class Player {
 
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

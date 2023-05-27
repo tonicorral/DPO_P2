@@ -21,7 +21,7 @@ public class Tablero {
     public static final int IA3_HUNDIDO = -9;
     public static final int IA4_HUNDIDO = -10;
 
-
+    public static final int MUERTO = -100;
     public static final int USER = 6;
     public static final int USER_TOCADO = -6;
     public static final int USER_HUNDIDO = -11;

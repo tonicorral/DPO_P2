@@ -3,6 +3,7 @@ package Business;
 import Presentation.Controllers.GameStageController;
 import Presentation.Controllers.SetUpController;
 
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,13 +27,14 @@ public class GameModel{
     public GameModel(IAModel iaModel,PlayerModel playerModel) {
         this.iaModel = iaModel;
         this.playerModel = playerModel;
+
     }
 
     public void startTimer(){
         this.timeThread = new TimeThread(this);
         timeThread.startTimer();
         timeThread.start();
-        iaModel.start();
+        iaModel.startAction();
     }
 
     public void stopTimer(){
@@ -48,8 +50,6 @@ public class GameModel{
         for(int i = 0; i<numberPlayers;i++){
             iaPlayers.add(iaModel.createBoats());
         }
-
-
 
         return iaPlayers;
     }
@@ -88,6 +88,8 @@ public class GameModel{
         updateTableroPlayerAttackIA(); //update del tablero del user
         checkHundidoTableroIA(); //chequeamos barcos hundidos en los tablero de la IA
         checkHundidoTableroPlayer(); //chequemos barcos hundidos del tablero del usuario
+        isDeadIA();
+        imDead();
         return game;
     }
 
@@ -278,7 +280,41 @@ public class GameModel{
     }
 
 
+    private void isDeadIA(){
+        for(int i = 0;i<numberPlayers;i++){
+            int counter = 0;
+            for(int j = 0;j<5;j++){
+                if(Objects.equals(game.getJugadorIA().get(i).getBoats().get(j).getStatus(), "Hundido")){
+                    counter ++;
+                }
+            }
+            if(counter == 5){
+                game.getJugadorIA().get(i).setAlive(false);
+                for (int m = 0; m < 15; m++) {
+                    for (int j = 0; j < 15; j++) {
+                        game.getJugadorIA().get(i).getTablero().getTablero()[m][j] = -100;
+                    }
+                }
+            }
+        }
+    }
 
+    private void imDead(){
+        int counter = 0;
+        for(int j = 0;j<5;j++){
+            if(Objects.equals(game.getPlayer().getBoats().get(j).getStatus(), "Hundido")){
+                counter ++;
+            }
+        }
+        if(counter == 5){
+            game.getPlayer().setAlive(false);
+            for (int m = 0; m < 15; m++) {
+                for (int j = 0; j < 15; j++) {
+                    game.getPlayer().getTablero().getTablero()[m][j] = -100;
+                }
+            }
+        }
+    }
 
 
 

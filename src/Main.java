@@ -44,11 +44,12 @@ public class Main {
         StartController startController = new StartController(startGUI, mainView);
         LoginController loginController = new LoginController(loginGUI,mainView,userModel, saveGame);
         SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel, saveGame);
-        MenuController menuController = new MenuController(menuGUI, mainView);
+
         LogoutController logoutController = new LogoutController(logoutGUI, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainView, userModel);
         GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView,iaModel,gameModel, gameStageController);
+        MenuController menuController = new MenuController(menuGUI, mainView,setUpController);
         gameModel.registerController(gameStageController);
         iaModel.registerGameModel(gameModel);
         StatisticsController statisticsController = new StatisticsController(statisticsGUI, mainView);

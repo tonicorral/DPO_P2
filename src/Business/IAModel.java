@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class IAModel extends Thread implements ThreadListener{
 
-    private boolean running = true;
+    private boolean running = false;
     private GameModel gameModel;
     private int positionPortaX,positionDestructorX,positionSubmariX,positionSubmari2X,positionLlanxaX;
 
@@ -17,7 +17,7 @@ public class IAModel extends Thread implements ThreadListener{
 
     private int numberPlayers;
 
-    private int millis = 2000;
+    private int millis = 1000;
 
     private int counter = 1;
 
@@ -41,8 +41,11 @@ public class IAModel extends Thread implements ThreadListener{
         boats.add(llanxa);
 
 
-        return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
+        return new JugadorIA(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats),true);
     }
+
+
+
 
     private int randomPosition(){
         Random random = new Random();
@@ -55,6 +58,8 @@ public class IAModel extends Thread implements ThreadListener{
         rotation = random.nextInt(2) + 1;
         return rotation == 2;
     }
+
+
 
     private void createPortaAvions(){
         do{
@@ -203,27 +208,85 @@ public class IAModel extends Thread implements ThreadListener{
     }
 
     private synchronized void makeDifferentAttack(int i) {
-        int fila, columna;
+        int fila=0, columna=0;
         Player attacker = game.getJugadorIA().get(i);
 
-        if (attacker.getPositionAttackedX().size() < 1) {
+        if (attacker.getPositionAttackedX().isEmpty()) {
             fila = randomPosition();
             columna = randomPosition();
         } else {
-            do {
-                fila = randomPosition();
-                columna = randomPosition();
-            } while (!positionAttacked(fila, columna,game) /*|| !positionHit(fila, columna, attacker, game, i)*/);
+            if (ataqueTocado(attacker, game, i)) {
+                do {
+                    int lastMovementX = attacker.getPositionAttackedX().get(attacker.getPositionAttackedX().size() - 1);
+                    int lastMovementY = attacker.getPositionAttackedY().get(attacker.getPositionAttackedY().size() - 1);
+                    int adyacente = randomAdyacente();
+                    if(!positionAttacked(lastMovementX+1,lastMovementY,game) && !positionAttacked(lastMovementX,lastMovementY-1,game) && !positionAttacked(lastMovementX-1,lastMovementY,game) && !positionAttacked(lastMovementX,lastMovementY+1,game)){
+                        fila = randomPosition();
+                        columna = randomPosition();
+                    }else{
+                        switch (adyacente) {
+                            case 1 -> {
+                                fila = lastMovementX + 1;
+                                columna = lastMovementY;
+                            }
+                            case 2 -> {
+                                fila = lastMovementX;
+                                columna = lastMovementY - 1;
+                            }
+                            case 3 -> {
+                                fila = lastMovementX - 1;
+                                columna = lastMovementY;
+                            }
+                            case 4 -> {
+                                fila = lastMovementX;
+                                columna = lastMovementY + 1;
+                            }
+                        }
+                    }
+                } while (!ataqueTocado(attacker, game, i) || !positionAttacked(fila, columna, game) || outTablero(fila,columna));
+            } else {
+                do {
+                    fila = randomPosition();
+                    columna = randomPosition();
+                } while (!positionAttacked(fila, columna, game) /*|| !positionHit(fila, columna, attacker, game, i)*/);
+            }
         }
+
+        if(outTablero(fila,columna)){
+            fila = randomPosition();
+            columna = randomPosition();
+        }
+
         attacker.getPositionAttackedX().add(fila);
         attacker.getPositionAttackedY().add(columna);
 
         gameModel.IAAttacks(game);
     }
 
+    private boolean outTablero(int fila,int columna){
+        return fila > 15 || columna > 15 || fila < 1 || columna < 1 ;
+    }
+
+    private int randomAdyacente(){
+        Random random = new Random();
+        return random.nextInt(4)+1;
+    }
+
+    private boolean ataqueTocado(Player attacker, Game game, int i){
+        boolean tocado = false;
+        for (int j = 0;j<numberPlayers;j++){
+            int lastMovementX  = attacker.getPositionAttackedX().get(attacker.getPositionAttackedX().size() - 1) -1;
+            int lastMovementY = attacker.getPositionAttackedY().get(attacker.getPositionAttackedY().size() - 1) -1;
+            if(game.getJugadorIA().get(j).getTablero().getTablero()[lastMovementX][lastMovementY] == ((i+2) *-1) || game.getPlayer().getTablero().getTablero()[lastMovementX][lastMovementY] == ((i+2) *-1)){
+                tocado = true;
+            }
+        }
+        return tocado;
+    }
+
 
     private boolean positionAttacked(int fila,int columna,Game game){
-        boolean notAttacked = true;
+        boolean notAttackedIA = true,notAttackedUser = true;
         numberPlayers = game.getNumberPlayers();
 
         for(int i = 0;i<numberPlayers;i++){
@@ -231,13 +294,14 @@ public class IAModel extends Thread implements ThreadListener{
                 for(int j=0;j<game.getJugadorIA().get(i).getPositionAttackedX().size();j++){
                     if(game.getJugadorIA().get(i).getPositionAttackedX().get(j) == fila){
                         if(game.getJugadorIA().get(i).getPositionAttackedX().get(j) == columna){
-                            notAttacked = false;
+                            notAttackedIA = false;
                         }
                     }
                 }
             }
         }
-        return notAttacked;
+
+        return notAttackedIA;
     }
 
     /*
@@ -294,24 +358,37 @@ public class IAModel extends Thread implements ThreadListener{
 
     @Override
     public void run() {
-        while(running){
-            try {
-                sleep(millis);
-                if(counter < numberPlayers-1){
-                   counter++;
-                }else{
-
-                    counter = 0;
+        while(true){
+            if(running){
+                try {
+                    sleep(millis);
+                    if(counter < numberPlayers-1){
+                        counter++;
+                    }else{
+                        counter = 0;
+                    }
+                    if(game.getJugadorIA().get(counter).isAlive()){
+                        makeDifferentAttack(counter);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                makeDifferentAttack(counter);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+
+        }
+    }
+
+
+    @Override
+    public synchronized void startAction() {
+        running = true;
+        if (!super.isAlive()) {
+            super.start();
         }
     }
 
     @Override
-    public void stopAction(){
+    public synchronized void stopAction() {
         running = false;
     }
 
@@ -542,6 +619,8 @@ public class IAModel extends Thread implements ThreadListener{
 
 
 }
+
+
 
 
 

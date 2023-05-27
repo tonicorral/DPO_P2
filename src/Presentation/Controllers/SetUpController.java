@@ -101,7 +101,9 @@ public class SetUpController implements ActionListener, MouseListener {
                     gameModel.getNumberPlayers(getNumberPlayers());
                     gameModel.createGame(savePlayer(boats));
                     //iaModel.createBoats();
+                    //gameStageController = new GameStageController()
                     gameStageController.startTimer();
+
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
 
                     gameStageController.initTable();
@@ -120,7 +122,6 @@ public class SetUpController implements ActionListener, MouseListener {
                 break;
             case SetupStageGUI.ELIMINATE:
                 eliminateBoats();
-                setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
                 break;
 
         }
@@ -367,7 +368,7 @@ public class SetUpController implements ActionListener, MouseListener {
      * @return el jugador guardado
      */
     private Player savePlayer(ArrayList<Boat> boats){
-        player = new Player(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
+        player = new Player(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats),true);
         return player;
     }
 
@@ -375,7 +376,7 @@ public class SetUpController implements ActionListener, MouseListener {
     /**
      * eliminar los barcos
      */
-    private void eliminateBoats(){
+    public void eliminateBoats(){
         isClickedDestructor = false;
         isClickedLlanxa = false;
         isClickedPorta = false;
@@ -383,6 +384,7 @@ public class SetUpController implements ActionListener, MouseListener {
         isClickedSubmari2 = false;
         setUpGUI.unPaintTable();
         setUpGUI.unPaintBoats();
+        setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
     }
 
 

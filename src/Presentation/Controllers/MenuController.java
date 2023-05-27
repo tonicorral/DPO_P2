@@ -3,6 +3,7 @@ package Presentation.Controllers;
 
 import Presentation.MainView;
 import Presentation.Views.MenuGUI;
+import Presentation.Views.SetupStageGUI;
 import Presentation.Views.StatisticsMenuGUI;
 
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.awt.event.ActionListener;
 public class MenuController implements ActionListener {
     private MenuGUI menuGUI;
     private MainView mainView;
+    private SetUpController setUpController;
 
 
     /**
@@ -22,9 +24,10 @@ public class MenuController implements ActionListener {
      * @param menuGUI contiene la info del menu
      * @param mainView contine la informacion de la clase de las vistas principales
      */
-    public MenuController(MenuGUI menuGUI, MainView mainView) {
+    public MenuController(MenuGUI menuGUI, MainView mainView, SetUpController setUpController) {
         this.menuGUI = menuGUI;
         this.mainView = mainView;
+        this.setUpController = setUpController;
 
         mainView.setListeners(this);
     }
@@ -37,6 +40,7 @@ public class MenuController implements ActionListener {
 
         switch (e.getActionCommand()) {
             case MenuGUI.NEW_GAME_BTN:
+                setUpController.eliminateBoats();
                 mainView.switchView(MainView.SETUP_VIEW);
                 break;
 
