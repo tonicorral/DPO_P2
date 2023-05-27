@@ -2,12 +2,14 @@ package Presentation.Views;
 
 import Business.Game;
 import Business.TimeThread;
+import org.w3c.dom.Text;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -426,38 +428,10 @@ public class GameStageGUI extends JPanel{
         tables = new JTable[5];
         userTable = new JTable();
 
-        for(int i = 0; i < 5; i++){
-            if(i == 0){
-                tables[i] = createTable();
-                tables[i].setBackground(Color.YELLOW);
-                infoTable.add(tables[i]);
 
-            }
-            if(i == 1){
-                tables[i] = createTable();
-                tables[i].setBackground(Color.RED);
-                infoTable.add(tables[i]);
-            }
-            if(i == 3){
-                tables[i] = createTable();
-                tables[i].setBackground(Color.ORANGE);
-                infoTable.add(tables[i]);
 
-            }
-            if(i == 4){
-                tables[i] = createTable();
-                tables[i].setBackground(Color.PINK);
-                infoTable.add(tables[i]);
-            }
-            if(i == 2){
-                userTable = createUserTable();
-                userTable.setBackground(new Color(89,185,198));
-                infoTable.add(userTable);
-
-            }
-        }
-
-        infoTable.setBackground(Color.gray);
+        //infoTable.setBackground(Color.white);
+        infoTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         empty = new JPanel();
         empty.setLayout(new BoxLayout(empty, BoxLayout.X_AXIS));
         empty.setBorder(BorderFactory.createEmptyBorder(60,10, 10, 40));
@@ -492,23 +466,57 @@ public class GameStageGUI extends JPanel{
     }
 
 
+    public void forTables(int numberPlayers,Game game){
+        for(int i = 0; i < numberPlayers+1; i++){
+            if(i == 0){
+                tables[i] = createTable(game,i);
+                tables[i].setBackground(Color.YELLOW);
+                infoTable.add(tables[i]);
+
+            }
+            if(i == 1){
+                tables[i] = createTable(game,i);
+                tables[i].setBackground(Color.RED);
+                infoTable.add(tables[i]);
+            }
+            if(i == 2){
+                tables[i] = createTable(game,i);
+                tables[i].setBackground(Color.pink);
+                infoTable.add(tables[i]);
+
+            }
+            if(i == 3){
+                tables[i] = createTable(game,i);
+                tables[i].setBackground(Color.ORANGE);
+                infoTable.add(tables[i]);
+            }
+            if(i == 4){
+                userTable = createUserTable(game);
+                userTable.setBackground(new Color(89,185,198));
+                infoTable.add(Box.createVerticalStrut(20));
+                infoTable.add(userTable);
+            }
+        }
+    }
+
+
     /**
      * crea las diferentes tablas de las IAs
      * @return la tabla de los barcos y su estado
      */
-    private JTable createTable() {
+    public JTable createTable(Game game,int i) {
         String[] columnNames = {"Barco", "Estado"};
         String[][] rowData = {
-                {"Portaviones", "TOCADO"},
-                {"Destructor", "Hundido"},
-                {"Submarino", "Tocado"},
-                {"Lancha", "Intacto"},
-                {"Lancha2", "Intacto"}
+                {"Portaviones", game.getJugadorIA().get(i).getBoats().get(0).getStatus()},
+                {"Destructor", game.getJugadorIA().get(i).getBoats().get(1).getStatus()},
+                {"Submarino", game.getJugadorIA().get(i).getBoats().get(2).getStatus()},
+                {"Submarino2", game.getJugadorIA().get(i).getBoats().get(3).getStatus()},
+                {"Lancha", game.getJugadorIA().get(i).getBoats().get(4).getStatus()}
         };
         DefaultTableModel model = new DefaultTableModel(rowData, columnNames);
         JTable table = new JTable(model);
 
-        table.setPreferredSize(new Dimension(120, 90));
+        //table.setPreferredSize(new Dimension(120, 90));
         return table;
     }
 
@@ -516,20 +524,37 @@ public class GameStageGUI extends JPanel{
      * Crea la tabla del usuario
      * @return la tabla de los barcos y su estado
      */
-    private JTable createUserTable() {
+    public JTable createUserTable(Game game) {
         String[] columnNames = {"BarcoUser", "Estado"};
         String[][] rowData = {
-                {"Portaviones", "TOCADO"},
-                {"Destructor", "Hundido"},
-                {"Submarino", "Tocado"},
-                {"Lancha", "Intacto"},
-                {"Lancha2", "Intacto"}
+                {"Portaviones", game.getPlayer().getBoats().get(0).getStatus()},
+                {"Destructor", game.getPlayer().getBoats().get(1).getStatus()},
+                {"Submarino", game.getPlayer().getBoats().get(2).getStatus()},
+                {"Submarino2", game.getPlayer().getBoats().get(3).getStatus()},
+                {"Lancha", game.getPlayer().getBoats().get(4).getStatus()}
         };
         DefaultTableModel model = new DefaultTableModel(rowData, columnNames);
         JTable table = new JTable(model);
-        table.setPreferredSize(new Dimension(200, 100));
+       // table.setPreferredSize(new Dimension(200, 200));
         return table;
     }
+
+    public void updateIATable(Game game,int i) {
+        DefaultTableModel model = (DefaultTableModel) tables[i].getModel();
+        for (int j = 0; j < 5; j++) {
+            model.setValueAt(game.getJugadorIA().get(i).getBoats().get(j).getStatus(), j, 1);
+        }
+    }
+
+    public void updateUserTable(Game game){
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        for (int j = 0; j < 5; j++) {
+            model.setValueAt(game.getPlayer().getBoats().get(j).getStatus(), j, 1);
+        }
+    }
+
+
+
 
     /**
      * Setter de los barcos
@@ -690,6 +715,12 @@ public class GameStageGUI extends JPanel{
      * @param j eje de las y
      */
     private void paintIA2(int touch, int i, int j){
+        String textCell = "";
+        if (touch >= -11 && touch <= -7){
+            textCell = "H";
+        } else if (touch <= -2 && touch >= -10) {
+            textCell = "T";
+        }
         if(touch == 1){
             cell2[i][j].setBackground(Color.red);
         }else if(touch == -1){
@@ -706,46 +737,46 @@ public class GameStageGUI extends JPanel{
             cell2[i][j].setBackground(Color.gray);
         }else if(touch==-2){
             cell2[i][j].setBackground(Color.yellow);
-            JLabel text = new JLabel("T");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }else if(touch==-3){
             cell2[i][j].setBackground(Color.cyan);
-            JLabel text = new JLabel("T");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }
         else if(touch==-4){
             cell2[i][j].setBackground(Color.green);
-            JLabel text = new JLabel("T");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }
         else if(touch==-5){
             cell2[i][j].setBackground(Color.pink);
-            JLabel text = new JLabel("T");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }
         else if(touch==-6){
             cell2[i][j].setBackground(Color.gray);
-            JLabel text = new JLabel("T");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }else if(touch==-7){
             cell2[i][j].setBackground(Color.yellow);
-            JLabel text = new JLabel("H");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }else if(touch==-8){
             cell2[i][j].setBackground(Color.cyan);
-            JLabel text = new JLabel("H");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }else if(touch==-9){
             cell2[i][j].setBackground(Color.green);
-            JLabel text = new JLabel("H");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }else if(touch==-10){
             cell2[i][j].setBackground(Color.pink);
-            JLabel text = new JLabel("H");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }else if(touch==-11){
             cell2[i][j].setBackground(Color.gray);
-            JLabel text = new JLabel("H");
+            JLabel text = new JLabel(textCell);
             cell2[i][j].add(text);
         }
         else{

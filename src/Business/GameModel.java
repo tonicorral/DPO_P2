@@ -6,6 +6,7 @@ import Presentation.Controllers.SetUpController;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class GameModel{
 
@@ -32,6 +33,11 @@ public class GameModel{
         timeThread.startTimer();
         timeThread.start();
         iaModel.start();
+    }
+
+    public void stopTimer(){
+        timeThread.stopTimer();
+        iaModel.stopAction();
     }
     public void getNumberPlayers(int numberPlayers1){
         numberPlayers = numberPlayers1;
@@ -82,7 +88,6 @@ public class GameModel{
         updateTableroPlayerAttackIA(); //update del tablero del user
         checkHundidoTableroIA(); //chequeamos barcos hundidos en los tablero de la IA
         checkHundidoTableroPlayer(); //chequemos barcos hundidos del tablero del usuario
-
         return game;
     }
 
@@ -158,6 +163,7 @@ public class GameModel{
             for(int j=0;j<sizeBoat;j++){
                 if(boatOrientation){ //Segun la orientacion nos movemos hacia la derecha o hacia abajo
                     int positionTableroBoat = game.getPlayer().getTablero().getTablero()[positionBoatX-1][positionBoatY-1+j];
+                    System.out.println("hello"+game.getPlayer().getTablero().getTablero()[positionBoatX-1][positionBoatY-1+j]);
                     if(positionTableroBoat >= -6 && positionTableroBoat <= -2){
                         contador++;
                     }
@@ -176,6 +182,9 @@ public class GameModel{
                         game.getPlayer().getTablero().getTablero()[positionBoatX-1+j][positionBoatY-1] = (i+7)*-1;
                     }
                 }
+                game.getPlayer().getBoats().get(i).setStatus("Hundido");
+            }else if(contador > 0){
+                game.getPlayer().getBoats().get(i).setStatus("Tocado");
             }
 
         }
@@ -203,19 +212,49 @@ public class GameModel{
                     }
                 }
                 if(contador == sizeBoat){ //Si todas las celdas estan tocadas las pondremos como hundido
-                    for(int m=0;m<sizeBoat;m++){
-                        if(boatOrientation){
-                            game.getJugadorIA().get(i).getTablero().getTablero()[positionBoatX-1][positionBoatY-1+m] = (i+7)*-1;
-                        }else{
-                            game.getJugadorIA().get(i).getTablero().getTablero()[positionBoatX-1+m][positionBoatY-1] = (i+7)*-1;
-                        }
-                    }
+                    game.getJugadorIA().get(i).getBoats().get(j).setStatus("Hundido");
+                }else if(contador > 0){
+                    game.getJugadorIA().get(i).getBoats().get(j).setStatus("Tocado");
                 }
             }
         }
     }
 
+    public void updateHundidos(Game game){
+        for(int i=0;i<5;i++){
+            if(Objects.equals(game.getPlayer().getBoats().get(i).getStatus(), "Hundido")){
+                for(int j=0;j<game.getPlayer().getBoats().get(i).getSize();j++){
+                    if(game.getPlayer().getBoats().get(i).getOrientation()){
+                        game.getPlayer().getTablero().getTablero()[game.getPlayer().getBoats().get(i).getPositionX()-1][game.getPlayer().getBoats().get(i).getPositionY()-1+j] = -11;
+                    }else{
+                        game.getPlayer().getTablero().getTablero()[game.getPlayer().getBoats().get(i).getPositionX()-1+j][game.getPlayer().getBoats().get(i).getPositionY()-1] = -11;
+                    }
+                }
+            }
+        }
 
+        for(int i=0;i<numberPlayers;i++){
+            for(int j=0;j<5;j++){
+                if(Objects.equals(game.getJugadorIA().get(i).getBoats().get(j).getStatus(), "Hundido")){
+
+                    for(int m=0;m<game.getJugadorIA().get(i).getBoats().get(j).getSize();m++){
+                        if(game.getJugadorIA().get(i).getBoats().get(j).getOrientation()){
+                            int x = game.getJugadorIA().get(i).getBoats().get(j).getPositionX() - 1;
+                            int y = game.getJugadorIA().get(i).getBoats().get(j).getPositionY() - 1 + m;
+                            System.out.println("posicionesX" + x);
+                            System.out.println("posicionesY" + y);
+                            game.getJugadorIA().get(i).getTablero().getTablero()[game.getJugadorIA().get(i).getBoats().get(j).getPositionX()-1][game.getJugadorIA().get(i).getBoats().get(j).getPositionY()-1+m] = -i-7;
+                        }else{
+                            game.getJugadorIA().get(i).getTablero().getTablero()[game.getJugadorIA().get(i).getBoats().get(j).getPositionX()-1+m][game.getJugadorIA().get(i).getBoats().get(j).getPositionY()-1] = -i-7;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+    }
 
 
 

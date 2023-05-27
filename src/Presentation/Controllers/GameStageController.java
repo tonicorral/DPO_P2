@@ -87,6 +87,7 @@ public class GameStageController implements ActionListener{
 
             //case SetupStageGUI.BEGIN_BUTTON -> mainView.switchView(MainView.GAME_STAGE_VIEW);
             case GameStageGUI.ABANDONAR:
+                gameModel.stopTimer();
                 mainView.switchView(MainView.MENU_VIEW);
                 break;
 
@@ -103,7 +104,9 @@ public class GameStageController implements ActionListener{
      */
     public void initTable() {
         game = gameModel.getGame();
+        gameStageGUI.forTables(game.getNumberPlayers(),game);
         gameStageGUI.setBoats(game);
+
         //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
     }
 
@@ -128,6 +131,11 @@ public class GameStageController implements ActionListener{
      */
     public void updateTable(Game game){
         int numPlayers = game.getNumberPlayers();
+        for(int i = 0;i<numPlayers;i++){
+            gameStageGUI.updateIATable(game,i);
+        }
+        gameStageGUI.updateUserTable(game);
+        gameModel.updateHundidos(game);
         paintTables(game,numPlayers);
     }
 

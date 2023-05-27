@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class IAModel extends Thread implements ThreadListener{
 
+    private boolean running = true;
     private GameModel gameModel;
     private int positionPortaX,positionDestructorX,positionSubmariX,positionSubmari2X,positionLlanxaX;
 
@@ -293,7 +294,7 @@ public class IAModel extends Thread implements ThreadListener{
 
     @Override
     public void run() {
-        while(true){
+        while(running){
             try {
                 sleep(millis);
                 if(counter < numberPlayers-1){
@@ -307,6 +308,11 @@ public class IAModel extends Thread implements ThreadListener{
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void stopAction(){
+        running = false;
     }
 
 
