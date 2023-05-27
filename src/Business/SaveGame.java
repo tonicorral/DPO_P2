@@ -98,4 +98,10 @@ public class SaveGame {
 
         return EVERYTHING_OK;
     }
+
+    public boolean verificarNombrePartidaRepetido( String user, String nombrePartida){
+        boolean verificar= gameDAO.verificarNombrePartidaRepetido(user,nombrePartida);
+
+        return verificar;
+    }
 }

@@ -93,8 +93,22 @@ public class GameStageController implements ActionListener{
                 break;
 
             case GameStageGUI.GUARDAR:
-                saveGame.anadirPartida(game,10, "pepe", 0);
-                //TODO Crear función que registre número de ataques!!!!!!!!!!!!!!!
+                String nombrePartida = gameStageGUI.getNombrePartida();
+
+
+                if (nombrePartida != null && !nombrePartida.isEmpty()) {
+                    String user = saveGame.getUser();
+                    boolean nombreRepetido = saveGame.verificarNombrePartidaRepetido(user, nombrePartida);
+
+                    if (!nombreRepetido) {
+                        saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0);
+                    } else {
+
+                        mainView.showError("Error: Ya existe este nombre para la partida");
+                    }
+
+
+                }
                 break;
         }
     }
