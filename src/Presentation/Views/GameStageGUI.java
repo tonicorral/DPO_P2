@@ -1009,6 +1009,10 @@ public class GameStageGUI extends JPanel{
             clk.setForeground(Color.red);
     }
 
+    public String getNombrePartida() {
+        return JOptionPane.showInputDialog(this, "Ingrese el nombre de la partida:");
+    }
+
 
 
 

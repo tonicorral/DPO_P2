@@ -34,6 +34,6 @@ public interface GameDAO {
 
      List<Integer> attacksInGame(String userName) throws SQLException; //Para poder calcular la media de ataques por partida te devuelve un array de enteros con los ataques hechos en cada partida
 
-
+     boolean verificarNombrePartidaRepetido(String usuario, String nombrePartida);
 
 }

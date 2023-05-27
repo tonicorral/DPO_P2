@@ -254,5 +254,23 @@ public class GameSQL implements GameDAO{
         return false;
     }
 
+    public boolean verificarNombrePartidaRepetido(String usuario, String nombrePartida) {
+
+
+        String query = "SELECT COUNT(*) FROM registro as r, guardarpartida as g  WHERE r.Usuario = '" + usuario + "' AND g.NombrePartida ='" +nombrePartida +"';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        try {
+            if (result.next()) {
+                int count = result.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+
+    }
+
 
 }
