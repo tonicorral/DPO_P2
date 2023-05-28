@@ -78,7 +78,7 @@ public class GameSQL implements GameDAO{
 
 
     /**
-     * Seleciona el fichero del partida
+     * Seleciona el fichero de la partida
      * @param gameName String del nombre de la partida
      * @return el fichero con la partida
      */

@@ -17,7 +17,6 @@ public class Configuration{
     private final Gson gson;
 
     private Reader config;
-    private Reader boat;
 
     private String IP;
     private int port;
@@ -31,11 +30,10 @@ public class Configuration{
 
      * @param config informacio de la configuració
      */
-    public Configuration(String config, String boat) {
+    public Configuration(String config) {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             this.config = new FileReader(config);
-            this.boat = new FileReader(boat);
 
         } catch (IOException e) {
             e.printStackTrace();

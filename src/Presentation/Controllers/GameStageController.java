@@ -134,6 +134,10 @@ public class GameStageController implements ActionListener{
 
     }
 
+    /**
+     * Método que sirve para cargar la partida.
+     * @param game Variable donde se almacena la partida que se quiere guardar.
+     */
     public void loadSaveTable(Game game) {
 
         gameStageGUI.forTables(game.getNumberPlayers(),game);
