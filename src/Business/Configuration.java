@@ -23,7 +23,7 @@ public class Configuration{
     private String name;
     private String user;
     private String password;
-
+    private int time;
 
     /**
      * Contructor de la configuació
@@ -100,18 +100,10 @@ public class Configuration{
         this.name = ((dataBase.get("dbName").getAsString()));
         this.user = ((dataBase.get("dbUser").getAsString()));
         this.password = ((dataBase.get("password").getAsString()));
-
+        this.time = ((dataBase.get("intervalMs").getAsInt()));
     }
 
-  /*
-    public ArrayList<Boat> loadBoats() {
-        ArrayList<Boat> list = new ArrayList<>();
-        Boat[] list1 = new Boat[3];
-        list1 = gson.fromJson(boat, list1.getClass());
-
-        for (int i = 0; i < list1.length; i++){
-            list.add(list1[i]);
-        }
-        return list;
-    }*/
+    public int getTime() {
+        return time;
+    }
 }

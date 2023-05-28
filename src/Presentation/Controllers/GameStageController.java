@@ -181,7 +181,7 @@ public class GameStageController implements ActionListener{
                 boolean nombreRepetido = saveGame.verificarNombrePartidaRepetido(user, nombrePartida);
 
                 if (!nombreRepetido) {
-                    saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0,gameTime);
+                    saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 1,gameTime);
                     gameModel.stopTimer();
                     mainView.switchView(MainView.MENU_VIEW);
                     System.exit(0);
