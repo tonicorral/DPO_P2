@@ -1,5 +1,9 @@
 package Business;
 
+
+/**
+ * Interfaz del threadListener
+ */
 public interface ThreadListener {
 
     void startAction();

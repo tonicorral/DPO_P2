@@ -44,11 +44,14 @@ public class DeleteUserController implements ActionListener {
             case DeleteUserGUI.BUTTON_DELETE:
 
                 switch (userModel.deleteUser(email)) {
-                    case NO_USER -> mainView.showError("User does not exist");
-                    case EMPTY_FIELD -> mainView.showError("There is an empty field!");
-                    case EVERYTHING_OK -> mainView.switchView(MainView.START_VIEW);
-
+                    case NO_USER: mainView.showError("User does not exist");
+                        break;
+                    case EMPTY_FIELD: mainView.showError("There is an empty field!");
+                        break;
+                    case EVERYTHING_OK : mainView.switchView(MainView.START_VIEW);
+                        break;
                 }
+                break;
 
             case DeleteUserGUI.DELETE_CANCEL_BTN:
                 mainView.switchView(MainView.MENU_VIEW);

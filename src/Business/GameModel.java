@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Implementa el modelo de juego de la partida
+ */
 public class GameModel{
 
     private IAModel iaModel;
@@ -24,12 +27,23 @@ public class GameModel{
 
    private long startTime = System.currentTimeMillis();
 
+    /**
+     * Constructor de la clase GameModel.
+     *
+     * @param iaModel      El modelo de IA.
+     * @param playerModel  El modelo del jugador.
+     */
     public GameModel(IAModel iaModel,PlayerModel playerModel) {
         this.iaModel = iaModel;
         this.playerModel = playerModel;
 
     }
 
+    /**
+     * Inicia el temporizador del juego.
+     * Crea y activa un hilo de tiempo.
+     * Inicia la acción de la IA.
+     */
     public void startTimer(){
         this.timeThread = new TimeThread(this);
         timeThread.startTimer();
@@ -37,10 +51,21 @@ public class GameModel{
         iaModel.startAction();
     }
 
+    /**
+     * Detiene el temporizador del juego.
+     * Detiene el hilo de tiempo.
+     * Detiene la acción de la IA.
+     */
     public void stopTimer(){
         timeThread.stopTimer();
         iaModel.stopAction();
     }
+
+    /**
+     * Establece el número de jugadores en el juego.
+     *
+     * @param numberPlayers1 El número de jugadores.
+     */
     public void getNumberPlayers(int numberPlayers1){
         numberPlayers = numberPlayers1;
     }
@@ -54,15 +79,31 @@ public class GameModel{
         return iaPlayers;
     }
 
+    /**
+     * Crea un nuevo juego.
+     *
+     * @param player El jugador humano.
+     */
     public void createGame(Player player){
         game = new Game(player,getIA(),numberPlayers,false);
         iaModel.getGame(game);
     }
 
+    /**
+     * Obtiene el juego actual.
+     *
+     * @return El juego actual.
+     */
     public Game getGame(){
         return game;
     }
 
+
+    /**
+     * Realiza los ataques de la IA y actualiza el juego.
+     *
+     * @param game El juego actual.
+     */
     public void IAAttacks(Game game){ //La ia realiza sus ataques y los mete en game
 
         this.game = game;
@@ -71,16 +112,34 @@ public class GameModel{
         gameStageController.updateTable(this.game);
     }
 
+    /**
+     * Realiza un ataque del usuario en la posición especificada.
+     *
+     * @param positionBoatTable La posición del ataque en forma de cadena.
+     * @return Las posiciones de ataque del usuario.
+     */
     public ArrayList<Integer> attackUser(String positionBoatTable){ //Transformamos string(JButton) en las posiciones de ataque del usuario
 
         return playerModel.saveAttack(positionBoatTable);
     }
 
+    /**
+     * Inserta el ataque del usuario en el juego.
+     *
+     * @param game           El juego actual.
+     * @param positionsUser  Las posiciones de ataque del usuario.
+     * @return El juego actualizado.
+     */
     public Game insertAttack(Game game,ArrayList<Integer> positionsUser){ //Guardamos el ataque del usuario en game;
         this.game = playerModel.playerAttacks(game,positionsUser);
         return this.game;
     }
 
+    /**
+     * Actualiza los tableros del juego.
+     *
+     * @return El juego actualizado.
+     */
     private Game updateTablero(){ //Hacemos update de todos los tableros
 
         updateTableroIAAttackIA(); //update de los tablero de las IA cuando se atacan entre si
@@ -93,6 +152,9 @@ public class GameModel{
         return game;
     }
 
+    /**
+     * Actualiza los tableros de las IA cuando se atacan entre sí.
+     */
     private void updateTableroIAAttackIA(){
         for(int i = 0;i<numberPlayers;i++){
             Player attacker = game.getJugadorIA().get(i);
@@ -117,6 +179,9 @@ public class GameModel{
         }
     }
 
+    /**
+     * Actualiza los tableros de las IA cuando el usuario las ataca.
+     */
     private void updateTableroIAAttackPlayer(){
         int lastAttack = game.getPlayer().getPositionAttackedX().size()-1;
         if(lastAttack > -1){
@@ -135,6 +200,9 @@ public class GameModel{
     }
 
 
+    /**
+     * Actualiza el tablero del jugador después de un ataque de la IA.
+     */
     private void updateTableroPlayerAttackIA(){
         for(int i = 0;i<numberPlayers;i++){
             Player attackerIA = game.getJugadorIA().get(i);
@@ -154,6 +222,9 @@ public class GameModel{
         }
     }
 
+    /**
+     * Verifica si los barcos del jugador han sido hundidos en su tablero.
+     */
     private void checkHundidoTableroPlayer(){
         for(int i=0;i<5;i++){ //Recorremos todos los barcos
             int sizeBoat = game.getPlayer().getBoats().get(i).getSize();
@@ -192,6 +263,9 @@ public class GameModel{
         }
     }
 
+    /**
+     * Verifica si los barcos de la IA han sido hundidos en su tablero.
+     */
     private void checkHundidoTableroIA(){
         for(int i=0;i<numberPlayers;i++){ //Recorremos todas las IA
             for(int j=0;j<5;j++){ //Recorremos todos los barcos
@@ -222,6 +296,10 @@ public class GameModel{
         }
     }
 
+    /**
+     * Actualiza los barcos hundidos en el tablero del jugador y la IA.
+     * @param game El objeto del juego.
+     */
     public void updateHundidos(Game game){
         for(int i=0;i<5;i++){
             if(Objects.equals(game.getPlayer().getBoats().get(i).getStatus(), "Hundido")){
@@ -260,6 +338,9 @@ public class GameModel{
 
 
 
+    /**
+     * Actualiza el temporizador del juego.
+     */
     public void updateTimer(){
         minuts = timeThread.getM();
         seconds = timeThread.getS();
@@ -275,11 +356,18 @@ public class GameModel{
         gameStageController.updateTimer(time);
     }
 
+    /**
+     * Registra el controlador de GameStage.
+     * @param gameStageController El controlador de GameStage.
+     */
     public void registerController(GameStageController gameStageController){
         this.gameStageController = gameStageController;
     }
 
 
+    /**
+     * Verifica si la IA ha sido eliminada del juego.
+     */
     private void isDeadIA(){
         for(int i = 0;i<numberPlayers;i++){
             int counter = 0;
@@ -299,6 +387,9 @@ public class GameModel{
         }
     }
 
+    /**
+     * Verifica si el jugador ha sido eliminado del juego.
+     */
     private void imDead(){
         int counter = 0;
         for(int j = 0;j<5;j++){

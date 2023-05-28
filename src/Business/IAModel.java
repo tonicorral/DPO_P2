@@ -3,6 +3,9 @@ package Business;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Implementa las distintas acciones de la IA
+ */
 public class IAModel extends Thread implements ThreadListener{
 
     private boolean running = false;
@@ -20,6 +23,10 @@ public class IAModel extends Thread implements ThreadListener{
         this.config = new Configuration("Files/config.json");
     }
 
+    /**
+     * Crea los barcos para el jugador de IA.
+     * @return Un objeto de tipo JugadorIA con los barcos creados y otros atributos.
+     **/
     public JugadorIA createBoats(){
         ArrayList<Boat> boats = new ArrayList<>();
 
@@ -46,11 +53,19 @@ public class IAModel extends Thread implements ThreadListener{
 
 
 
+    /**
+     * Genera una posición aleatoria.
+     * @return Un número entero que representa la posición aleatoria.
+     **/
     private int randomPosition(){
         Random random = new Random();
         return random.nextInt(15)+1;
     }
 
+    /**
+     * Genera una rotación aleatoria para los barcos.
+     * @return Un valor booleano que representa la rotación aleatoria (true: vertical, false: horizontal).
+     **/
     private boolean randomRotation(){
         int rotation;
         Random random = new Random();
@@ -59,7 +74,10 @@ public class IAModel extends Thread implements ThreadListener{
     }
 
 
-
+    /**
+     * Crea la posición para el barco PortaAvions.
+     * Verifica que la posición y rotación generadas no colisionen con otros barcos.
+     **/
     private void createPortaAvions(){
         do{
             positionPortaX = randomPosition(); //Extract positionX
@@ -68,6 +86,14 @@ public class IAModel extends Thread implements ThreadListener{
         }while(checkInTable(positionPortaX,positionPortaY,rotationPorta,5));
     }
 
+    /**
+     * Verifica si un barco colisiona con otros barcos en la tabla.
+     * @param positionX Coordenada X de la posición inicial del barco.
+     * @param positionY Coordenada Y de la posición inicial del barco.
+     * @param rotation true si el barco está en posición vertical, false si está en posición horizontal.
+     * @param size Longitud del barco.
+     * @return true si hay colisión, false de lo contrario.
+     **/
     private boolean checkInTable(int positionX,int positionY,boolean rotation,int size){
 
         if(rotation){
@@ -77,6 +103,10 @@ public class IAModel extends Thread implements ThreadListener{
         }
     }
 
+    /**
+     * Crea un barco Destructor en una posición aleatoria dentro del tablero.
+     * Verifica que no haya colisión con otros barcos.
+     **/
     private void createDestructor(){
         do{
             positionDestructorX = randomPosition();
@@ -87,6 +117,10 @@ public class IAModel extends Thread implements ThreadListener{
     }
 
 
+    /**
+     * Crea un submarino en una posición aleatoria dentro del tablero.
+     * Verifica que no haya colisión con otros barcos.
+     **/
     private void createSubmari(){
         do{
             positionSubmariX = randomPosition();
@@ -97,6 +131,10 @@ public class IAModel extends Thread implements ThreadListener{
                 || checkBoatWithAnother(positionSubmariX,positionSubmariY,rotationSubmari,3,positionDestructorX,positionDestructorY,rotationDestructor,4));
     }
 
+    /**
+     * Crea un segundo submarino en una posición aleatoria dentro del tablero.
+     * Verifica que no haya colisión con otros barcos.
+     **/
     private void createSubmari2(){
         do{
             positionSubmari2X = randomPosition();
@@ -109,6 +147,10 @@ public class IAModel extends Thread implements ThreadListener{
         );
     }
 
+    /**
+     * Crea una lancha en una posición aleatoria dentro del tablero.
+     * Verifica que no haya colisión con otros barcos.
+     **/
     private void createLlanxa(){
         do{
             positionLlanxaX = randomPosition();
@@ -123,7 +165,20 @@ public class IAModel extends Thread implements ThreadListener{
 
 
 
-
+    /**
+     * Verifica si un barco está colisionando con otro barco en el tablero.
+     * Comprueba las posiciones de los barcos y sus tamaños para determinar si hay colisión.
+     *
+     * @param positionX      La posición X del barco actual.
+     * @param positionY      La posición Y del barco actual.
+     * @param rotation       La rotación del barco actual.
+     * @param size           El tamaño del barco actual.
+     * @param positionOutX   La posición X del otro barco.
+     * @param positionOutY   La posición Y del otro barco.
+     * @param rotationOut    La rotación del otro barco.
+     * @param sizeOut        El tamaño del otro barco.
+     * @return true si hay colisión, false de lo contrario.
+     **/
     private boolean checkBoatWithAnother(int positionX, int positionY, boolean rotation,int size,int positionOutX,int positionOutY,boolean rotationOut,int sizeOut){
         boolean checkBoat = false;
         if(rotation){
@@ -198,14 +253,21 @@ public class IAModel extends Thread implements ThreadListener{
     }
 
 
+    /**
+     * Obtiene el juego actual.
+     *
+     * @param game El objeto Game que representa el juego actual.
+     **/
     public void getGame(Game game){
         this.game = game;
     }
 
-    private void getNumbersPlayers(){
-        this.numberPlayers = game.getNumberPlayers();
-    }
-
+    /**
+     * Realiza un ataque diferente para el jugador de la IA.
+     * Determina una posición de ataque basada en la estrategia de la IA y la ejecuta en el juego.
+     *
+     * @param i El índice del jugador de la IA.
+     **/
     private synchronized void makeDifferentAttack(int i) {
         int fila=0, columna=0;
         Player attacker = game.getJugadorIA().get(i);
@@ -262,15 +324,36 @@ public class IAModel extends Thread implements ThreadListener{
         gameModel.IAAttacks(game);
     }
 
+
+    /**
+     * Verifica si una posición se encuentra fuera del tablero.
+     *
+     * @param fila    La fila de la posición.
+     * @param columna La columna de la posición.
+     * @return true si la posición está fuera del tablero, false de lo contrario.
+     */
     private boolean outTablero(int fila,int columna){
         return fila > 15 || columna > 15 || fila < 1 || columna < 1 ;
     }
 
+    /**
+     * Genera un número aleatorio entre 1 y 4, que representa una dirección adyacente.
+     *
+     * @return El número aleatorio generado.
+     */
     private int randomAdyacente(){
         Random random = new Random();
         return random.nextInt(4)+1;
     }
 
+    /**
+     * Verifica si el ataque realizado ha tocado un barco en la posición más reciente.
+     *
+     * @param attacker El jugador atacante.
+     * @param game     El objeto del juego.
+     * @param i        Un número utilizado en la comparación.
+     * @return true si el ataque ha tocado un barco, false de lo contrario.
+     */
     private boolean ataqueTocado(Player attacker, Game game, int i){
         boolean tocado = false;
         for (int j = 0;j<numberPlayers;j++){
@@ -284,6 +367,14 @@ public class IAModel extends Thread implements ThreadListener{
     }
 
 
+    /**
+     * Verifica si una posición ya ha sido atacada en el juego.
+     *
+     * @param fila    La fila de la posición.
+     * @param columna La columna de la posición.
+     * @param game    El objeto del juego.
+     * @return true si la posición no ha sido atacada, false de lo contrario.
+     */
     private boolean positionAttacked(int fila,int columna,Game game){
         boolean notAttackedIA = true,notAttackedUser = true;
         numberPlayers = game.getNumberPlayers();
@@ -303,58 +394,16 @@ public class IAModel extends Thread implements ThreadListener{
         return notAttackedIA;
     }
 
-    /*
-    private boolean positionHit(int fila, int columna, Player oponente, Game game, int attacker){
-        boolean done = false;
-        int numPlayers = game.getNumberPlayers();
-        int lastMovementX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1);
-        int lastMovementY = oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size()-1);
-        for(int i = 0;i<numPlayers;i++){
-            if (game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1] == -1) {
-
-                int[][] posicionesAdyacentes = {
-                        {lastMovementX - 2, lastMovementY-1}, // Arriba
-                        {lastMovementX, lastMovementY-1}, // Abajo
-                        {lastMovementX-1, lastMovementY - 2}, // Izquierda
-                        {lastMovementX-1, lastMovementY}  // Derecha
-                };
-                for (int[] posicion : posicionesAdyacentes) {
-                    int newFila = posicion[0];
-                    int newColumna = posicion[1];
-
-                    if(fila == newFila && columna == newColumna){
-                        System.out.println(fila);
-                        //le da a un adyacente
-                        done = true;
-                        break;
-                    }
-
-                }
-            }
-        }
-
-
-
-
-        for(int j = 0;j<numPlayers;j++){
-            System.out.println(j);
-            if(attacker != j){
-                if(game.getJugadorIA().get(j).getTablero().getTablero()[lastAttackX][lastAttackY] == 1){
-                    if(lastAttackX+1 == fila && lastAttackY == columna || lastAttackX -1 == fila && lastAttackY == columna || lastAttackX == fila && lastAttackY+1 == columna || lastAttackX == fila && lastAttackY -1 == columna){
-                        hit = true;
-                        break;
-                    }
-                }else{
-                    hit = false;
-                }
-            }
-        }
-        return done;
-    }*/
-
-
+    /**
+     * Registra el modelo de juego.
+     *
+     * @param gameModel El modelo de juego a registrar.
+     */
     public void registerGameModel(GameModel gameModel){this.gameModel = gameModel;}
 
+    /**
+     * Run de los ataques
+     */
     @Override
     public void run() {
         while(true){
@@ -378,6 +427,11 @@ public class IAModel extends Thread implements ThreadListener{
     }
 
 
+    /**
+     * Ejecuta el bucle principal del hilo.
+     * Comprueba periódicamente si es el turno de un jugador IA y realiza un ataque diferente.
+     * El bucle se ejecuta continuamente hasta que se detenga el hilo.
+     */
     @Override
     public synchronized void startAction() {
         running = true;
@@ -386,235 +440,42 @@ public class IAModel extends Thread implements ThreadListener{
         }
     }
 
+
+    /**
+     * Inicia la acción del hilo.
+     * Establece el estado de ejecución en activo y si el hilo no está vivo, lo inicia.
+     */
     @Override
     public synchronized void stopAction() {
         running = false;
     }
 
 
+    /**
+     * Verifica si la posición proporcionada es correcta para el atacante especificado.
+     *
+     * @param fila     La fila de la posición a verificar.
+     * @param columna  La columna de la posición a verificar.
+     * @param attacker El identificador del atacante.
+     * @return true si la posición es correcta, false en caso contrario.
+     */
     @Override
     public boolean correctPosition(int fila, int columna, int attacker) {
         return false;
     }
 
+    /**
+     * Notifica un ataque en la posición especificada al jugador IA.
+     *
+     * @param fila     La fila de la posición atacada.
+     * @param columna  La columna de la posición atacada.
+     * @param attacker El identificador del atacante.
+     * @return El resultado del ataque.
+     */
     @Override
     public int notifyAttack(int fila, int columna, int attacker) {
         return 0;
     }
-
-
-
-
-
-
-
-
-
-
-
-    /*
-   public Game realizarMovimiento(Game game) {
-        Player oponente = game.getJugadorIA().get(0);
-        Tablero tableroOponente = oponente.getTablero();
-        int fila, columna;
-        boolean ataqueExitoso = false;
-        boolean intentoHundir = false;
-
-
-        if(oponente.getPositionAttackedX().size() <= 1){
-            fila = randomPosition();
-            columna = randomPosition();
-        } else{
-            do{
-                fila = randomPosition();
-                columna = randomPosition();
-            } while(!positionAttacked(fila,columna,oponente) || !touchBoat(fila,columna,game,oponente));
-        }
-       oponente.getPositionAttackedX().add(fila);
-       oponente.getPositionAttackedY().add(columna);
-
-        game = detectAttack(game,oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1),oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size()-1));
-
-        return game;
-    }
-
-
-    public Game detectAttack(Game game,int fila,int columna){
-        int numPlayers = game.getNumberPlayers();
-
-        for (int i = 0;i<numPlayers;i++){
-            if(game.getJugadorIA().get(i).getTablero().getTablero()[fila-1][columna-1] == 1){
-                game.getJugadorIA().get(i).getTablero().setPosicion(fila-1,columna-1,-1);
-            }
-        }
-
-        return game;
-    }
-
-
-
-
-    private boolean positionAttacked(int fila,int columna,Player oponente){
-        boolean notAttacked = true;
-        for(int i = 0;i<oponente.getPositionAttackedX().size();i++){
-            if(oponente.getPositionAttackedX().get(i) == fila){
-                if(oponente.getPositionAttackedY().get(i) == columna){
-                    notAttacked = false;
-                    break;
-                }
-            }
-        }
-
-        return notAttacked;
-    }
-
-    private boolean touchBoat(int fila,int columna,Game game,Player oponente){
-        boolean done = false;
-        int numPlayers = game.getNumberPlayers();
-        int lastMovementX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1);
-        int lastMovementY = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-1);
-        int last2MovementX = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-2);
-        int last2MovementY = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size()-2);
-
-        for(int i = 0;i<numPlayers;i++){
-            System.out.println("gogogo");
-            System.out.println(game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1]);
-            System.out.println(game.getJugadorIA().get(i).getTablero().getTablero()[last2MovementX-1][last2MovementY-1]);
-            if(game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1] == -1 && game.getJugadorIA().get(i).getTablero().getTablero()[last2MovementY-1][last2MovementX-1] == -1){
-                System.out.println("ooooooooooo");
-                if(lastMovementX == last2MovementX+1 && lastMovementY == last2MovementY){
-                    if(lastMovementX + 1 == fila){
-                        done = true;
-                        break;
-                    } else{
-                        done = false;
-                    }
-                } else if (lastMovementX == last2MovementX-1 && lastMovementY == last2MovementY) {
-                    if(lastMovementX - 1 == fila){
-                        done = true;
-                        break;
-                    } else{
-                        done = false;
-                    }
-                } else if (lastMovementX == last2MovementX && lastMovementY == last2MovementY-1) {
-                    if(lastMovementY - 1 == columna){
-                        done = true;
-                        break;
-                    } else{
-                        done = false;
-                    }
-                } else{
-                    if(lastMovementY + 1 == columna){
-                        done = true;
-                        break;
-                    } else{
-                        done = false;
-                    }
-                }
-            } else if (game.getJugadorIA().get(i).getTablero().getTablero()[lastMovementX-1][lastMovementY-1] == -1) {
-                System.out.println("eeeeeeeeeee");
-                int[][] posicionesAdyacentes = {
-                        {lastMovementX - 2, lastMovementY-1}, // Arriba
-                        {lastMovementX, lastMovementY-1}, // Abajo
-                        {lastMovementX-1, lastMovementY - 2}, // Izquierda
-                        {lastMovementX-1, lastMovementY}  // Derecha
-                };
-                for (int[] posicion : posicionesAdyacentes) {
-                    int newFila = posicion[0];
-                    int newColumna = posicion[1];
-
-                    if(fila == newFila && columna == newColumna){
-                        System.out.println(fila);
-                        //le da a un adyacente
-                        done = true;
-                        break;
-                    }
-
-                }
-            }
-            else{
-                done = true;
-            }
-        }
-
-        return done;
-    }*/
-
-   /* private boolean hundirBarco(Game game){
-        boolean hundido = false;
-
-
-        return hundido;
-    }*/
-
-    /*
-    public Game makeMovement(Game game) {
-        Player oponente = game.getJugadorIA().get(0);
-        Tablero tableroOponente = oponente.getTablero();
-        int fila = 0, columna = 0;
-        boolean ataqueExitoso = false;
-        boolean intentoHundir = false;
-
-        // Atacar casillas aleatoriamente hasta conseguir un impacto
-        while (!ataqueExitoso) {
-            if (!intentoHundir) {
-                fila = randomPosition();
-                columna = randomPosition();
-            } else {
-                // Obtener la última posición de ataque exitosa
-                int ultimaFila = oponente.getPositionAttackedX().get(oponente.getPositionAttackedX().size() - 1);
-                int ultimaColumna = oponente.getPositionAttackedY().get(oponente.getPositionAttackedY().size() - 1);
-
-                // Generar las posibles casillas adyacentes al último ataque exitoso
-                int[][] posicionesAdyacentes = {
-                        {ultimaFila - 1, ultimaColumna}, // Arriba
-                        {ultimaFila + 1, ultimaColumna}, // Abajo
-                        {ultimaFila, ultimaColumna - 1}, // Izquierda
-                        {ultimaFila, ultimaColumna + 1}  // Derecha
-                };
-                // Recorrer las posiciones adyacentes y atacar la primera casilla válida
-                for (int[] posicion : posicionesAdyacentes) {
-                    fila = posicion[0];
-                    columna = posicion[1];
-
-                    // Verificar si la posición está dentro del rango del tablero
-                    if (fila >= 0 && fila < 15 && columna >= 0 && columna < 15) {
-                        if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.AGUA || tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
-                            if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
-                                tableroOponente.getTablero()[fila-1][columna-1] = Tablero.TOCADO;
-                                ataqueExitoso = true;
-                                intentoHundir = true; // Indicar que se ha logrado un impacto y se intentará hundir el barco
-                                break;
-                            } else {
-                                tableroOponente.getTablero()[fila-1][columna-1] = Tablero.AGUA;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                // Si no se encontró una casilla adyacente válida, realizar un ataque aleatorio
-                if (!ataqueExitoso) {
-                    fila = randomPosition();
-                    columna = randomPosition();
-                }
-            }
-
-            if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.AGUA || tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
-                if (tableroOponente.getTablero()[fila-1][columna-1] == Tablero.BARCO) {
-                    tableroOponente.getTablero()[fila-1][columna-1] = Tablero.TOCADO;
-                    ataqueExitoso = true;
-                    intentoHundir = true; // Indicar que se ha logrado un impacto y se intentará hundir el barco
-                } else {
-                    tableroOponente.getTablero()[fila-1][columna-1] = Tablero.AGUA;
-                }
-            }
-        }
-        return game;
-    }*/
-
-
-
 
 
 }

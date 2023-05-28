@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+/**
+ * Engloba tot el jugador y sus caracteristicas
+ */
 public class Player {
 
     protected Tablero tablero;
@@ -22,6 +27,16 @@ public class Player {
 
     private boolean alive;
 
+    /**
+     * Constructor de la clase Player.
+     * Crea un objeto Player con los barcos, posiciones atacadas, tablero y estado de vida especificados.
+     *
+     * @param boats             La lista de barcos del jugador.
+     * @param positionAttackedX La lista de posiciones X atacadas por el jugador.
+     * @param positionAttackedY La lista de posiciones Y atacadas por el jugador.
+     * @param tablero           El tablero del jugador.
+     * @param alive             El estado de vida del jugador.
+     **/
     public Player(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero,boolean alive) {
         this.boats = boats;
         this.barcoPosicionX = new ArrayList<>();;
@@ -31,89 +46,59 @@ public class Player {
         this.tablero = tablero;
         this.alive = alive;
     }
-    public void addBarcoPosicion(int posicionX, int posicionY) {
-        barcoPosicionX.add(posicionX);
-        barcoPosicionY.add(posicionY);
-    }
 
-    public List<Integer> getBarcoPosicionX() {
-        return barcoPosicionX;
-    }
-
-    public List<Integer> getBarcoPosicionY() {
-        return barcoPosicionY;
-    }
-    //public abstract void realizarMovimiento(Player oponente);
-
-   /*public int[] getPositionX() {
-        return positionX;
-    }
-
-    public int[] getPositionY() {
-        return positionY;
-    }*/
-
-    public boolean isTurno() {
-        return turno;
-    }
-
-    public int getTurnToPlay() {
-        return turnToPlay;
-    }
-/*
-    public void setPositionX(int[] positionX) {
-        this.positionX = positionX;
-    }
-
-    public void setPositionY(int[] positionY) {
-        this.positionY = positionY;
-    }
-*/
-    public void setTurno(boolean turno) {
-        this.turno = turno;
-    }
-
-    public void setTurnToPlay(int turnToPlay) {
-        this.turnToPlay = turnToPlay;
-    }
-
+    /**
+     * Obtiene la lista de barcos del jugador.
+     *
+     * @return La lista de barcos del jugador.
+     **/
     public ArrayList<Boat> getBoats() {
         return boats;
     }
 
-    public void setBoats(ArrayList<Boat> boats) {
-        this.boats = boats;
-    }
-
+    /**
+     * Obtiene la lista de posiciones X atacadas por el jugador.
+     *
+     * @return La lista de posiciones X atacadas por el jugador.
+     **/
     public ArrayList<Integer> getPositionAttackedX() {
         return positionAttackedX;
     }
 
-    public void setPositionAttackedX(ArrayList<Integer> positionAttackedX) {
-        this.positionAttackedX = positionAttackedX;
-    }
-
+    /**
+     * Obtiene la lista de posiciones Y atacadas por el jugador.
+     *
+     * @return La lista de posiciones Y atacadas por el jugador.
+     **/
     public ArrayList<Integer> getPositionAttackedY() {
         return positionAttackedY;
     }
 
-    public void setPositionAttackedY(ArrayList<Integer> positionAttackedY) {
-        this.positionAttackedY = positionAttackedY;
-    }
 
 
+    /**
+     * Obtiene el tablero del jugador.
+     *
+     * @return El tablero del jugador.
+     **/
     public Tablero getTablero() {
         return tablero;
     }
 
-    public void setTablero(Tablero tablero) {
-        this.tablero = tablero;
-    }
-
+    /**
+     * Verifica si el jugador está vivo.
+     *
+     * @return true si el jugador está vivo, false en caso contrario.
+     **/
     public boolean isAlive() {
         return alive;
     }
 
+    /**
+     * Establece el estado de vida del jugador.
+     *
+     * @param alive true si el jugador está vivo, false en caso contrario.
+     **/
     public void setAlive(boolean alive) {
         this.alive = alive;
     }

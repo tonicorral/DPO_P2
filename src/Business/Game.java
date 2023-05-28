@@ -2,8 +2,10 @@ package Business;
 
 import java.util.ArrayList;
 
+/**
+ * Engloba el juego y sus caracterisiticas
+ */
 public class Game {
-
 
     private Player player;
 
@@ -15,6 +17,14 @@ public class Game {
 
     private boolean finishedGame;
 
+
+    /**
+     * Contructor del juego
+     * @param player el propio jugador de la partida
+     * @param jugadorIA las IAs que participan
+     * @param numberPlayers el numero de IAs generadas
+     * @param finishedGame si el juego a terminado
+     */
     public Game(Player player,ArrayList<JugadorIA> jugadorIA, int numberPlayers, boolean finishedGame) {
         this.player = player;
         this.jugadorIA = jugadorIA;
@@ -23,43 +33,30 @@ public class Game {
     }
 
 
+
+    /**
+     * Getter del jugador
+     * @return el jugador
+     */
     public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
 
+    /**
+     * Getter de los jugadores IA
+     * @return los jugadores IA
+     */
     public ArrayList<JugadorIA> getJugadorIA() {
         return jugadorIA;
     }
 
-    public void setJugadorIA(ArrayList<JugadorIA> jugadorIA) {
-        this.jugadorIA = jugadorIA;
-    }
 
-    public int getPlayerTurn() {
-        return playerTurn;
-    }
-
-    public void setPlayerTurn(int playerTurn) {
-        this.playerTurn = playerTurn;
-    }
-
+    /**
+     * Getter del numero de jugadores IA
+     * @return numero jugadores IA
+     */
     public int getNumberPlayers() {
         return numberPlayers;
-    }
-
-    public void setNumberPlayers(int numberPlayers) {
-        this.numberPlayers = numberPlayers;
-    }
-
-    public boolean isFinishedGame() {
-        return finishedGame;
-    }
-
-    public void setFinishedGame(boolean finishedGame) {
-        this.finishedGame = finishedGame;
     }
 }
