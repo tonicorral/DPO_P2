@@ -3,7 +3,6 @@ package Presentation.Controllers;
 
 import Presentation.MainView;
 import Presentation.Views.LogoutGUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

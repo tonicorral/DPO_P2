@@ -5,7 +5,6 @@ import Business.SaveGame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 
@@ -14,11 +13,8 @@ import java.util.ArrayList;
  */
 public class LoadGameGUI extends JPanel {
 
-
     private SaveGame saveGame;
-    private JPanel generalPanel;
     private JButton cargarButton;
-    private String partidaSelected;
     private JList<String> partidaJList;
     public static final String CARGAR_BTN = "CARGAR_BTN";
 
@@ -34,7 +30,9 @@ public class LoadGameGUI extends JPanel {
         configurePanel();
     }
 
-
+    /**
+     * Contructor del panel para poder cargar la partida
+     */
     public void configurePanel(){
 
 
@@ -63,19 +61,14 @@ public class LoadGameGUI extends JPanel {
         add(title1, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
     }
+
+    /**
+     * Inicializa el botón de cargar partida
+     * @param listener parametro actionLister para detectar donde estamos
+     */
     public void setLoadGameListener(ActionListener listener) {
         this.cargarButton.addActionListener(listener);
 
     }
 
-    /*
-    public String getNombreUser() {
-        return JOptionPane.showInputDialog(this, "Ingrese el el nombre del usuario");
-    }
-*/
-
-    public String getPartidaJList() {
-        String partidaSeleccionada = partidaJList.getSelectedValue();
-        return partidaSeleccionada;
-    }
 }

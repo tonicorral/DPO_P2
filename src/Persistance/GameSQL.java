@@ -19,7 +19,7 @@ public class GameSQL implements GameDAO{
     }
 
     /**
-     * Valida el nombre del juego
+     * Válida el nombre del juego
      * @param gameName String del nombre del juego
      * @return Devuelve verdadero si ya hay un nombre que coincide en la base de datos. De lo contrario, falso.
      */
@@ -199,6 +199,10 @@ public class GameSQL implements GameDAO{
         return ataques;
     }
 
+    /**
+     * Método para poder consultar todos los usuarios que han guardado una partida.
+     * @return
+     */
     public ArrayList<String> extraerArrayUsers() {
         String query = "SELECT DISTINCT Usuario FROM guardarpartida;";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
@@ -239,6 +243,11 @@ public class GameSQL implements GameDAO{
         return 0;
     }
 
+    /**
+     * Nos devuelve el número de partidas guardadas por un usauario.
+     * @param user nombre de usuario
+     * @return
+     */
     public boolean checkUser(String user) {
         String query = "SELECT COUNT(*) AS count FROM guardarpartida WHERE Usuario = '" + user + "';";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
@@ -255,6 +264,12 @@ public class GameSQL implements GameDAO{
         return false;
     }
 
+    /**
+     * Comprueba que no haya un nombre en la base de datos que coincida con el que se desea guardar.
+     * @param usuario nombre de usuario
+     * @param nombrePartida nombre de la partida
+     * @return
+     */
     public boolean verificarNombrePartidaRepetido(String usuario, String nombrePartida) {
 
 
@@ -273,6 +288,10 @@ public class GameSQL implements GameDAO{
 
     }
 
+    /**
+     * Consulta todos los nombres de las partidas almacenados en la base de datos.
+     * @return Arraylist con los nombres de las partidas.
+     */
     @Override
     public ArrayList<String> extraerNombresPartidas() {
 

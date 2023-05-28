@@ -13,7 +13,6 @@ public class StartGUI extends JPanel {
     private JButton logIn;
     public static final String START_LOGIN = "START_LOGIN";
     public static final String START_SIGNUP = "START_SIGNUP";
-
     private JPanel generalPanel;
 
 
@@ -73,7 +72,7 @@ public class StartGUI extends JPanel {
 
     /**
      * Control de los botones del log in y el sign up
-     * @param listener paramete per saber on estem
+     * @param listener parametro actionLister para detectar donde estamos
      */
     public void setStartListenters(ActionListener listener) {
         logIn.addActionListener(listener);

@@ -80,7 +80,7 @@ public class StatisticsMenuGUI extends JPanel {
         userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.PAGE_AXIS));
         JScrollPane scrollPane = new JScrollPane(userPanel);
 
-// Agregar nombres de usuarios y botones
+        // Agregar nombres de usuarios y botones
         for (String user : userList) {
             JLabel userLabel = new JLabel(user);
             userLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Alineación en el centro vertical
@@ -118,9 +118,18 @@ public class StatisticsMenuGUI extends JPanel {
 
     }
 
+    /**
+     * Método que sirve para obtener el login del usuario registrado.
+     * @return Variable tipo String que contiene el login del usuario.
+     */
     public String getUser() {
         return this.userText.getText();
     }
+
+    /**
+     * Agrega oyentes de eventos al menú de estadísticas.
+     * @param listener Toma un parámetro listener de tipo ActionListener y lo asigna a los siguientes botones: searchUser, cancelButton, closeButton y deleteButton.
+     */
     public void addStatsMenuListeners(ActionListener listener) {
         searchUser.addActionListener(listener);
         cancelButton.addActionListener(listener);
@@ -128,6 +137,9 @@ public class StatisticsMenuGUI extends JPanel {
         deleteButton.addActionListener(listener);
     }
 
+    /**
+     * Método para vaciar el campo de texto donde se introduce el nombre del usuario.
+     */
     public void clear() {
         this.userText.setText("");
     }

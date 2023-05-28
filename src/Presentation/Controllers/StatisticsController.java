@@ -1,10 +1,7 @@
 package Presentation.Controllers;
 
 import Presentation.MainView;
-import Presentation.Views.MenuGUI;
 import Presentation.Views.StatisticsGUI;
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,11 +45,6 @@ public class StatisticsController implements ActionListener{
             case StatisticsGUI.DELETE_BTN:
                 mainView.switchView(MainView.DELETE_VIEW);
                 break;
-
-            //case StatisticsGUI.DELETE_BTN: Cuando se pulsa un usuario, actualizar la vista de stadistics
-                //mainView.switchView(MainView.DELETE_VIEW);
-                //break;
-
 
         }
 

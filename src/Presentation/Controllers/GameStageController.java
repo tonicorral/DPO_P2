@@ -163,7 +163,9 @@ public class GameStageController implements ActionListener{
         }
     }
 
-
+    /**
+     * Método para comprobar si la partida se ha ganado al finalizar la partida.
+     */
     private void winGame(){
         int counter = 0;
         for(int i = 0;i< game.getNumberPlayers();i++){
@@ -197,6 +199,9 @@ public class GameStageController implements ActionListener{
 
     }
 
+    /**
+     * Método para comprobar si la partida se ha perdido al finalizar la partida.
+     */
     private void loseGame(){
         if(!game.getPlayer().isAlive()){
             System.out.println("muertoooo" + game.getPlayer().isAlive());
@@ -222,11 +227,6 @@ public class GameStageController implements ActionListener{
             }
         }
     }
-
-    private String getTime(String time){
-        return time;
-    }
-
 
 
 }

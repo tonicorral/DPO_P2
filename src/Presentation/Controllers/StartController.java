@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
  */
 public class StartController implements ActionListener {
     private StartGUI startGUI;
-
     private MainView mainView;
 
     /**

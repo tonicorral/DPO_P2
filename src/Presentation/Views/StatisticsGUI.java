@@ -18,18 +18,12 @@ import java.util.Random;
 public class StatisticsGUI extends JPanel {
 
     private JLabel title;
-
     private JButton cancelButton, deleteButton, closeButton;
     private Color buttonColor;
-
     private JPanel generalPanel, borderPanel, threeB;
-
-
     public static final String CANCEL_BTN = "CANCEL_BTN";
     public static final String DELETE_BTN = "DELETE_BTN";
     public static final String LOGOUT_BTN = "LOGOUT_BTN";
-
-
     private SaveGame saveGame;
 
     /**
@@ -127,7 +121,7 @@ public class StatisticsGUI extends JPanel {
         g.setColor(Color.green);
         g.drawString("Wins: " + wins, winsTextX, winsTextY);
 
-// Dibujar el texto de derrotas en rojo
+        // Dibujar el texto de derrotas en rojo
         g.setColor(Color.red);
         g.drawString("Losses or not finished games: " + losses, lossesTextX, lossesTextY);
 
@@ -169,24 +163,24 @@ public class StatisticsGUI extends JPanel {
 
         int numBars = maxValue - minValue + 1; // Número de barras a mostrar
 
-// Ancho de cada barra y espacio entre barras
+        // Ancho de cada barra y espacio entre barras
         int barWidth = 9;
         int barSpacing = 7;
 
-// Crear un mapa para realizar el recuento de la frecuencia de los números
+        // Crear un mapa para realizar el recuento de la frecuencia de los números
         Map<Integer, Integer> frequencyMap = new HashMap<>();
         for (int i = 0; i < gameResults.size(); i++) {
             int gameResult = gameResults.get(i);
             frequencyMap.put(gameResult, frequencyMap.getOrDefault(gameResult, 0) + 1);
         }
 
-// Dibujo gráfico
+        // Dibujo gráfico
         int chartX = width / 3 +120;
         int chartY = height / 2;
         int barChartHeight = 50; // Altura del gráfico de barras
 
 
-// Dibujar el texto del número total de juegos
+        // Dibujar el texto del número total de juegos
         g.setColor(Color.black);
         g.setFont(new Font("Arial", Font.BOLD, 12)); // Establecer la fuente y tamaño del texto
         String totalGamesText = "Total Games: " + totalGames;
@@ -200,7 +194,7 @@ public class StatisticsGUI extends JPanel {
         g.drawString(info2, textX, textY-30);
 
 
-// Dibujar las barras según la frecuencia de los números
+        // Dibujar las barras según la frecuencia de los números
         int line1Bars = Math.min(maxValue - minValue + 1, 67);
         int line2Bars = Math.max(Math.min(maxValue - minValue + 1 - 67, 66), 0);
         int line3Bars = Math.max(maxValue - minValue + 1 - 133, 0);

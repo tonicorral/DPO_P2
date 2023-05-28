@@ -1,13 +1,13 @@
 package Business;
 
-import java.util.Date;
 
+/**
+ * Clase interficie con funciones relacionadas con el tiempo.
+ */
 public interface ThreadTimer {
-        void start();
         void stopTimer();
         void startTimer();
         int getM();
         int getS();
 
-        void setS(int s);
 }

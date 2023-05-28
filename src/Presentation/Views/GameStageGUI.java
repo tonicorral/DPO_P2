@@ -19,8 +19,8 @@ import java.util.Date;
 public class GameStageGUI extends JPanel{
 
 
-    private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
-    private JPanel centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable, buttonsPanelAbandonar;
+    private JLabel joc, turno, clk;
+    private JPanel centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, infoTable, buttonsPanelAbandonar;
     private JButton abandonar, guardar;
     private JTable[] tables;
     private JTable userTable;
@@ -43,9 +43,6 @@ public class GameStageGUI extends JPanel{
 
         this.setLayout(new BorderLayout());
         buttonColor = new Color(124,136,248);
-        //generalPanel = new JPanel();
-        //generalPanel.setBackground(new Color(217,249,253));
-        //generalPanel.setLayout(new BorderLayout());
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
@@ -54,7 +51,7 @@ public class GameStageGUI extends JPanel{
         joc = new JLabel("GAME");
         joc.setFont(new Font("Inter", Font.BOLD, 40));
 
-        //gamePanel.add(joc, BorderLayout.CENTER);
+
 
         clock = new JPanel();
         clock.setLayout(new BoxLayout(clock, BoxLayout.X_AXIS));
@@ -77,25 +74,6 @@ public class GameStageGUI extends JPanel{
         centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
- /*
-        eliminar = new JButton("Eliminar Compte");
-        eliminar.setActionCommand("ELIMINAR");
-        eliminar.setFont(new Font("Inter",Font.BOLD,14));
-        eliminar.setBackground(buttonColor);
-        eliminar.setForeground(Color.white);
-
-        tancar = new JButton("Tancar Sessió");
-        tancar.setActionCommand("TANCAR");
-        tancar.setFont(new Font("Inter",Font.BOLD,14));
-        tancar.setBackground(buttonColor);
-        tancar.setForeground(Color.white);
-
-
-        flowButton.add(eliminar);
-        flowButton.add(tancar);
-
-        buttonPanel.add(flowButton, BorderLayout.NORTH);
- */
         abandonar = new JButton("Abandonar Partida");
         abandonar.setActionCommand("ABANDONAR");
         abandonar.setFont(new Font("Inter",Font.BOLD,14));
@@ -111,8 +89,6 @@ public class GameStageGUI extends JPanel{
         buttonPanel.add(abandonar, BorderLayout.CENTER);
         buttonPanel.add(guardar, BorderLayout.WEST);
         gamePanel.add(buttonPanel, BorderLayout.EAST);
-
-
 
         turnoPanel = new JPanel();
         turnoPanel.setLayout(new BorderLayout());
@@ -138,14 +114,13 @@ public class GameStageGUI extends JPanel{
         emptyPanel2 = new JPanel();
         emptyPanel2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         emptyPanel2.setBackground(Color.RED);
-        //tablePanel.add(emptyPanel);
+
         tablePanel1 = new JPanel(new GridLayout(16,16));
         tablePanel1.add(emptyPanel1);
 
         tablePanel2 = new JPanel(new GridLayout(16,16));
-        //tablePanel1.add(emptyPanel);
-        tablePanel2.add(emptyPanel2);
 
+        tablePanel2.add(emptyPanel2);
 
         for (int i = 1; i <= 15; i++) {
             JPanel cell = new JPanel();
@@ -164,8 +139,6 @@ public class GameStageGUI extends JPanel{
                 cell1[i][j] = new JPanel();
                 cell1[i][j].setName(String.format("cell%d%d", i, j));
 
-                // Add button to panel or container
-                // tablePanelUser.add(cellsUser[i][j]);
             }
         }
 
@@ -189,10 +162,9 @@ public class GameStageGUI extends JPanel{
                 tablePanel1.add(cell1[i - 1][c - 'A']);
             }
         }
-        //   tablePanel1.add(Box.createHorizontalStrut(20));
+
         tablePanel1.setPreferredSize(new Dimension(50, 50));
         grid1.add(tablePanel1);
-        //  grid1.add(Box.createVerticalStrut(20));
 
         for (int i = 1; i <= 15; i++) {
             JPanel cell = new JPanel();
@@ -211,8 +183,6 @@ public class GameStageGUI extends JPanel{
                 cell2[i][j] = new JPanel();
                 cell2[i][j].setName(String.format("cell%d%d", i, j));
 
-                // Add button to panel or container
-                // tablePanelUser.add(cellsUser[i][j]);
             }
         }
 
@@ -236,7 +206,7 @@ public class GameStageGUI extends JPanel{
                 tablePanel2.add(cell2[i - 1][c - 'A']);
             }
         }
-        //   tablePanel1.add(Box.createHorizontalStrut(20));
+
         tablePanel2.setPreferredSize(new Dimension(50, 50));
         grid1.add(tablePanel2);
         grid1.setPreferredSize(new Dimension(500,0));
@@ -278,8 +248,6 @@ public class GameStageGUI extends JPanel{
                 cell3[i][j] = new JPanel();
                 cell3[i][j].setName(String.format("cell%d%d", i, j));
 
-                // Add button to panel or container
-                // tablePanelUser.add(cellsUser[i][j]);
             }
         }
 
@@ -303,7 +271,7 @@ public class GameStageGUI extends JPanel{
                 tablePanel3.add(cell3[i - 1][c - 'A']);
             }
         }
-        //   tablePanel1.add(Box.createHorizontalStrut(20));
+
         tablePanel3.setPreferredSize(new Dimension(50, 50));
         grid2.add(tablePanel3);
 
@@ -324,8 +292,6 @@ public class GameStageGUI extends JPanel{
                 cell4[i][j] = new JPanel();
                 cell4[i][j].setName(String.format("cell%d%d", i, j));
 
-                // Add button to panel or container
-                // tablePanelUser.add(cellsUser[i][j]);
             }
         }
 
@@ -349,7 +315,7 @@ public class GameStageGUI extends JPanel{
                 tablePanel4.add(cell4[i - 1][c - 'A']);
             }
         }
-        //   tablePanel1.add(Box.createHorizontalStrut(20));
+
         tablePanel4.setPreferredSize(new Dimension(50, 50));
         grid2.add(tablePanel4);
         grid2.setPreferredSize(new Dimension(500,0));
@@ -385,8 +351,6 @@ public class GameStageGUI extends JPanel{
                 cellsUser[i][j] = new JButton();
                 cellsUser[i][j].setName(String.format("cell%d%d", i, j));
 
-                // Add button to panel or container
-                // tablePanelUser.add(cellsUser[i][j]);
             }
         }
 
@@ -415,7 +379,6 @@ public class GameStageGUI extends JPanel{
 
         tablePanelUser.setPreferredSize(new Dimension(350,420));
 
-        //tablePanelUser.setBorder(BorderFactory.createEmptyBorder(20,20,10,20));
         tablePanelUser.setOpaque(false);
 
 
@@ -424,16 +387,11 @@ public class GameStageGUI extends JPanel{
         tables = new JTable[5];
         userTable = new JTable();
 
-
-
-        //infoTable.setBackground(Color.white);
         infoTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         empty = new JPanel();
         empty.setLayout(new BoxLayout(empty, BoxLayout.X_AXIS));
         empty.setBorder(BorderFactory.createEmptyBorder(60,10, 10, 40));
         add(empty, BorderLayout.SOUTH);
-
-
 
         centerPanel.add(tablePanelUser);
         centerPanel.add(Box.createVerticalStrut(20));
@@ -456,12 +414,14 @@ public class GameStageGUI extends JPanel{
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 cellsUser[i][j].addActionListener(listener);
-                // Add button to panel or container
             }
         }
     }
 
-
+    /**
+     * Método que sirve para poder creart el tablero del usuario
+     * @param game Variable tipo Game que permite almacenar la estructura de la partida.
+     */
     public void forTableUser(Game game){
         userTable = createUserTable(game);
         userTable.setBackground(new Color(89,185,198));
@@ -469,7 +429,11 @@ public class GameStageGUI extends JPanel{
         infoTable.add(userTable);
     }
 
-
+    /**
+     * Método para crear los tableros de todos los oponentes.
+     * @param numberPlayers Variable tipo int para saber el número de oponentes.
+     * @param game Variable tipo Game que permite almacenar la estructura de la partida.
+     */
     public void forTables(int numberPlayers,Game game){
         for(int i = 0; i < numberPlayers; i++){
             if(i == 0){
@@ -515,7 +479,6 @@ public class GameStageGUI extends JPanel{
         DefaultTableModel model = new DefaultTableModel(rowData, columnNames);
         JTable table = new JTable(model);
 
-        //table.setPreferredSize(new Dimension(120, 90));
         return table;
     }
 
@@ -538,6 +501,11 @@ public class GameStageGUI extends JPanel{
         return table;
     }
 
+    /**
+     *
+     * @param game Variable tipo Game que permite almacenar la estructura de la partida.
+     * @param i Variable tipo int para poder modificar el tablero de una IA en específico.
+     */
     public void updateIATable(Game game,int i) {
         DefaultTableModel model = (DefaultTableModel) tables[i].getModel();
         for (int j = 0; j < 5; j++) {
@@ -545,6 +513,10 @@ public class GameStageGUI extends JPanel{
         }
     }
 
+    /**
+     * Método para poder actualizar el tablero del jugador.
+     * @param game Variable tipo Game que permite almacenar la estructura de la partida.
+     */
     public void updateUserTable(Game game){
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();
         for (int j = 0; j < 5; j++) {
@@ -1021,6 +993,10 @@ public class GameStageGUI extends JPanel{
             clk.setForeground(Color.red);
     }
 
+    /**
+     * Método que sirve para obtener el nombre de la partida con el que el usuario quiere guardarlo.
+     * @return Nombre de la partida.
+     */
     public String getNombrePartida() {
         return JOptionPane.showInputDialog(this, "Ingrese el nombre de la partida:");
     }

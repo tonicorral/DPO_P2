@@ -166,12 +166,6 @@ public class MainView extends JFrame {
 
 
 
-    public int showConfirmPopUp(String text, String[] questions) {
-        return JOptionPane.showOptionDialog(this, text, null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, questions, questions[0]);
-
-    }
-
-
     /**
      * Mostrar error
      * @param error String que muestra el error

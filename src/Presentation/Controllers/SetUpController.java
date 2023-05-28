@@ -19,30 +19,16 @@ import java.util.ArrayList;
 public class SetUpController implements ActionListener, MouseListener {
 
     private SetupStageGUI setUpGUI;
-
-
     private boolean mouseClicked = false;
-
     private int positionBoat;
-
     private String positionBoatTable;
-
-
     private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
-
     private MainView mainView;
-
     private GameModel gameModel;
-
     private GameStageController gameStageController;
-
-
     private  ArrayList<Boat> boats;
-
     private ArrayList<Player> players;
-
     private Player player;
-
     private boolean rotation = false;
 
 
@@ -50,11 +36,9 @@ public class SetUpController implements ActionListener, MouseListener {
      * Constructor del setUp del juego
      * @param setUpGUI contiene la información de la vista del setup del juego
      * @param mainView contine la informacion de la clase de las vistas principales
-     * @param iaModel contiene la información de la IA
      * @param gameModel contiene la información deL juego
      * @param gameStageController contiene la información del controlador de la partida
      */
-
     public SetUpController(SetupStageGUI setUpGUI, MainView mainView ,GameModel gameModel, GameStageController gameStageController) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
@@ -125,7 +109,6 @@ public class SetUpController implements ActionListener, MouseListener {
 
         }
 
-
     }
 
 
@@ -152,7 +135,7 @@ public class SetUpController implements ActionListener, MouseListener {
 
     }
     /**
-     * Detecta si el ratón ya no esta pulsado
+     * Detecta si el ratón ya no está pulsado
      * @param e variable para controlar la acción
      */
     @Override
@@ -162,7 +145,7 @@ public class SetUpController implements ActionListener, MouseListener {
 
 
     /**
-     * Detecta si el ratón esta en la zona a detectar
+     * Detecta si el ratón está en la zona a detectar
      * @param e the event to be processed
      */
     @Override
@@ -171,7 +154,7 @@ public class SetUpController implements ActionListener, MouseListener {
     }
 
     /**
-     * Detecta si el ratón ya no esta en la zona para pulsar
+     * Detecta si el ratón ya no está en la zona para pulsar
      * @param e variable para controlar la acción
      */
     @Override
@@ -180,7 +163,7 @@ public class SetUpController implements ActionListener, MouseListener {
     }
 
     /**
-     *  detecta si el barco esta pulsado
+     *  detecta si el barco está pulsado
      * @param boat String de barco
      */
     private void isClickedBoat(String boat){

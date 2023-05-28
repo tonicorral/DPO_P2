@@ -104,33 +104,4 @@ public class DeleteUserGUI extends JPanel {
         return userText.getText();
     }
 
-    /**
-     * Reset de los campos de la vista
-     */
-    public void resetFields() {
-        userText.setText("");
-    }
-/*
-    public void deleteUser() {
-        String username = getUsername();
-
-        if (userManager.userExists(username)) {
-            int result = JOptionPane.showConfirmDialog(null,
-                    "¿Estás seguro que deseas eliminar el usuario '" + username + "'?", "Confirmación de eliminación",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (result == JOptionPane.YES_OPTION) {
-                // Delete the user from the system
-                if (userM.deleteUser(username)) {
-                    JOptionPane.showMessageDialog(null, "El usuario '" + username + "' ha sido eliminado.");
-                    resetFields();
-                } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al eliminar el usuario '" + username + "'. Inténtalo de nuevo.");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "El usuario '" + username + "' no existe.");
-        }
-    }*/
 }

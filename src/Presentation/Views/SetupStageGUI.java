@@ -1,7 +1,5 @@
 package Presentation.Views;
 
-import Presentation.Controllers.SetUpController;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -14,16 +12,12 @@ import java.util.ArrayList;
  */
 public class SetupStageGUI extends JPanel{
 
-    private int dragX, dragY;
-
     private Point mouseDownCompCoords = null;
-
     private JLabel titleLabel,players,titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;
     private JPanel titlePanel,playersPanel,generalPanel,tablePanel,emptyPanel,boatsPanel,grid2,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;
-
     private JPanel twoB,threeB;
     private JComboBox<Integer> comboBox;
-    private JButton startGame,logout,delete,cell2,rotate,eliminate;
+    private JButton startGame,logout,delete,rotate,eliminate;
 
     private JButton[][] cells;
 
@@ -332,13 +326,6 @@ public class SetupStageGUI extends JPanel{
         this.setBackground(new Color(217,249,253));
 
         rectPorta.setOpaque(false);
-        //rectPorta.setActionCommand(PORTAAVIONS);
-
-
-
-
-
-
 
         setVisible(true);
     }
@@ -407,11 +394,11 @@ public class SetupStageGUI extends JPanel{
         updateUserTable(statusBoats);
     }
 
+
     /**
      * crea el jTable del usuario
      * @return el panel de la tabla
      */
-
     private JTable createUserTable() {
 
         String[] columnNames = {"Boat", "Status"};
@@ -443,7 +430,7 @@ public class SetupStageGUI extends JPanel{
 
     /**
      * pinta los barcos usados
-     * @param i entero para el numero de celdas a pintar
+     * @param i entero para el número de celdas a pintar
      * @param boat String de los barcos
      */
     public void paintUsedBoats(int i,String boat){
@@ -461,7 +448,7 @@ public class SetupStageGUI extends JPanel{
      * Comprueba la celda vertical si se pude poner
      * @param number entero que indica la casilla
      * @param positionLetter entero de la posición barco
-     * @param i entero para el numero de celdas a pintar
+     * @param i entero para el número de celdas a pintar
      * @return retorna un boolenao por si se puede o no
      */
     public boolean  checkCellVertical(int number,int positionLetter, int i){
@@ -526,7 +513,7 @@ public class SetupStageGUI extends JPanel{
      * Comprueba la celda horizontal si se pude poner
      * @param number entero que indica la casilla
      * @param positionLetter entero de la posición barco
-     * @param i entero para el numero de celdas a pintar
+     * @param i entero para el número de celdas a pintar
      * @return retorna un boolenao por si se puede o no
      */
     public boolean  checkCellHorizontal(int number,int positionLetter, int i){
@@ -590,7 +577,7 @@ public class SetupStageGUI extends JPanel{
      * Pintar el barco en direccion horizontal
      * @param number entero que indica la casilla
      * @param positionLetter entero de la posición barco
-     * @param i entero para el numero de celdas a pintar
+     * @param i entero para el número de celdas a pintar
      * @param boatColor parametro del tipo de color por cada barco
      * @param text String de texto dependiendo el barco
      */
@@ -603,7 +590,7 @@ public class SetupStageGUI extends JPanel{
      * Pintar el barco en direccion vertical
      * @param number entero que indica la casilla
      * @param positionLetter entero de la posición barco
-     * @param i entero para el numero de celdas a pintar
+     * @param i entero para el número de celdas a pintar
      * @param boatColor parametro del tipo de color por cada barco
      * @param text String de texto dependiendo el barco
      */
@@ -615,7 +602,7 @@ public class SetupStageGUI extends JPanel{
 
     /**
      * getter del numero de IA que van a jugar
-     * @return en numero de ia que van a jugar la partida
+     * @return en número de ia que van a jugar la partida
      */
     public int getNumPlayers(){
         return (int) comboBox.getSelectedItem();

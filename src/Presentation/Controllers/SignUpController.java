@@ -2,13 +2,10 @@ package Presentation.Controllers;
 
 import Business.SaveGame;
 import Business.UserModel;
-
 import Presentation.MainView;
 import Presentation.Views.SignUpGUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import static Business.UserModel.*;
 
 /**

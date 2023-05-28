@@ -27,8 +27,6 @@ public class Main {
 
         StartGUI startGUI = new StartGUI();
 
-        //setupStageGUI.setVisible(true);
-        //gameStageGUI.setVisible(true);
 
         SaveGame saveGame = new SaveGame(gameDAO, "");
         StatisticsMenuGUI statisticsMenuGUI= new StatisticsMenuGUI(saveGame);
