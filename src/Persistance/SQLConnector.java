@@ -1,5 +1,7 @@
 package Persistance;
 
+import Business.Configuration;
+
 import java.sql.*;
 
 /**

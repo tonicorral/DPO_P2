@@ -1,4 +1,4 @@
-package Persistance;
+package Business;
 
 
 import Business.Boat;

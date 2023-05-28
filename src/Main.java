@@ -22,11 +22,8 @@ public class Main {
         SetupStageGUI setupStageGUI = new SetupStageGUI();
         GameStageGUI gameStageGUI = new GameStageGUI();
 
-
-
-
         IAModel iaModel = new IAModel();
-        TableroModel tableroModel = new TableroModel();
+
         StartGUI startGUI = new StartGUI();
 
         //setupStageGUI.setVisible(true);
