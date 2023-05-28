@@ -1,5 +1,9 @@
 package Persistance;
 
+
+/**
+ * Interfas de UserDAO
+ */
 public interface UserDAO {
     void addUser(String username, String password, String mail);
 

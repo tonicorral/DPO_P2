@@ -11,13 +11,16 @@ public class Boat {
 
     private boolean orientation;
 
-    public Boat(String name, int size, String referenceName,int positionX,int positionY,boolean orientation) {
+    private String status;
+
+    public Boat(String name, int size, String referenceName,int positionX,int positionY,boolean orientation,String status) {
         this.name = name;
         this.size = size;
         this.referenceName = referenceName;
         this.positionX = positionX;
         this.positionY = positionY;
         this.orientation = orientation;
+        this.status = status;
     }
 
     public String getName() {
@@ -74,6 +77,14 @@ public class Boat {
 
     public void setOrientation(boolean orientation) {
         this.orientation = orientation;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 

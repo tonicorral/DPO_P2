@@ -1,4 +1,4 @@
-package Persistance;
+package Business;
 
 
 import Business.Boat;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Configuacion de la partida jugada
  */
-public class Configuration implements ConfigurationDAO {
+public class Configuration{
 
     private final Gson gson;
 
@@ -105,7 +105,7 @@ public class Configuration implements ConfigurationDAO {
 
     }
 
-    @Override
+  /*
     public ArrayList<Boat> loadBoats() {
         ArrayList<Boat> list = new ArrayList<>();
         Boat[] list1 = new Boat[3];
@@ -115,5 +115,5 @@ public class Configuration implements ConfigurationDAO {
             list.add(list1[i]);
         }
         return list;
-    }
+    }*/
 }

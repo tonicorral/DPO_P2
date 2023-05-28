@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Player {
+public class Player {
 
     protected Tablero tablero;
     protected boolean turno;
@@ -20,13 +20,16 @@ public abstract class Player {
 
     private int turnToPlay;
 
-    public Player(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero) {
+    private boolean alive;
+
+    public Player(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero,boolean alive) {
         this.boats = boats;
         this.barcoPosicionX = new ArrayList<>();;
         this.barcoPosicionY = new ArrayList<>();;
         this.positionAttackedX = positionAttackedX;
         this.positionAttackedY = positionAttackedY;
         this.tablero = tablero;
+        this.alive = alive;
     }
     public void addBarcoPosicion(int posicionX, int posicionY) {
         barcoPosicionX.add(posicionX);
@@ -105,5 +108,13 @@ public abstract class Player {
 
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

@@ -2,23 +2,41 @@ package Persistance;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Interfaz del GameDAO
+ */
 public interface GameDAO {
 
-    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria); // Comprobar si la clase LocalDate es la correcta para almacenar la fecha!
+     void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria,String timer); // Comprobar si la clase LocalDate es la correcta para almacenar la fecha!
 
-    public boolean validGameName(String gameName);
-    public String fileGame(String gameName);
+     int calcularNumeroPartidas(String user);
 
-    public List<String> savedNameGames (String userName) throws SQLException;
 
-    public Date dateGame(String gameFile);
+     int calcularNumeroVictorias(String user);
 
-    public List<Integer> attacksInGame(String userName) throws SQLException; //Para poder calcular la media de ataques por partida te devuelve un array de enteros con los ataques hechos en cada partida
+     ArrayList<Integer> extraerArrayAtaques(String user);
 
-    public void deleteGame(String gameName);
+     int obtenerAtaqueMasAlto(String user);
 
-    public void saveGame(String gameFile, String gameName); //En caso de que el usuario quiera volver a dejar una partida que ya tenía guardad de nuevo hay que hacer un UPDATE
+     ArrayList<String> extraerArrayUsers();
+
+     boolean checkUser(String user);
+
+     boolean validGameName(String gameName);
+     String fileGame(String gameName);
+
+     List<String> savedNameGames (String userName) throws SQLException;
+
+     Date dateGame(String gameFile);
+
+     List<Integer> attacksInGame(String userName) throws SQLException; //Para poder calcular la media de ataques por partida te devuelve un array de enteros con los ataques hechos en cada partida
+
+     boolean verificarNombrePartidaRepetido(String usuario, String nombrePartida);
+
+     ArrayList<String> extraerNombresPartidas();
+
 }

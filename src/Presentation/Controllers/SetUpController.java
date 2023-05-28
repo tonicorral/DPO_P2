@@ -13,6 +13,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ * Controla la funcionalidad de la pantalla de carga de partida
+ */
 public class SetUpController implements ActionListener, MouseListener {
 
     private SetupStageGUI setUpGUI;
@@ -44,6 +47,15 @@ public class SetUpController implements ActionListener, MouseListener {
     private boolean rotation = false;
 
 
+    /**
+     * Constructor del setUp del juego
+     * @param setUpGUI contiene la información de la vista del setup del juego
+     * @param mainView contine la informacion de la clase de las vistas principales
+     * @param iaModel contiene la información de la IA
+     * @param gameModel contiene la información deL juego
+     * @param gameStageController contiene la información del controlador de la partida
+     */
+
     public SetUpController(SetupStageGUI setUpGUI, MainView mainView,IAModel iaModel,GameModel gameModel, GameStageController gameStageController) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
@@ -64,11 +76,16 @@ public class SetUpController implements ActionListener, MouseListener {
         }
     }
 
+    /**
+     * Muestra mensajes dependiendo de la accion y el evento del setup de la partida
+     * @param e variable para controlar la acción
+     */
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand().equals(SetupStageGUI.ROTATE));
 
         if (e.getActionCommand().startsWith("cell") && mouseClicked) {
             positionBoatTable = e.getActionCommand();
+           // setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
             showTable(positionBoat,positionBoatTable,rotation);
             rotation = false;
         }
@@ -84,8 +101,12 @@ public class SetUpController implements ActionListener, MouseListener {
                     gameModel.getNumberPlayers(getNumberPlayers());
                     gameModel.createGame(savePlayer(boats));
                     //iaModel.createBoats();
-                    gameStageController.initTable();
+                    //gameStageController = new GameStageController()
+                    gameStageController.startTimer();
+
                     mainView.switchView(MainView.GAME_STAGE_VIEW);
+
+                    gameStageController.initTable();
 
                 }
                     break;
@@ -109,7 +130,10 @@ public class SetUpController implements ActionListener, MouseListener {
     }
 
 
-
+    /**
+     * Detecta si la accion del raton ha sido usada
+     * @param e variable para controlar la acción
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         mouseClicked = true;
@@ -120,26 +144,46 @@ public class SetUpController implements ActionListener, MouseListener {
     }
 
 
-
+    /**
+     * Detecta si el raton sigue pulsado
+     * @param e the event to be processed
+     */
     @Override
     public void mousePressed(MouseEvent e) {
 
     }
-
+    /**
+     * Detecta si el ratón ya no esta pulsado
+     * @param e variable para controlar la acción
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
 
     }
 
+
+    /**
+     * Detecta si el ratón esta en la zona a detectar
+     * @param e the event to be processed
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
 
     }
 
+    /**
+     * Detecta si el ratón ya no esta en la zona para pulsar
+     * @param e variable para controlar la acción
+     */
     @Override
     public void mouseExited(MouseEvent e) {
 
     }
+
+    /**
+     *  detecta si el barco esta pulsado
+     * @param boat String de barco
+     */
     private void isClickedBoat(String boat){
 
         switch(boat){
@@ -151,6 +195,12 @@ public class SetUpController implements ActionListener, MouseListener {
         }
     }
 
+    /**
+     * Muestra la tabla
+     * @param positionBoat entero con la posicion del barco
+     * @param positionBoatTable String con la posion del barco
+     * @param rotation booleano que determina la direccion del barco
+     */
     private void showTable(int positionBoat, String positionBoatTable, boolean rotation){
         int size = 0;
         String boat = "boat";
@@ -241,9 +291,18 @@ public class SetUpController implements ActionListener, MouseListener {
                 saveBoatPosition(boat, false,number,positionLetter,size,text);
             }
             isClickedBoat(boat);
+            setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
         }
     }
-//hola
+
+    /**
+     * Detecta si el barco esta mal posicionado
+     * @param number entero con el numero de barco
+     * @param positionLetter posion de la letra
+     * @param size entero tamaño
+     * @param rotation booleano que indica la direcion del barco
+     * @return
+     */
     private boolean badPositionBoat(int number,int positionLetter,int size,boolean rotation){
         boolean goodPosition = true;
         if (rotation) {
@@ -265,39 +324,59 @@ public class SetUpController implements ActionListener, MouseListener {
         return goodPosition;
     }
 
+
+    /**
+     * Guardar la posicion del barco
+     * @param boat el tipo de barco
+     * @param orientation orientacion del barco
+     * @param number numero del barco
+     * @param positionLetter tamaño de la letra
+     * @param size tamaño del barco
+     * @param text texto a añadir al barco
+     */
     private void saveBoatPosition(String boat, Boolean orientation, int number, int positionLetter, int size, String text){
 
        switch(boat){
             case "PortaAvions" -> {
-                Boat boat1 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat1 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(0,boat1);
             }
             case "Destructor" -> {
-                Boat boat2 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat2 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(1,boat2);
             }
             case "Submari" ->{
-                Boat boat3 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat3 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(2,boat3);
             }
             case "Submari2" -> {
-                Boat boat4 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat4 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(3,boat4);
             }
             case "Llanxa" -> {
-                Boat boat5 = new Boat(boat,size,text,number,positionLetter,orientation);
+                Boat boat5 = new Boat(boat,size,text,number,positionLetter,orientation,"Alive");
                 boats.set(4,boat5);
             }
         }
 
     }
 
+
+    /**
+     * Guardar jugador
+     * @param boats arraylist de los barcos marcados
+     * @return el jugador guardado
+     */
     private Player savePlayer(ArrayList<Boat> boats){
-        player = new JugadorHumano(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats));
+        player = new Player(boats,new ArrayList<>(),new ArrayList<>(),new Tablero(boats),true);
         return player;
     }
 
-    private void eliminateBoats(){
+
+    /**
+     * eliminar los barcos
+     */
+    public void eliminateBoats(){
         isClickedDestructor = false;
         isClickedLlanxa = false;
         isClickedPorta = false;
@@ -305,21 +384,26 @@ public class SetUpController implements ActionListener, MouseListener {
         isClickedSubmari2 = false;
         setUpGUI.unPaintTable();
         setUpGUI.unPaintBoats();
+        setUpGUI.getStatusBoats(isClickedPorta,isClickedDestructor,isClickedSubmari,isClickedSubmari2,isClickedLlanxa);
     }
 
+
+    /**
+     * Cmprueba que todos los barcos haya sido puestos antes de empezar la partida
+     * @return si han colocado todos los barcos
+     */
     private boolean checkAllBoatsPut(){
         return isClickedSubmari2 && isClickedSubmari && isClickedPorta && isClickedLlanxa && isClickedDestructor;
     }
 
+
+    /**
+     * getter del numero de jugadores IA regirstrados
+     * @return el numero de IAs
+     */
     public int getNumberPlayers(){
         return setUpGUI.getNumPlayers();
     }
-
-
-
-
-
-
 
 
 

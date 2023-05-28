@@ -12,8 +12,21 @@ public class Tablero {
     public static final int IA2 = 3;
     public static final int IA3 = 4;
     public static final int IA4 = 5;
-    public static final int TOCADO = -1;
-    public static final int HUNDIDO = -2;
+    public static final int IA1_TOCADO = -2;
+    public static final int IA2_TOCADO = -3;
+    public static final int IA3_TOCADO = -4;
+    public static final int IA4_TOCADO = -5;
+    public static final int IA1_HUNDIDO = -7;
+    public static final int IA2_HUNDIDO = -8;
+    public static final int IA3_HUNDIDO = -9;
+    public static final int IA4_HUNDIDO = -10;
+
+    public static final int MUERTO = -100;
+    public static final int USER = 6;
+    public static final int USER_TOCADO = -6;
+    public static final int USER_HUNDIDO = -11;
+    //public static final int TOCADO = -1;
+    //public static final int HUNDIDO = -2;
     private ArrayList<Boat> boats;
 
     public Tablero(ArrayList<Boat> boats) {

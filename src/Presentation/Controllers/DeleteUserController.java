@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
 
 import static Business.UserModel.*;
 
+
+/**
+ * Controla la funcionalidad del borrado de usuario
+ */
 public class DeleteUserController implements ActionListener {
     private DeleteUserGUI deleteUserGUI;
 
@@ -16,6 +20,12 @@ public class DeleteUserController implements ActionListener {
 
     private UserModel userModel;
 
+    /**
+     * Contructor del borrado de usuario
+     * @param deleteUserGUI contiene la información de la vista de borrado
+     * @param mainView contine la informacion de la clase de las vistas principales
+     * @param userModel contiene la información del usuario
+     */
     public DeleteUserController(DeleteUserGUI deleteUserGUI, MainView mainView, UserModel userModel) {
         this.deleteUserGUI = deleteUserGUI;
         this.mainView = mainView;
@@ -23,6 +33,10 @@ public class DeleteUserController implements ActionListener {
         mainView.setListeners(this);
     }
 
+    /**
+     * Muestra mensajes dependiendo de la accion y el evento del borrado
+     * @param e variable para controlar la acción
+     */
     public void actionPerformed(ActionEvent e) {
         String email = deleteUserGUI.getInsertEmail();
 

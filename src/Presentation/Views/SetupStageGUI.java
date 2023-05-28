@@ -3,17 +3,23 @@ package Presentation.Views;
 import Presentation.Controllers.SetUpController;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
+
+/**
+ * Vista de la inicialización de la partida
+ */
 public class SetupStageGUI extends JPanel{
 
     private int dragX, dragY;
 
     private Point mouseDownCompCoords = null;
 
-    private JLabel titleLabel,players,numberTable,titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;
-    private JPanel titlePanel,playersPanel,generalPanel,tablePanel,emptyPanel,boatsPanel,grid2,porta,destructor,submari,llanxa,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;
+    private JLabel titleLabel,players,titleBoats,titlePorta,titleDestructor,titleSubmari,titleLlanxa;
+    private JPanel titlePanel,playersPanel,generalPanel,tablePanel,emptyPanel,boatsPanel,grid2,rectPorta,rectDestructor,rectSubmari,rectSubmari2,rectLlanxa;
 
     private JPanel twoB,threeB;
     private JComboBox<Integer> comboBox;
@@ -36,8 +42,11 @@ public class SetupStageGUI extends JPanel{
 
     public static final String PORTAAVIONS = "PORTAAVIONS";
 
-    private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
+    private JTable boatsStatusTable;
 
+    /**
+     * Contructor de la función donde se configura el panel
+     */
     public SetupStageGUI(){
 
         rectPorta = new JPanel(new GridLayout(1,5));
@@ -294,6 +303,11 @@ public class SetupStageGUI extends JPanel{
         grid2.add(tablePanel);
         grid2.add(Box.createHorizontalStrut(20));
         grid2.add(boatsPanel);
+        boatsStatusTable = new JTable();
+        boatsStatusTable = createUserTable();
+        grid2.add(Box.createHorizontalStrut(20));
+        grid2.add(boatsStatusTable);
+
 
         generalPanel.add(grid2);
         // generalPanel.setBorder(BorderFactory.createEmptyBorder(100,200,20,200));
@@ -320,9 +334,21 @@ public class SetupStageGUI extends JPanel{
         rectPorta.setOpaque(false);
         //rectPorta.setActionCommand(PORTAAVIONS);
 
+
+
+
+
+
+
         setVisible(true);
     }
 
+
+    /**
+     * Controla los distintos botones del panel
+     * @param listener parametro de tipo actionListener para saber donde estamos
+     * @param mouseListener para mouseListener donde se controla con el raton
+     */
     public void setUpButtonController(ActionListener listener,MouseListener mouseListener) {
         //Añadir todos los listeners
         logout.addActionListener(listener);
@@ -347,11 +373,79 @@ public class SetupStageGUI extends JPanel{
     }
 
 
+    /**
+     * Dista el estado de los barcos
+     * @param isClickedPorta boolean que te indica si el postaaviones ha sido pulsado
+     * @param isClickedDestructor boolean que te indica si el destructor ha sido pulsado
+     * @param isClickedSubmari boolean que te indica si el submarino ha sido pulsado
+     * @param isClickedSubmari2 boolean que te indica si el submarino 2 ha sido pulsado
+     * @param isClickedLlanxa boolean que te indica si la lancha ha sido pulsado
+     */
+    public void getStatusBoats(boolean isClickedPorta,boolean isClickedDestructor,boolean isClickedSubmari,boolean isClickedSubmari2,boolean isClickedLlanxa){
+        ArrayList<String> statusBoats = new ArrayList<>();
+        String placed = "Boat placed!";
+        for(int i = 0;i<5;i++){
+            statusBoats.add("Pending to place!");
+        }
+
+        if(isClickedPorta){
+            statusBoats.set(0,placed);
+        }
+        if(isClickedDestructor){
+            statusBoats.set(1,placed);
+        }
+        if(isClickedSubmari){
+            statusBoats.set(2,placed);
+        }
+        if(isClickedSubmari2){
+            statusBoats.set(3,placed);
+        }
+        if(isClickedLlanxa){
+            statusBoats.set(4,placed);
+        }
+
+        updateUserTable(statusBoats);
+    }
+
+    /**
+     * crea el jTable del usuario
+     * @return el panel de la tabla
+     */
+
+    private JTable createUserTable() {
+
+        String[] columnNames = {"Boat", "Status"};
+        String[][] rowData = {
+                {"Portaviones", "Pending to place!"},
+                {"Destructor", "Pending to place!"},
+                {"Submari", "Pending to place!"},
+                {"Submari", "Pending to place!"},
+                {"Lancha2", "Pending to place!"}
+        };
+        DefaultTableModel model = new DefaultTableModel(rowData, columnNames);
+        JTable table = new JTable(model);
+        table.setPreferredSize(new Dimension(200, 100));
+        return table;
+    }
 
 
+    /**
+     * actualiza el tablero de usuarios
+     * @param status Arraylist de la rotación del barco
+     */
+    public void updateUserTable(ArrayList<String> status) {
+        DefaultTableModel model = (DefaultTableModel) boatsStatusTable.getModel();
+        for (int i = 0; i < status.size(); i++) {
+            model.setValueAt(status.get(i), i, 1);
+        }
+    }
 
 
-
+    /**
+     * pinta los barcos usados
+     * @param i entero para el numero de celdas a pintar
+     * @param boat String de los barcos
+     */
     public void paintUsedBoats(int i,String boat){
         switch(boat){
             case "PortaAvions" -> portaCells[i].setBackground(Color.gray);
@@ -363,7 +457,13 @@ public class SetupStageGUI extends JPanel{
     }
 
 
-
+    /**
+     * Comprueba la celda vertical si se pude poner
+     * @param number entero que indica la casilla
+     * @param positionLetter entero de la posición barco
+     * @param i entero para el numero de celdas a pintar
+     * @return retorna un boolenao por si se puede o no
+     */
     public boolean  checkCellVertical(int number,int positionLetter, int i){
         boolean ok1 = false,ok2 = false,ok3 = false,ok4 = false,ok5 = false,ok6 = false,ok7 = false,ok8=false;
 
@@ -420,6 +520,15 @@ public class SetupStageGUI extends JPanel{
     }
 
 
+
+
+    /**
+     * Comprueba la celda horizontal si se pude poner
+     * @param number entero que indica la casilla
+     * @param positionLetter entero de la posición barco
+     * @param i entero para el numero de celdas a pintar
+     * @return retorna un boolenao por si se puede o no
+     */
     public boolean  checkCellHorizontal(int number,int positionLetter, int i){
 
         boolean ok1 = false,ok2 = false,ok3 = false,ok4 = false,ok5 = false,ok6 = false,ok7 = false,ok8=false;
@@ -477,19 +586,44 @@ public class SetupStageGUI extends JPanel{
 
     }
 
+    /**
+     * Pintar el barco en direccion horizontal
+     * @param number entero que indica la casilla
+     * @param positionLetter entero de la posición barco
+     * @param i entero para el numero de celdas a pintar
+     * @param boatColor parametro del tipo de color por cada barco
+     * @param text String de texto dependiendo el barco
+     */
     public void paintBoatVertical(int number,int positionLetter, int i, Color boatColor, String text){
         cells[number-1][positionLetter+i-1].setBackground(boatColor);
         cells[number-1][positionLetter+i-1].setText(text);
     }
+
+    /**
+     * Pintar el barco en direccion vertical
+     * @param number entero que indica la casilla
+     * @param positionLetter entero de la posición barco
+     * @param i entero para el numero de celdas a pintar
+     * @param boatColor parametro del tipo de color por cada barco
+     * @param text String de texto dependiendo el barco
+     */
     public void paintBoatHorizontal(int number,int positionLetter, int i, Color boatColor, String text){
         cells[number+i-1][positionLetter-1].setBackground(boatColor);
         cells[number+i-1][positionLetter-1].setText(text);
     }
 
+
+    /**
+     * getter del numero de IA que van a jugar
+     * @return en numero de ia que van a jugar la partida
+     */
     public int getNumPlayers(){
         return (int) comboBox.getSelectedItem();
     }
 
+    /**
+     * Borrar todos los barcos
+     */
     public void unPaintBoats(){
         for (int i = 0;i<5;i++){
             portaCells[i].setBackground(new Color(124,136,248));
@@ -508,6 +642,9 @@ public class SetupStageGUI extends JPanel{
         }
     }
 
+    /**
+     * borrar el tablero
+     */
     public void unPaintTable(){
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {

@@ -1,20 +1,15 @@
 package Business;
 
+import Business.Boat;
+import Business.Player;
+import Business.Tablero;
+
 import java.util.ArrayList;
-import java.util.Random;
 
 public class JugadorIA extends Player {
-    public JugadorIA(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero) {
-        super(boats, positionAttackedX, positionAttackedY,tablero);
+
+    public JugadorIA(ArrayList<Boat> boats, ArrayList<Integer> positionAttackedX, ArrayList<Integer> positionAttackedY, Tablero tablero,boolean alive) {
+        super(boats, positionAttackedX, positionAttackedY,tablero,alive);
     }
-
-
-
-    private int generarNumeroAleatorio(int max) {
-        return (int) (Math.random() * max);
-    }
-
-
-
 
 }

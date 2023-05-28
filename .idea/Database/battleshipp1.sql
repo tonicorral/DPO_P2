@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-05-2023 a las 20:37:21
+-- Tiempo de generación: 28-05-2023 a las 11:48:05
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -33,7 +33,8 @@ CREATE TABLE `guardarpartida` (
   `FicheroPartidas` text CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `AtackPartida` int(11) NOT NULL,
   `Fecha` date NOT NULL,
-  `Victoria` int(1) NOT NULL
+  `Victoria` int(1) NOT NULL,
+  `Timer` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

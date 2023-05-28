@@ -4,6 +4,9 @@ import Presentation.Controllers.*;
 import Presentation.MainView;
 import Presentation.Views.*;
 
+/**
+ * Realizaremos todas las comandas para poder ejecutar el programa
+ */
 
 public class Main {
 
@@ -20,31 +23,36 @@ public class Main {
         GameStageGUI gameStageGUI = new GameStageGUI();
 
 
-
         IAModel iaModel = new IAModel();
-        TableroModel tableroModel = new TableroModel();
+
         StartGUI startGUI = new StartGUI();
 
         //setupStageGUI.setVisible(true);
         //gameStageGUI.setVisible(true);
 
-        StatisticsGUI statisticsGUI = new StatisticsGUI();
-
-
-
-        GameModel gameModel = new GameModel(iaModel,tableroModel);
-        UserModel userModel = new UserModel(userDAO);
-        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsGUI);
         SaveGame saveGame = new SaveGame(gameDAO, "");
+        StatisticsMenuGUI statisticsMenuGUI= new StatisticsMenuGUI(saveGame);
+        StatisticsGUI statisticsGUI = new StatisticsGUI(saveGame);
+        LoadGameGUI loadGameGUI = new LoadGameGUI( saveGame);
+        PlayerModel playerModel = new PlayerModel();
+        GameModel gameModel = new GameModel(iaModel,playerModel);
+        UserModel userModel = new UserModel(userDAO);
+        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsMenuGUI, statisticsGUI, loadGameGUI);
+
 
         StartController startController = new StartController(startGUI, mainView);
         LoginController loginController = new LoginController(loginGUI,mainView,userModel, saveGame);
-        SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel);
-        MenuController menuController = new MenuController(menuGUI, mainView);
+        SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel, saveGame);
+
         LogoutController logoutController = new LogoutController(logoutGUI, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainView, userModel);
         GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
         SetUpController setUpController = new SetUpController(setupStageGUI, mainView,iaModel,gameModel, gameStageController);
+        MenuController menuController = new MenuController(menuGUI, mainView,setUpController);
+        gameModel.registerController(gameStageController);
+        iaModel.registerGameModel(gameModel);
+        StatisticsController statisticsController = new StatisticsController(statisticsGUI, mainView);
+        StatsMenuController statsMenuController= new StatsMenuController(statisticsMenuGUI, mainView, saveGame);
         mainView.setVisible(true);
 
 

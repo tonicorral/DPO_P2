@@ -1,5 +1,7 @@
 package Persistance;
 
+import Business.Configuration;
+
 import java.sql.*;
 
 /**
@@ -16,8 +18,6 @@ public class SQLConnector {
     // The static attribute to implement the singleton design pattern.
     private static SQLConnector instance = null;
 
-
-
     // Attributes to connect to the database.
     private final String username;
     private final String password;
@@ -25,8 +25,14 @@ public class SQLConnector {
     private Connection conn;
 
 
-
-    // Parametrized constructor
+    /**
+     * Contructor del conector SQL
+     * @param user nombre de usuario
+     * @param pass contraseña
+     * @param ip varialbe de la ip
+     * @param port variable del puerto
+     * @param database variable de la base de datos
+     */
     private SQLConnector(String user, String pass, String ip, int port, String database) {
         this.username = user;
         this.password = pass;
@@ -36,6 +42,12 @@ public class SQLConnector {
     }
 
 
+    /**
+     * Getter de la conexion remota con la base de datos
+     * @param url db url
+     * @param user nombre usuario
+     * @param password variable de la contraseña
+     */
     public void getConexion(String url, String user, String password) {
         try {
             conn = DriverManager.getConnection(url, user, password);
@@ -71,6 +83,10 @@ public class SQLConnector {
         }
     }
 
+    /**
+     *  insertar la cola
+     * @param query String de cola
+     */
     public void insertQuery(String query){
         try {
             Statement s = conn.createStatement();
@@ -80,40 +96,6 @@ public class SQLConnector {
             System.err.println("Problem when inserting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
         }
     }
-
-
-    /**
-     * Method that executes an update query to the connected database.
-     *
-     * @param query String representation of the query to execute.
-     */
-    public void updateQuery(String query){
-        try {
-            Statement s = conn.createStatement();
-            s.executeUpdate(query);
-        } catch (SQLException e) {
-            System.err.println(query);
-            System.err.println("Problema when updating --> " + e.getSQLState() + " (" + e.getMessage() + ")");
-        }
-    }
-
-
-    /**
-     * Method that executes a deletion query to the connected database.
-     *
-     * @param query String representation of the query to execute.
-     */
-    public void deleteQuery(String query){
-        try {
-            Statement s = conn.createStatement();
-            s.executeUpdate(query);
-        } catch (SQLException e) {
-            System.err.println(query);
-            System.err.println("Problem when deleting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
-        }
-
-    }
-
 
     /**
      * Method that executes a selection query to the connected database.
@@ -145,5 +127,6 @@ public class SQLConnector {
             System.err.println("Problem when closing the connection --> " + e.getSQLState() + " (" + e.getMessage() + ")");
         }
     }
+
 
 }
