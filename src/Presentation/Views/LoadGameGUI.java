@@ -18,8 +18,8 @@ public class LoadGameGUI extends JPanel {
     private SaveGame saveGame;
     private JPanel generalPanel;
     private JButton cargarButton;
-
-
+    private String partidaSelected;
+    private JList<String> partidaJList;
     public static final String CARGAR_BTN = "CARGAR_BTN";
 
 
@@ -46,14 +46,14 @@ public class LoadGameGUI extends JPanel {
         title1.setForeground(new Color(124, 136, 248));
         title1.setFont(new Font("Inter", Font.BOLD, 30));
 
-        JList<String> partidaJList = new JList<>(partidaList.toArray(new String[0]));
+        partidaJList = new JList<>(partidaList.toArray(new String[0]));
         partidaJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         partidaJList.setFont(new Font("Inter", Font.PLAIN, 16));
 
         JScrollPane scrollPane = new JScrollPane(partidaJList);
         scrollPane.setPreferredSize(new Dimension(300, 200));
 
-        JButton cargarButton = new JButton("Cargar");
+        cargarButton = new JButton("Cargar");
         cargarButton.setActionCommand(CARGAR_BTN);
 
         JPanel centerPanel = new JPanel(new GridBagLayout());
@@ -63,7 +63,7 @@ public class LoadGameGUI extends JPanel {
         add(title1, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
     }
-    public void LoginController(ActionListener listener) {
+    public void setLoadGameListener(ActionListener listener) {
         this.cargarButton.addActionListener(listener);
 
     }
@@ -74,10 +74,8 @@ public class LoadGameGUI extends JPanel {
     }
 */
 
-
-
-
-
-
-
+    public String getPartidaJList() {
+        String partidaSeleccionada = partidaJList.getSelectedValue();
+        return partidaSeleccionada;
+    }
 }

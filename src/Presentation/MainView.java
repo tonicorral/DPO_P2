@@ -106,6 +106,7 @@ public class MainView extends JFrame {
         this.add(MainView.STATISTICS_VIEW, statisticsGUI);
         this.add(MainView.STATISTICS_MENU_VIEW, statisticsMenuGUI);
         this.add(MainView.LOADGAME_VIEW, loadGameGUI);
+
     }
 
     /**
@@ -147,6 +148,8 @@ public class MainView extends JFrame {
 
         // setupStageGUI.setUpButtonController(listener);
         gameStageGUI.setGameListener(listener);
+
+        loadGameGUI.setLoadGameListener(listener);
     }
 
 

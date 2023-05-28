@@ -69,6 +69,5 @@ public class LoginController implements ActionListener {
 
 
 
-
 }
 

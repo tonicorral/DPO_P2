@@ -43,7 +43,6 @@ public class Main {
         StartController startController = new StartController(startGUI, mainView);
         LoginController loginController = new LoginController(loginGUI,mainView,userModel, saveGame);
         SignUpController signUpController = new SignUpController(signUpGUI, mainView, userModel, saveGame);
-
         LogoutController logoutController = new LogoutController(logoutGUI, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainView, userModel);
         GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
@@ -53,6 +52,7 @@ public class Main {
         iaModel.registerGameModel(gameModel);
         StatisticsController statisticsController = new StatisticsController(statisticsGUI, mainView);
         StatsMenuController statsMenuController= new StatsMenuController(statisticsMenuGUI, mainView, saveGame);
+        LoadGameController loadGameController = new LoadGameController(mainView, saveGame, loadGameGUI, gameStageController);
         mainView.setVisible(true);
 
 

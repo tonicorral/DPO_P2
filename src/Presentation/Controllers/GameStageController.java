@@ -134,6 +134,15 @@ public class GameStageController implements ActionListener{
 
     }
 
+    public void loadSaveTable(Game game) {
+
+        gameStageGUI.forTables(game.getNumberPlayers(),game);
+        gameStageGUI.forTableUser(game);
+        gameStageGUI.setBoats(game);
+
+
+    }
+
     /**
      * Actualiza el tiempo de juego
      * @param timer String del timer

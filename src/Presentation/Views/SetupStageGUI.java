@@ -545,7 +545,7 @@ public class SetupStageGUI extends JPanel{
             ok2 = cells[number+i - 2][positionLetter - 1].getBackground().equals(Color.white);
         }
 
-        if(positionLetter-2 <= 0){
+        if(positionLetter-2 < 0){
             ok3 = true;
         } else{
             ok3 = cells[number+i - 1][positionLetter - 2].getBackground().equals(Color.white);

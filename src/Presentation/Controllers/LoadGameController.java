@@ -17,11 +17,14 @@ public class LoadGameController implements ActionListener {
     private SaveGame saveGame;
     private LoadGameGUI loadGameGUI;
 
-    public LoadGameController( MainView mainView, SaveGame saveGame,LoadGameGUI loadGameGUI){
+    private GameStageController gameStageController;
+
+    public LoadGameController( MainView mainView, SaveGame saveGame,LoadGameGUI loadGameGUI, GameStageController gameStageController){
 
         this.mainView = mainView;
         this.saveGame = saveGame;
         this.loadGameGUI = loadGameGUI;
+        this.gameStageController = gameStageController;
 
         mainView.setListeners(this);
     }
@@ -33,9 +36,13 @@ public class LoadGameController implements ActionListener {
         switch (e.getActionCommand()) {
             case LoadGameGUI.CARGAR_BTN:
 
+                String partidaSeleccionada = loadGameGUI.getPartidaJList();
+                mainView.switchView(MainView.GAME_STAGE_VIEW);
+                gameStageController.loadSaveTable(saveGame.leerPartidaString(partidaSeleccionada));
                 break;
 
         }
 
     }
+
 }
