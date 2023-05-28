@@ -198,7 +198,7 @@ public class GameSQL implements GameDAO{
         return ataques;
     }
 
-    public ArrayList<String> extraerArrayUsers(String user) {
+    public ArrayList<String> extraerArrayUsers() {
         String query = "SELECT DISTINCT Usuario FROM guardarpartida;";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 

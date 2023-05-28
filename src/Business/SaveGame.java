@@ -81,8 +81,8 @@ public class SaveGame {
         return gameResults;
     }
 
-    public ArrayList<String> getUsers(String user){
-        ArrayList<String> usersList = gameDAO.extraerArrayUsers(user);
+    public ArrayList<String> getUsers(){
+        ArrayList<String> usersList = gameDAO.extraerArrayUsers();
 
         return usersList;
     }

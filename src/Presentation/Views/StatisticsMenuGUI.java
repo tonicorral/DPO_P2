@@ -38,8 +38,8 @@ public class StatisticsMenuGUI extends JPanel {
 
         this.saveGame = saveGame;
 
-        String username = saveGame.getUser();
-        ArrayList<String> userList = saveGame.getUsers(username);
+
+        ArrayList<String> userList = saveGame.getUsers();
 
 
         buttonColor = new Color(124, 136, 248);
