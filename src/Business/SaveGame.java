@@ -18,8 +18,13 @@ public class SaveGame {
     private String user;
     public static final int EVERYTHING_OK = 0;
     public static final int EMPTY_FIELD = 1;
-
     public static final int INCORRECT_USER = 2;
+
+    /**
+     *
+     * @param gameDAO
+     * @param user
+     */
     public SaveGame(GameDAO gameDAO, String user) {
         this.gameDAO = gameDAO;
         this.user = user;

@@ -53,7 +53,7 @@ public class LoadGameGUI extends JPanel {
         JScrollPane scrollPane = new JScrollPane(partidaJList);
         scrollPane.setPreferredSize(new Dimension(300, 200));
 
-        cargarButton = new JButton("Cargar");
+        cargarButton = new JButton("Volver Menu");
         cargarButton.setActionCommand(CARGAR_BTN);
 
         JPanel centerPanel = new JPanel(new GridBagLayout());

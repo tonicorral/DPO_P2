@@ -20,13 +20,12 @@ public class GameStageGUI extends JPanel{
 
 
     private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
-    private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable, buttonsPanelAbandonar;
-    private JButton eliminar, tancar, abandonar, guardar;
+    private JPanel centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable, buttonsPanelAbandonar;
+    private JButton abandonar, guardar;
     private JTable[] tables;
     private JTable userTable;
     private JButton[][] cellsUser;
-    private DefaultTableModel model;
-    private JComboBox<Integer> comboBoxUser, comboBox1, comboBox2, comboBox3, comboBox4;
+
     private String text1="",text2="",text3="",text4="";
 
     private Color buttonColor;
@@ -645,7 +644,8 @@ public class GameStageGUI extends JPanel{
 
     private void paintIA1(int touch, int i, int j){
         if(touch == 1){
-            cell1[i][j].setBackground(Color.red);
+            cell1[i][j].setBackground(Color.blue);
+
         }else if(touch == -1){
             cell1[i][j].setBackground(Color.white);
         }else if(touch==2){
@@ -724,7 +724,7 @@ public class GameStageGUI extends JPanel{
             textCell = "T";
         }
         if(touch == 1){
-            cell2[i][j].setBackground(Color.red);
+            cell2[i][j].setBackground(Color.blue);
         }else if(touch == -1){
             cell2[i][j].setBackground(Color.white);
         }else if(touch==2){
@@ -796,7 +796,7 @@ public class GameStageGUI extends JPanel{
      */
     private void paintIA3(int touch, int i, int j){
         if(touch == 1){
-            cell3[i][j].setBackground(Color.red);
+            cell3[i][j].setBackground(Color.blue);
         }else if(touch == -1){
             cell3[i][j].setBackground(Color.white);
         }else if(touch==2){
@@ -869,7 +869,7 @@ public class GameStageGUI extends JPanel{
      */
     private void paintIA4(int touch, int i, int j){
         if(touch == 1){
-            cell4[i][j].setBackground(Color.red);
+            cell4[i][j].setBackground(Color.blue);
         }else if(touch == -1){
             cell4[i][j].setBackground(Color.white);
         }else if(touch==2){

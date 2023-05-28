@@ -35,10 +35,12 @@ public class LoadGameController implements ActionListener {
 
         switch (e.getActionCommand()) {
             case LoadGameGUI.CARGAR_BTN:
-
+                mainView.switchView(MainView.MENU_VIEW);
+                /*
                 String partidaSeleccionada = loadGameGUI.getPartidaJList();
                 mainView.switchView(MainView.GAME_STAGE_VIEW);
                 gameStageController.loadSaveTable(saveGame.leerPartidaString(partidaSeleccionada));
+                 */
                 break;
 
         }

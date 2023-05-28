@@ -4,5 +4,5 @@
   "dbName": "battleshipp1",
   "dbUser": "root",
   "password": "",
-  "intervalMs": 5000
+  "intervalMs": 1000
 }}

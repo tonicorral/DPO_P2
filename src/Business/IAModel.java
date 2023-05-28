@@ -12,14 +12,13 @@ public class IAModel extends Thread implements ThreadListener{
     private int positionPortaY,positionDestructorY,positionSubmariY,positionSubmari2Y,positionLlanxaY;
 
     private boolean rotationPorta = false,rotationDestructor = false,rotationSubmari = false,rotationSubmari2 = false,rotationLlanxa = false;
-
     private Game game;
-
     private int numberPlayers;
-
-    private int millis = 1000;
-
     private int counter = 1;
+    private Configuration config;
+    public IAModel () {
+        this.config = new Configuration("Files/config.json");
+    }
 
     public JugadorIA createBoats(){
         ArrayList<Boat> boats = new ArrayList<>();
@@ -361,7 +360,7 @@ public class IAModel extends Thread implements ThreadListener{
         while(true){
             if(running){
                 try {
-                    sleep(millis);
+                    sleep(config.getTime());
                     if(counter < numberPlayers-1){
                         counter++;
                     }else{
