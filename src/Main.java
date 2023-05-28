@@ -22,6 +22,7 @@ public class Main {
         SetupStageGUI setupStageGUI = new SetupStageGUI();
         GameStageGUI gameStageGUI = new GameStageGUI();
 
+
         IAModel iaModel = new IAModel();
 
         StartGUI startGUI = new StartGUI();
@@ -32,10 +33,11 @@ public class Main {
         SaveGame saveGame = new SaveGame(gameDAO, "");
         StatisticsMenuGUI statisticsMenuGUI= new StatisticsMenuGUI(saveGame);
         StatisticsGUI statisticsGUI = new StatisticsGUI(saveGame);
+        LoadGameGUI loadGameGUI = new LoadGameGUI( saveGame);
         PlayerModel playerModel = new PlayerModel();
         GameModel gameModel = new GameModel(iaModel,playerModel);
         UserModel userModel = new UserModel(userDAO);
-        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsMenuGUI, statisticsGUI);
+        MainView mainView = new MainView(loginGUI, signUpGUI, menuGUI, startGUI, logoutGUI, deleteUserGUI,setupStageGUI, gameStageGUI, statisticsMenuGUI, statisticsGUI, loadGameGUI);
 
 
         StartController startController = new StartController(startGUI, mainView);

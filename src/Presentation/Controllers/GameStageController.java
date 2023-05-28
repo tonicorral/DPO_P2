@@ -1,3 +1,4 @@
+
 package Presentation.Controllers;
 
 import Business.*;
@@ -42,6 +43,8 @@ public class GameStageController implements ActionListener{
     private ArrayList<Player> players;
     private TimeThread timeThread;
     private int seconds=0,minuts=0;
+    private String gameTime;
+    private String nombrePartida;
 
     /**
      * Constructor del juego
@@ -93,7 +96,9 @@ public class GameStageController implements ActionListener{
                 break;
 
             case GameStageGUI.GUARDAR:
-                String nombrePartida = gameStageGUI.getNombrePartida();
+
+                nombrePartida = gameStageGUI.getNombrePartida();
+
 
 
                 if (nombrePartida != null && !nombrePartida.isEmpty()) {
@@ -101,10 +106,13 @@ public class GameStageController implements ActionListener{
                     boolean nombreRepetido = saveGame.verificarNombrePartidaRepetido(user, nombrePartida);
 
                     if (!nombreRepetido) {
-                        saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0);
+                        saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0,gameTime);
+                        gameModel.stopTimer();
+                        mainView.switchView(MainView.MENU_VIEW);
                     } else {
 
                         mainView.showError("Error: Ya existe este nombre para la partida");
+
                     }
 
 
@@ -123,7 +131,7 @@ public class GameStageController implements ActionListener{
         gameStageGUI.forTableUser(game);
         gameStageGUI.setBoats(game);
 
-        //TODO cambiar jTAble (getStatus());!!!!!!!!!!!!!!!
+
     }
 
     /**
@@ -132,6 +140,7 @@ public class GameStageController implements ActionListener{
      */
     public void updateTimer(String timer){
         gameStageGUI.updateLabel(timer);
+        gameTime = timer;
     }
 
     /**
@@ -172,6 +181,7 @@ public class GameStageController implements ActionListener{
         }
     }
 
+
     private void winGame(){
         int counter = 0;
         for(int i = 0;i< game.getNumberPlayers();i++){
@@ -182,6 +192,7 @@ public class GameStageController implements ActionListener{
         if (counter == game.getNumberPlayers()){
             gameModel.stopTimer();
             mainView.showError("YOU WON THE GAME!");
+            saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 1,gameTime);
             mainView.switchView(MainView.MENU_VIEW);
         }
 
@@ -191,23 +202,16 @@ public class GameStageController implements ActionListener{
         if(!game.getPlayer().isAlive()){
             System.out.println("muertoooo" + game.getPlayer().isAlive());
             gameModel.stopTimer();
+
             mainView.showError("GAME OVER!");
+            saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0,gameTime);
             mainView.switchView(MainView.MENU_VIEW);
         }
     }
 
-
-
-
-
-   /* public void displayGUI() {
-        JFrame frame = new JFrame("Game Stage");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(gameStageGUI.getMainPanel());
-        frame.pack();
-        frame.setVisible(true);
-    }*/
-
+    private String getTime(String time){
+        return time;
+    }
 
 
 

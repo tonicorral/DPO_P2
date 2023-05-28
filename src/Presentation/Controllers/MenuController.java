@@ -3,7 +3,6 @@ package Presentation.Controllers;
 
 import Presentation.MainView;
 import Presentation.Views.MenuGUI;
-import Presentation.Views.SetupStageGUI;
 import Presentation.Views.StatisticsMenuGUI;
 
 import java.awt.event.ActionEvent;
@@ -27,7 +26,7 @@ public class MenuController implements ActionListener {
     public MenuController(MenuGUI menuGUI, MainView mainView, SetUpController setUpController) {
         this.menuGUI = menuGUI;
         this.mainView = mainView;
-        this.setUpController = setUpController;
+        this.setUpController= setUpController;
 
         mainView.setListeners(this);
     }
@@ -55,6 +54,13 @@ public class MenuController implements ActionListener {
             case MenuGUI.STATS_BTN:
 
                 mainView.switchView(MainView.STATISTICS_MENU_VIEW);
+                break;
+
+            case MenuGUI.LOAD_GAME_BTN:
+
+
+
+                mainView.switchView(MainView.LOADGAME_VIEW);
                 break;
 
 
