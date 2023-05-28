@@ -103,7 +103,9 @@ public class MenuGUI extends JPanel {
         delete.addActionListener(listener);
         newGame.addActionListener(listener);
         stats.addActionListener(listener);
+        oldGame.addActionListener(listener);
     }
+
 
 
 

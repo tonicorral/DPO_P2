@@ -25,6 +25,7 @@ public class MainView extends JFrame {
     private StatisticsGUI statisticsGUI;
 
     private StatisticsMenuGUI statisticsMenuGUI;
+    private LoadGameGUI loadGameGUI;
 
     private CardLayout cardLayout;
     public static final String LOGIN_VIEW = "LOGIN_VIEW";
@@ -39,6 +40,7 @@ public class MainView extends JFrame {
 
     public static final String STATISTICS_MENU_VIEW = "STATISTICS_MENU_VIEW";
     public static final String STATISTICS_VIEW = "STATISTICS_VIEW";
+    public static final String LOADGAME_VIEW = "LOADGAME_VIEW";
 
     /**
      * Constructor donde inicializamos todas las vistas
@@ -55,7 +57,7 @@ public class MainView extends JFrame {
      */
     public MainView(LoginGUI loginGUI, SignUpGUI signUpGUI, MenuGUI menuGUI, StartGUI startGUI, LogoutGUI logoutGUI,
                     DeleteUserGUI deleteUserGUI,SetupStageGUI setupStageGUI, GameStageGUI gameStageGUI,
-                    StatisticsMenuGUI statisticsMenuGUI, StatisticsGUI statisticsGUI) {
+                    StatisticsMenuGUI statisticsMenuGUI, StatisticsGUI statisticsGUI, LoadGameGUI loadGameGUI) {
         this.loginGUI = loginGUI;
         this.signUpGUI = signUpGUI;
         this.menuGUI = menuGUI;
@@ -66,9 +68,11 @@ public class MainView extends JFrame {
         this.gameStageGUI = gameStageGUI;
         this.statisticsGUI = statisticsGUI;
         this.statisticsMenuGUI = statisticsMenuGUI;
+        this.loadGameGUI = loadGameGUI;
 
         configurationFrame();
         configLayout();
+
     }
 
     /**
@@ -101,6 +105,7 @@ public class MainView extends JFrame {
         this.add(MainView.GAME_STAGE_VIEW, gameStageGUI);
         this.add(MainView.STATISTICS_VIEW, statisticsGUI);
         this.add(MainView.STATISTICS_MENU_VIEW, statisticsMenuGUI);
+        this.add(MainView.LOADGAME_VIEW, loadGameGUI);
     }
 
     /**
@@ -140,7 +145,7 @@ public class MainView extends JFrame {
         statisticsGUI.addStatListeners(listener);
         statisticsMenuGUI.addStatsMenuListeners(listener);
 
-       // setupStageGUI.setUpButtonController(listener);
+        // setupStageGUI.setUpButtonController(listener);
         gameStageGUI.setGameListener(listener);
     }
 
@@ -149,7 +154,7 @@ public class MainView extends JFrame {
      * Asinamos una accion al ratón de tipo Listener
      * @param listener parametro de tipo AcitonListener para saber donde estamos
      * @param mouseListener paramentro de tipo MouseListener para que el ratón detecte acciones
-      */
+     */
     public void setActionMouseListeners(ActionListener listener, MouseListener mouseListener){
 
         setupStageGUI.setUpButtonController(listener, mouseListener);
@@ -168,7 +173,7 @@ public class MainView extends JFrame {
      * Mostrar error
      * @param error String que muestra el error
      */
-public void showError(String error) {
+    public void showError(String error) {
         JOptionPane.showMessageDialog(this, error);
     }
 

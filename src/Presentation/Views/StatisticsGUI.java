@@ -163,7 +163,7 @@ public class StatisticsGUI extends JPanel {
         ArrayList<Integer> gameResults = saveGame.extraerAtaques(user);
 
 
-        int minValue = 17; // Valor mínimo en el eje x
+        int minValue = 3; // Valor mínimo en el eje x
 
         int maxValue = saveGame.extraerAtaqueMasAlto(user);
 

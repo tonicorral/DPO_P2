@@ -25,6 +25,7 @@ public class SaveGame {
         this.user = user;
     }
 
+
     public Game leerPartidaString(String nameGame) {
 
         String  jsonString = gameDAO.fileGame(nameGame);
@@ -45,8 +46,8 @@ public class SaveGame {
         }
     }
 
-    public void  anadirPartida (Game partida, int numAttacks, String nombrePartida, int victoria) {
-        gameDAO.addGame(this.user, nombrePartida, guardarPartidaString(partida), numAttacks, LocalDate.now(), victoria);
+    public void  anadirPartida (Game partida, int numAttacks, String nombrePartida, int victoria, String timer) {
+        gameDAO.addGame(this.user, nombrePartida, guardarPartidaString(partida), numAttacks, LocalDate.now(), victoria,timer);
     }
 
     public void setUser(String user) {
@@ -81,7 +82,7 @@ public class SaveGame {
         return gameResults;
     }
 
-    public ArrayList<String> getUsers(){
+    public ArrayList<String> getUsers( ){
         ArrayList<String> usersList = gameDAO.extraerArrayUsers();
 
         return usersList;
@@ -104,4 +105,11 @@ public class SaveGame {
 
         return verificar;
     }
+
+    public ArrayList<String> extraerNombresPartidas(){
+        ArrayList<String> partidasList = gameDAO.extraerNombresPartidas();
+
+        return partidasList;
+    }
+
 }

@@ -11,9 +11,10 @@ import java.util.List;
  */
 public interface GameDAO {
 
-     void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria); // Comprobar si la clase LocalDate es la correcta para almacenar la fecha!
+     void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria,String timer); // Comprobar si la clase LocalDate es la correcta para almacenar la fecha!
 
      int calcularNumeroPartidas(String user);
+
 
      int calcularNumeroVictorias(String user);
 
@@ -35,5 +36,7 @@ public interface GameDAO {
      List<Integer> attacksInGame(String userName) throws SQLException; //Para poder calcular la media de ataques por partida te devuelve un array de enteros con los ataques hechos en cada partida
 
      boolean verificarNombrePartidaRepetido(String usuario, String nombrePartida);
+
+     ArrayList<String> extraerNombresPartidas();
 
 }

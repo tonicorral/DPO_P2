@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class GameSQL implements GameDAO{
 
-    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria) {
-        String query = "INSERT INTO guardarpartida (Usuario, NombrePartida, FicheroPartidas, AtackPartida, Fecha, Victoria) VALUES ('"+ userName + "', '"+ nameGame +"', '" + fileGame + "', '" + numAttacks + "', '" + date + "', '" + victoria +"');";
+    public void addGame(String userName, String nameGame, String fileGame, int numAttacks, LocalDate date, int victoria, String time) {
+        String query = "INSERT INTO guardarpartida (Usuario, NombrePartida, FicheroPartidas, AtackPartida, Fecha, Victoria,Timer) VALUES ('"+ userName + "', '"+ nameGame +"', '" + fileGame + "', '" + numAttacks + "', '" + date + "', '" + victoria +"','" + time +"');";
 
         SQLConnector.getInstance().insertQuery(query);
     }
@@ -37,6 +37,7 @@ public class GameSQL implements GameDAO{
         }
         return false;
     }
+
 
     /**
      *Mostrar partidas guardadas
@@ -272,5 +273,22 @@ public class GameSQL implements GameDAO{
 
     }
 
+    @Override
+    public ArrayList<String> extraerNombresPartidas() {
 
+        String query = "SELECT DISTINCT NombrePartida FROM guardarpartida ;";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        ArrayList<String> partidas = new ArrayList<>();
+        try {
+            while (result.next()) {
+                String usuario = result.getString("NombrePartida");
+                partidas.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return partidas;
+    }
 }
