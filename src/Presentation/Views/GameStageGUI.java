@@ -18,9 +18,7 @@ import java.util.Date;
  */
 public class GameStageGUI extends JPanel{
 
-    private Date currentTime;
-    private long startTime = 0;
-    private Point mouseSelect = null;
+
     private JLabel joc, turno, clk, barcos, portaviones, destructores, submarino, lancha1, lancha2, floteP, hundidoP,floteD, hundidoD, floteS, hundidoS, floteL1, hundidoL1, floteL2, hundidoL2,estado, xo;
     private JPanel generalPanel,centerPanel, gamePanel, buttonPanel, emptyPanel1,emptyPanel2, emptyPanel3, emptyPanel4, emptyPanelUser, flowButton,info,title, empty,turnoPanel, tablePanelUser, tablePanel1, tablePanel2, tablePanel3, tablePanel4,clock, grid1, grid2, boxUser, gridTabla, p, d, s, l1, l2, infoTable, buttonsPanelAbandonar;
     private JButton eliminar, tancar, abandonar, guardar;
@@ -30,15 +28,14 @@ public class GameStageGUI extends JPanel{
     private DefaultTableModel model;
     private JComboBox<Integer> comboBoxUser, comboBox1, comboBox2, comboBox3, comboBox4;
     private String text1="",text2="",text3="",text4="";
-    public static final String ABANDONAR = "ABANDONAR";
 
-    public static final String GUARDAR = "GUARDAR";
     private Color buttonColor;
 
     private JPanel[][] cell1,cell2,cell3,cell4;
 
-    private TimeThread timeThread;
+    public static final String ABANDONAR = "ABANDONAR";
 
+    public static final String GUARDAR = "GUARDAR";
 
     /**
      * Contructor del panel de la vista del juego
@@ -939,7 +936,7 @@ public class GameStageGUI extends JPanel{
 
     /**
      * Pinta los ataques del resto en el tablero del usuario
-     * @param touch entero que determina si esta tocado o hundido
+     * @param numPlayers entero que determina si esta tocado o hundido
      * @param i eje de las x
      * @param j eje de las y
      */
