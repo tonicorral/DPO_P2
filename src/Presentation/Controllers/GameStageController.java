@@ -17,32 +17,11 @@ import java.util.ArrayList;
  */
 public class GameStageController implements ActionListener{
     private GameStageGUI gameStageGUI;
-
     private SaveGame saveGame;
-
-    private boolean mouseClicked = false;
-
-    private int positionBoat;
-
     private String positionBoatTable;
-
-    private boolean rotation = false;
-    private boolean isClickedPorta = false,isClickedDestructor=false,isClickedSubmari=false,isClickedSubmari2=false,isClickedLlanxa=false;
-
     private MainView mainView;
-
-    private IAModel iaModel;
-
     private GameModel gameModel;
-
-    private String currentTime;
-
     private Game game;
-    private  ArrayList<Boat> boats;
-
-    private ArrayList<Player> players;
-    private TimeThread timeThread;
-    private int seconds=0,minuts=0;
     private String gameTime;
     private String nombrePartida;
 
@@ -61,7 +40,6 @@ public class GameStageController implements ActionListener{
 
         mainView.setListeners(this);
 
-        //mainView.setActionMouseListeners(this, this);
     }
 
     /**
@@ -70,16 +48,6 @@ public class GameStageController implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
 
-        //System.out.println(e.getActionCommand().equals(GameStageGUI.ROTATE));
-
-       /* if (e.getActionCommand().startsWith("cell") && mouseClicked) {
-            positionBoatTable = e.getActionCommand();
-            showTable(positionBoat,positionBoatTable,rotation);
-            rotation = false;
-        }
-        mouseClicked = false;
-
-        */
         if (e.getActionCommand().startsWith("cell")) {
             positionBoatTable = e.getActionCommand();
             ArrayList<Integer> positionsUser = gameModel.attackUser(positionBoatTable);
@@ -93,6 +61,7 @@ public class GameStageController implements ActionListener{
             case GameStageGUI.ABANDONAR:
                 gameModel.stopTimer();
                 mainView.switchView(MainView.MENU_VIEW);
+                System.exit(0);
                 break;
 
             case GameStageGUI.GUARDAR:
@@ -109,12 +78,12 @@ public class GameStageController implements ActionListener{
                         saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0,gameTime);
                         gameModel.stopTimer();
                         mainView.switchView(MainView.MENU_VIEW);
+                        System.exit(0);
                     } else {
 
                         mainView.showError("Error: Ya existe este nombre para la partida");
 
                     }
-
 
                 }
                 break;
@@ -205,8 +174,25 @@ public class GameStageController implements ActionListener{
         if (counter == game.getNumberPlayers()){
             gameModel.stopTimer();
             mainView.showError("YOU WON THE GAME!");
-            saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 1,gameTime);
-            mainView.switchView(MainView.MENU_VIEW);
+
+            nombrePartida = gameStageGUI.getNombrePartida();
+            if (nombrePartida != null && !nombrePartida.isEmpty()) {
+                String user = saveGame.getUser();
+                boolean nombreRepetido = saveGame.verificarNombrePartidaRepetido(user, nombrePartida);
+
+                if (!nombreRepetido) {
+                    saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0,gameTime);
+                    gameModel.stopTimer();
+                    mainView.switchView(MainView.MENU_VIEW);
+                    System.exit(0);
+                } else {
+
+                    mainView.showError("Error: Ya existe este nombre para la partida");
+
+                }
+
+            }
+
         }
 
     }
@@ -217,8 +203,23 @@ public class GameStageController implements ActionListener{
             gameModel.stopTimer();
 
             mainView.showError("GAME OVER!");
-            saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0,gameTime);
-            mainView.switchView(MainView.MENU_VIEW);
+
+            nombrePartida = gameStageGUI.getNombrePartida();
+            if (nombrePartida != null && !nombrePartida.isEmpty()) {
+                String user = saveGame.getUser();
+                boolean nombreRepetido = saveGame.verificarNombrePartidaRepetido(user, nombrePartida);
+
+                if (!nombreRepetido) {
+                    saveGame.anadirPartida(game, game.getPlayer().getPositionAttackedX().size(), nombrePartida, 0,gameTime);
+                    gameModel.stopTimer();
+                    mainView.switchView(MainView.MENU_VIEW);
+                    System.exit(0);
+                } else {
+
+                    mainView.showError("Error: Ya existe este nombre para la partida");
+
+                }
+            }
         }
     }
 
