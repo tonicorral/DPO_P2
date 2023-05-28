@@ -46,7 +46,7 @@ public class Main {
         LogoutController logoutController = new LogoutController(logoutGUI, mainView);
         DeleteUserController deleteUserController = new DeleteUserController(deleteUserGUI, mainView, userModel);
         GameStageController gameStageController = new GameStageController(gameStageGUI,mainView, gameModel, saveGame);
-        SetUpController setUpController = new SetUpController(setupStageGUI, mainView,iaModel,gameModel, gameStageController);
+        SetUpController setUpController = new SetUpController(setupStageGUI, mainView,gameModel, gameStageController);
         MenuController menuController = new MenuController(menuGUI, mainView,setUpController);
         gameModel.registerController(gameStageController);
         iaModel.registerGameModel(gameModel);

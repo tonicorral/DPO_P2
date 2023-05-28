@@ -36,7 +36,6 @@ public class SetUpController implements ActionListener, MouseListener {
 
     private GameStageController gameStageController;
 
-    private IAModel iaModel;
 
     private  ArrayList<Boat> boats;
 
@@ -56,11 +55,11 @@ public class SetUpController implements ActionListener, MouseListener {
      * @param gameStageController contiene la información del controlador de la partida
      */
 
-    public SetUpController(SetupStageGUI setUpGUI, MainView mainView,IAModel iaModel,GameModel gameModel, GameStageController gameStageController) {
+    public SetUpController(SetupStageGUI setUpGUI, MainView mainView ,GameModel gameModel, GameStageController gameStageController) {
         this.setUpGUI = setUpGUI;
         this.mainView = mainView;
 
-        this.iaModel = iaModel;
+
         this.gameModel = gameModel;
         this.gameStageController = gameStageController;
 
