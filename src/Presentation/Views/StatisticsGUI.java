@@ -129,7 +129,7 @@ public class StatisticsGUI extends JPanel {
 
 // Dibujar el texto de derrotas en rojo
         g.setColor(Color.red);
-        g.drawString("Losses: " + losses, lossesTextX, lossesTextY);
+        g.drawString("Losses or not finished games: " + losses, lossesTextX, lossesTextY);
 
 
         int winAngle = (int) (360 * winPercentage);
@@ -171,7 +171,7 @@ public class StatisticsGUI extends JPanel {
 
 // Ancho de cada barra y espacio entre barras
         int barWidth = 9;
-        int barSpacing = 5;
+        int barSpacing = 7;
 
 // Crear un mapa para realizar el recuento de la frecuencia de los números
         Map<Integer, Integer> frequencyMap = new HashMap<>();
@@ -183,7 +183,7 @@ public class StatisticsGUI extends JPanel {
 // Dibujo gráfico
         int chartX = width / 3 +120;
         int chartY = height / 2;
-        int barChartHeight = 200; // Altura del gráfico de barras
+        int barChartHeight = 50; // Altura del gráfico de barras
 
 
 // Dibujar el texto del número total de juegos
@@ -201,13 +201,35 @@ public class StatisticsGUI extends JPanel {
 
 
 // Dibujar las barras según la frecuencia de los números
+        int line1Bars = Math.min(maxValue - minValue + 1, 67);
+        int line2Bars = Math.max(Math.min(maxValue - minValue + 1 - 67, 66), 0);
+        int line3Bars = Math.max(maxValue - minValue + 1 - 133, 0);
+
+        int chartX1 = chartX;
+        int chartX2 = width / 3 +120;
+        int chartX3 = width / 3 +120;
+
         for (int i = minValue; i <= maxValue; i++) {
             int gameResult = frequencyMap.getOrDefault(i, 0);
 
             // Calcula el tamaño y posición de la barra
             int barHeight = (int) (((double) gameResult / gameResults.size()) * barChartHeight);
-            int barX = chartX + (barWidth + barSpacing) * (i - minValue);
-            int barY = chartY + barChartHeight - barHeight;
+            int barX;
+            int barY;
+
+            if (i <= 56) {
+                barX = chartX1 + (barWidth + barSpacing) * (i - minValue);
+                barY = chartY + barChartHeight - barHeight;
+            } else if (i <= 112) {
+                barX = chartX2 + (barWidth + barSpacing) * (i - minValue - 57);
+                barY = height - 250 - barHeight;
+            } else if (i <= 168) {
+            barX = chartX2 + (barWidth + barSpacing) * (i - minValue - 113);
+            barY = height - 180 - barHeight;
+            } else {
+                barX = chartX3 + (barWidth + barSpacing) * (i - minValue - 169);
+                barY = height - 120 - barHeight;
+            }
 
             // Dibujar la barra
             g.setColor(Color.blue);
@@ -219,7 +241,8 @@ public class StatisticsGUI extends JPanel {
             g.setColor(Color.black);
             Font font = new Font("Arial", Font.PLAIN, 9);
             g.setFont(font);
-            g.drawString(Integer.toString(i), barX + barWidth / 2, chartY + barChartHeight + 15);
+            int numberY = barY + barHeight + 12; // Ajustar la posición vertical del número
+            g.drawString(Integer.toString(i), barX + barWidth / 2, numberY);
 
             // Obtener la frecuencia del número en el mapa
             int frequency = frequencyMap.getOrDefault(i, 0);
@@ -227,9 +250,8 @@ public class StatisticsGUI extends JPanel {
             // Dibujar la frecuencia encima de la barra
             g.setColor(Color.black);
             g.drawString(Integer.toString(frequency), barX + barWidth / 2, barY - 5);
-
-
         }
+
 
 
     }
